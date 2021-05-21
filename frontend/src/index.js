@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//import 'bootstrap/dist/css/boostrap.css';
+import DirectionButton from './components/DirectionButton'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DirectionButton />
   </React.StrictMode>,
   document.getElementById('root')
 );
