@@ -8,7 +8,7 @@ import DirectionButton from './components/DirectionButton'
 
 ReactDOM.render(
   <React.StrictMode>
-    <DirectionButton />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

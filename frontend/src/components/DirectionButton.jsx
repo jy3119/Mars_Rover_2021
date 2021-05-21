@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button'
 
 class DirectionButton extends Component {
-    /*state = {
-        count: 0,
-        imageUrl: 'https://picsum.photos/200'
-      }*/
-
     render() { 
         return ( 
             <div>
-                <button style = {{fontSize:10}} className = 'btn btn-secondary btn-sm'>Forward</button>
+                <Button variant="contained" color="primary" style={{width: 100, position: 'absolute', right:200, top:100}}>Forward</Button>
+                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:200, top:200}}>Back</Button>
+                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:320, top:150}}>Left</Button>
+                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:80, top:150}}>Right</Button>
+                <Button variant="contained" color="secondary" style={{width: 100,position: 'absolute', right:200, top:150}}>STOP</Button>
             </div>
          );
     }
-
-    /*
-    formatCount() {
-        const {count} = this.state;
-        return count == 0 ? 'Zero' : count; 
-    }
-    */
 }
  
 export default DirectionButton;
