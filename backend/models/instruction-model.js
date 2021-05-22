@@ -1,15 +1,17 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema
 
 /*Map should contain x-coordinates, y-coordinates of obstacles*/ 
 const InstructionList = new Schema(
     {
-        type_colour: { type: String, required: true }, //ping pong balls of different colours 
-        time: { type: [String], required: true },
-        x_coordinate: { type: Number, required: true },
-        y_coordinate: { type: Number, required: true },
+        index: {
+            type: Number, 
+            default: 0
+        },
+        direction: String,
     },
-    { timestamps: true },
 )
 
-module.exports = mongoose.model('rover', InstructionList)
+const Instructions = mongoose.model('Instructions', InstructionList);
+
+export default Instructions;

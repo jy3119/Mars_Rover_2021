@@ -39,12 +39,6 @@ router.get('/linechart', function(req, res) {
 
 
 
- /**************POST REQUESTS **************/
- /*
- *	Brief: Post instructions for rover 
- *	Path: /api/plant/control/:plantId
- */
-
 
 
 
