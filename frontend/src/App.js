@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux'; 
 
@@ -10,23 +10,20 @@ import DestinationInput from './components/DestinationInput';
 
 import { getInstruction } from './actions/instructions';
 
-const dispatch = useDispatch();
+const App = () => {
+  const dispatch = useDispatch();
 
-class App extends Component {
-  render() {
+  useEffect(() => {
+    dispatch(getInstruction());
+  }, [dispatch]);
 
-    useEffect(() => {
-      dispatch(getInstruction());
-    }, [dispatch]);
-
-    return (
-      <div>
-        <Header />
-        <DirectionButton />
-        <DestinationInput />
-      </div>
-    )
-  }
-}
+  return (
+    <div>
+      <Header />
+      <DirectionButton />
+      <DestinationInput />
+    </div>
+  );
+};
 
 export default App;
