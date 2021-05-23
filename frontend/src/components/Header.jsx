@@ -8,7 +8,7 @@ const Header = () => {
         <div>
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="title" color="inherit">
+                <Typography variant="title" color="inherit" align ="center">
                 MARS ROVER
                 </Typography>
             </Toolbar>

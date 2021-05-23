@@ -1,11 +1,11 @@
 import express from 'express';
 
-import { getInstructions, createInstruction } from '../controllers/instruction-ctrl.js' 
+import { getInstruction, createInstruction } from '../controllers/instruction-ctrl.js' 
 
 const router = express.Router()
 
 //reached at localhost:3000/instruction
-router.get('/', getInstructions);
+router.get('/', getInstruction);
 
  /**************POST REQUESTS **************/
  /*
@@ -13,6 +13,6 @@ router.get('/', getInstructions);
  *	Path: /api/plant/control/:plantId
  */
 
- router.post('/', createInstruction)
+router.post('/', createInstruction);
 
 export default router;
