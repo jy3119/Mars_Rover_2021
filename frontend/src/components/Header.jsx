@@ -7,11 +7,9 @@ const Header = () => {
     return(
         <div>
         <AppBar position="static">
-            <Toolbar>
-                <Typography variant="title" color="inherit" align ="center">
-                MARS ROVER
-                </Typography>
-            </Toolbar>
+            <Typography variant="h2" align ="center" color="inherit">
+            MARS ROVER
+            </Typography>
         </AppBar>
         </div>
     )

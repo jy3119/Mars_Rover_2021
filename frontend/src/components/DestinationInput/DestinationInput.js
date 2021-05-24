@@ -1,9 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import useStyles from './styles';
 
 
-
+const classes = useStyles(); 
 class DestinationInput extends Component {
     render() { 
         return ( 

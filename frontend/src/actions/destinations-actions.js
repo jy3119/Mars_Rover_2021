@@ -1,9 +1,9 @@
 import { FETCH_ALL, CREATE, UPDATE } from '../constants/actionTypes';
 
-import * as api from '../api/index.js';
+//import * as api from '../api/destination-api.js';
 
 /******* Action Creators ********/
-
+/*
 export const getInstruction = () => async (dispatch) => {
   try {
     const { data } = await api.fetchInstructions();
@@ -34,3 +34,4 @@ export const updateInstruction = (id, post) => async (dispatch) => {
       console.log(error.message);
     }
   };
+*/
