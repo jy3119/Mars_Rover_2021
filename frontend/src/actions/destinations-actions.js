@@ -15,9 +15,9 @@ export const getDestination = () => async (dispatch) => {
 };
 
 
-export const createDestination = (post) => async (dispatch) => {
+export const createDestination = (destination) => async (dispatch) => {
   try {
-    const { data } = await api.createDestination(post);
+    const { data } = await api.createDestination(destination);
 
     dispatch({ type: CREATE, payload: data });
   } catch (error) {

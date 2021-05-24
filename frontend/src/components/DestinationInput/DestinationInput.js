@@ -3,6 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
+import { createDestination } from '../../actions/destinations-actions';
 
 const DestinationInput = () => {
     const [destinationData, setdestinationData] = useState({
@@ -10,21 +11,25 @@ const DestinationInput = () => {
     });
     const dispatch = useDispatch();
     const classes = useStyles();
-  
+
     /*
     useEffect(() => {
-      if (post) setPostData(post);
-    }, [post]);*/
+        if (destination) setPostData(post);
+    }, [destination]); */
   
-    const handleSubmit = () => {
-    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        dispatch(createDestination(destinationData));
+      };
 
     const clear = () => {
         setdestinationData({ xcoord: 0, ycoord: 0});
       };
+    
   
     return (
-      <Paper className={classes.paper} position="absolute" >
+      <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <Typography variant="h5">Destination</Typography>
           <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.xcoord} onChange={(e) => setdestinationData({ ...destinationData, xcoord: e.target.value })} />
