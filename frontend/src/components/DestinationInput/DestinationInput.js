@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,14 +7,15 @@ import { createDestination } from '../../actions/destinations-actions';
 
 const DestinationInput = () => {
     const [destinationData, setdestinationData] = useState({
-        xcoord: 0, ycoord: 0
+        xcoord: '', ycoord: ''
     });
+    //const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    /*
-    useEffect(() => {
-        if (destination) setPostData(post);
+    
+    /*useEffect(() => {
+        if (destination) setdestinationData(destination);
     }, [destination]); */
   
     const handleSubmit = async (e) => {
@@ -24,7 +25,7 @@ const DestinationInput = () => {
       };
 
     const clear = () => {
-        setdestinationData({ xcoord: 0, ycoord: 0});
+        setdestinationData({ xcoord: '', ycoord: ''});
       };
     
   
