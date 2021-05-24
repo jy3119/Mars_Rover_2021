@@ -14,5 +14,5 @@ const DestinationOutput = () => {
     );
   };
   
-  export default Post;
+  export default DestinationOutput;
   

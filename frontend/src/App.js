@@ -8,10 +8,11 @@ import Header from './components/Header';
 //import RoverMap from './components/RoverMap';
 import DirectionButton from './components/DirectionButton';
 import DestinationInput from './components/DestinationInput/DestinationInput.js';
+import DestinationOutput from './components/DestinationOutput/DestinationOutput.js';
 
 /********** ACTIONS **********/
 //import { getInstruction } from './actions/instructions-actions';
-import { getDestination } from '/actions/destinations-actions';
+import { getDestination } from './actions/destinations-actions';
 
 /*********** APP *************/
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
       <Header />
       <DirectionButton />
       <DestinationInput />
+      <DestinationOutput />
     </div>
   );
 };
