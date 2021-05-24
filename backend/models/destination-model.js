@@ -12,6 +12,6 @@ const DestinationSchema = mongoose.Schema(
     }
 );
 
-const DestinationModel = mongoose.model('DestinationModel', DestinationSchema);
+var DestinationModel = mongoose.model('DestinationModel', DestinationSchema);
 
 export default DestinationModel;
