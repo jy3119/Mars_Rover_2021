@@ -10,14 +10,15 @@ import DirectionButton from './components/DirectionButton';
 import DestinationInput from './components/DestinationInput/DestinationInput.js';
 
 /********** ACTIONS **********/
-import { getInstruction } from './actions/instructions-actions';
+//import { getInstruction } from './actions/instructions-actions';
+import { getDestination } from '/actions/destinations-actions';
 
 /*********** APP *************/
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getInstruction());
+    dispatch(getDestination());
   }, [dispatch]);
 
   return (
