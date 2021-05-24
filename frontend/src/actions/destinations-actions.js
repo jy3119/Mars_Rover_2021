@@ -3,7 +3,6 @@ import { FETCH_ALL, CREATE } from '../constants/actionTypes';
 import * as api from '../api/destination-api.js';
 
 /******* Action Creators ********/
-
 export const getDestination = () => async (dispatch) => {
   try {
     const { data } = await api.fetchDestination();

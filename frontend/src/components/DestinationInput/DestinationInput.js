@@ -7,7 +7,7 @@ import { createDestination } from '../../actions/destinations-actions';
 
 const DestinationInput = () => {
     const [destinationData, setdestinationData] = useState({
-        xcoord: '', ycoord: ''
+        x_coordinate: 0, y_coordinate: 0
     });
     //const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const DestinationInput = () => {
       };
 
     const clear = () => {
-        setdestinationData({ xcoord: '', ycoord: ''});
+        setdestinationData({ x_coordinate: 0, y_coordinate: 0});
       };
     
   
@@ -33,8 +33,8 @@ const DestinationInput = () => {
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <Typography variant="h5">Destination</Typography>
-          <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.xcoord} onChange={(e) => setdestinationData({ ...destinationData, xcoord: e.target.value })} />
-          <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.ycoord} onChange={(e) => setdestinationData({ ...destinationData, ycoord: e.target.value })} />
+          <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
+          <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
           <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
           <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>

@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import DestinationModel from '../models/destination-model.js';
-import InstructionModel from '../models/instruction-model.js';
 
 const router = express.Router();
 
@@ -17,9 +16,9 @@ export const getDestination = async(req, res)=> {
 }
 
 export const createDestination = async (req, res) => {
-    const { xcoord, ycoord } = req.body;
+    const destination = req.body;
 
-    const newDest = new InstructionModel({ xcoord, ycoord})
+    const newDest = new DestinationModel(destination);
 
     try {
         await newDest.save();

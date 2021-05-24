@@ -4,7 +4,7 @@ import { getDestination, createDestination } from '../controllers/destination-ct
 
 const router = express.Router()
 
-//reached at localhost:3000/destination
+//reached at http://localhost:3000/destination
 router.get('/', getDestination);
 
  /**************POST REQUESTS **************/
