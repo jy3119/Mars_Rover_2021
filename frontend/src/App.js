@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Header from './components/Header';
 //import RoverMap from './components/RoverMap';
 import DirectionButton from './components/DirectionButton';
-import DestinationInput from './components/DestinationInput';
+import DestinationInput from './components/DestinationInput/DestinationInput';
 
 import { getInstruction } from './actions/instructions';
 
