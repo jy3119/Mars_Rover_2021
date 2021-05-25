@@ -29,4 +29,29 @@ export const createDestination = async (req, res) => {
     }
 }
 
+export const updateDestination = async (req, res) => {
+    const { id } = req.params;
+    const { x_coordinate, y_coordinate } = req.body;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No destination with id: ${id}`);
+
+    const updatedDestination = { x_coordinate, y_coordinate, _id: id };
+
+    await DestinationModel.findByIdAndUpdate(id, updatedDestination, { new: true });
+
+    res.json(updatedDestination);
+}
+
+/*
+export const deletePost = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    await PostMessage.findByIdAndRemove(id);
+
+    res.json({ message: "Post deleted successfully." });
+}*/
+
+
 export default router;

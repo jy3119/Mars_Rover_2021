@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE } from '../constants/actionTypes';
 
 import * as api from '../api/destination-api.js';
 
@@ -24,14 +24,13 @@ export const createDestination = (destination) => async (dispatch) => {
   }
 };
 
-/*
-export const updateInstruction = (id, post) => async (dispatch) => {
+
+export const updateDestination = (id, destination) => async (dispatch) => {
     try {
-      const { data } = await api.updateInstruction(id, post);
+      const { data } = await api.updateDestination(id, destination);
   
       dispatch({ type: UPDATE, payload: data });
     } catch (error) {
       console.log(error.message);
     }
   };
-*/

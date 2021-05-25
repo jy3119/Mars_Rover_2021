@@ -3,25 +3,31 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
-import { createDestination } from '../../actions/destinations-actions';
+import { createDestination, updateDestination } from '../../actions/destinations-actions';
 
-const DestinationInput = () => {
+const DestinationInput = ({ currentId, setCurrentId }) => {
     const [destinationData, setdestinationData] = useState({
         x_coordinate: 0, y_coordinate: 0
     });
-    //const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
+    const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
 
     
-    /*useEffect(() => {
+    useEffect(() => {
         if (destination) setdestinationData(destination);
-    }, [destination]); */
+    }, [destination]); 
   
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        dispatch(createDestination(destinationData));
+
+        if (currentId === 0) {
+          dispatch(createDestination(destinationData));
+          clear();
+        } else {
+          dispatch(updateDestination(currentId, destinationData));
+          clear();
+        }
       };
 
     const clear = () => {
