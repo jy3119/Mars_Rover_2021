@@ -31,6 +31,7 @@ const DirectionButton = () => {
           <Button className={classes.direction_button} variant="contained" color="primary">Right</Button>
           <TextField name="speed" variant="outlined" label="speed" fullWidth value={instructionData.speed} onChange={(e) => setinstructionData({ ...instructionData, speed: e.target.value })} />
           <Button className={classes.full_width_button} variant="contained" color="secondary" fullWidth>STOP</Button>
+          <TextField name="direction" variant="outlined" label="direction" fullWidth value={instructionData.direction} onChange={(e) => setinstructionData({ ...instructionData, direction: e.target.value })} />
           <Button className={classes.full_width_button} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
           <Button variant="contained" color="textSecondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>
