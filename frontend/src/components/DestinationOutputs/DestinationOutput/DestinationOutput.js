@@ -7,25 +7,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
 
-const DestinationOutput = () => {
+const DestinationOutput = ({destination, setCurrentId}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const destination = useSelector((state)=>state.destinations.getLastInsertedDocument.find({}).sort({_id:-1}).limit(1));
+  //const destination = useSelector((state)=>state.destinations.getLastInsertedDocument.find({}).sort({_id:-1}).limit(1));
   
   return (
     <Card className={classes.card}>
-      <div className={classes.overlay}>
-        <Typography variant="body2">{moment(destination.SetAt).fromNow()}</Typography>
-      </div>
-      <div className={classes.overlay2}>
-        <Button style={{ color: 'white' }} size="small" onClick={() => {}}><EditIcon fontSize="default" /></Button>
+      <div>
+        <Typography variant="body2" color="textSecondary">{moment(destination.SetAt).fromNow()}</Typography>
       </div>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p" align="center">{destination.x_coordinate}</Typography>
-        <Typography variant="body2" color="textSecondary" component="p" align="center">{destination.y_coordinate}</Typography>
+        <Typography variant="body2" color="inherit" component="p" align="center">x_coordinate: {destination.x_coordinate}</Typography>
+        <Typography variant="body2" color="inherit" component="p" align="center">y_coordinate: {destination.y_coordinate}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => {}}><DeleteIcon fontSize="small" /> Delete</Button>
+        <Button color="primary" size="small" onClick={() => {}}><EditIcon fontSize="default" /></Button>
       </CardActions>
     </Card>
   );

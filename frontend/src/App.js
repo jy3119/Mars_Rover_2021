@@ -8,7 +8,7 @@ import Header from './components/Header';
 //import RoverMap from './components/RoverMap';
 import DirectionButton from './components/DirectionButton';
 import DestinationInput from './components/DestinationInput/DestinationInput';
-import DestinationOutput from './components/DestinationOutputs/DestinationOutput/DestinationOutput';
+import DestinationOutputs from './components/DestinationOutputs/DestinationOutputs';
 
 /********** ACTIONS **********/
 //import { getInstruction } from './actions/instructions-actions';
@@ -29,8 +29,19 @@ const App = () => {
     <div>
       <Header />
       <DirectionButton />
-      <DestinationInput currentId={currentId} setCurrentId={setCurrentId}/>
-      <DestinationOutput setCurrentId={setCurrentId}/>
+      <Grow in>
+        <Container>
+          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
+            <Grid item xs={12} sm={7}>
+              <DestinationOutputs setCurrentId={setCurrentId}/>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <DestinationInput currentId={currentId} setCurrentId={setCurrentId}/>
+            </Grid>
+          </Grid>
+        </Container>
+      </Grow>
+      
     </div>
   );
 };

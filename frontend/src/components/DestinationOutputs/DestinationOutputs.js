@@ -5,16 +5,16 @@ import { useSelector } from 'react-redux';
 import DestinationOutput from './DestinationOutput/DestinationOutput';
 import useStyles from './styles';
 
-const Posts = ({ setCurrentId }) => {
-  const posts = useSelector((state) => state.posts);
+const DestinationOutputs = ({ setCurrentId }) => {
+  const destinations = useSelector((state) => state.destinations);
   const classes = useStyles();
 
   return (
-    !posts.length ? <CircularProgress /> : (
-      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-        {posts.map((post) => (
-          <Grid key={post._id} item xs={12} sm={6} md={6}>
-            <Post post={post} setCurrentId={setCurrentId} />
+    !destinations.length ? <CircularProgress /> : (
+      <Grid className={classes.container} container alignItems="stretch" spacing={3} style={{position: 'absolute', left:200, top:400}}>
+        {destinations.map((destination) => (
+          <Grid key={destination._id} item>
+            <DestinationOutput destination={destination} setCurrentId={setCurrentId} />
           </Grid>
         ))}
       </Grid>
@@ -22,4 +22,4 @@ const Posts = ({ setCurrentId }) => {
   );
 };
 
-export default Posts;
+export default DestinationOutputs;
