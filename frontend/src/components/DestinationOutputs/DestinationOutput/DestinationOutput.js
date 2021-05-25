@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
+import { deleteDestination } from '../../../actions/destinations-actions';
 
 const DestinationOutput = ({destination, setCurrentId}) => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const DestinationOutput = ({destination, setCurrentId}) => {
         <Typography variant="body2" color="inherit" component="p" align="center">y_coordinate: {destination.y_coordinate}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}><DeleteIcon fontSize="small" /> Delete</Button>
+        <Button size="small" color="primary" onClick={() => dispatch(deleteDestination(destination._id))}><DeleteIcon fontSize="small" /> Delete</Button>
         <Button color="primary" size="small" onClick={() => setCurrentId(destination._id)}><EditIcon fontSize="default" />Edit</Button>
       </CardActions>
     </Card>
@@ -30,5 +31,5 @@ const DestinationOutput = ({destination, setCurrentId}) => {
 };
   
   
-  export default DestinationOutput;
+export default DestinationOutput;
   

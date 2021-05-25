@@ -42,16 +42,16 @@ export const updateDestination = async (req, res) => {
     res.json(updatedDestination);
 }
 
-/*
-export const deletePost = async (req, res) => {
+
+export const deleteDestination = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No destination with id: ${id}`);
 
-    await PostMessage.findByIdAndRemove(id);
+    await DestinationModel.findByIdAndRemove(id);
 
-    res.json({ message: "Post deleted successfully." });
-}*/
+    res.json({ message: "Destination deleted successfully." });
+}
 
 
 export default router;

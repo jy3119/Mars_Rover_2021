@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE} from '../constants/actionTypes';
 
 import * as api from '../api/destination-api.js';
 
@@ -34,3 +34,14 @@ export const updateDestination = (id, destination) => async (dispatch) => {
       console.log(error.message);
     }
   };
+
+
+export const deleteDestination = (id) => async (dispatch) => {
+  try {
+    await api.deleteDestination(id);
+
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
