@@ -23,7 +23,7 @@ const DestinationOutput = ({destination, setCurrentId}) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => {}}><DeleteIcon fontSize="small" /> Delete</Button>
-        <Button color="primary" size="small" onClick={() => {}}><EditIcon fontSize="default" /></Button>
+        <Button color="primary" size="small" onClick={() => setCurrentId(destination._id)}><EditIcon fontSize="default" />Edit</Button>
       </CardActions>
     </Card>
   );

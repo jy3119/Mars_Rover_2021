@@ -11,6 +11,6 @@ router.get('/', getDestination);
 router.post('/', createDestination);
 
 /******* Update Requests ********/
-router.post('/:id', updateDestination);
+router.patch('/:id', updateDestination);
 
 export default router;
