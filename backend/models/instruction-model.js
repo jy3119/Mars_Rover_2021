@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-
-/*Instruction should contain x-coordinates, y-coordinates of obstacles*/ 
+ 
 const InstructionSchema = mongoose.Schema(
     {
         direction: String,
@@ -11,6 +10,10 @@ const InstructionSchema = mongoose.Schema(
         angle: {
             type: Number, 
             default: 0
+        },
+        speed: {
+            type: Number, 
+            max: 5 //can set proper value later 
         }
     }
 );

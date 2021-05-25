@@ -14,7 +14,11 @@ export default makeStyles((theme) => ({
       flexWrap: 'wrap',
       justifyContent: 'center',
     },
-    buttonSubmit: {
+    full_width_button: {
       marginBottom: 10,
     },
+    direction_button: {
+        width: 100,
+        margin: 10
+    }
   }));

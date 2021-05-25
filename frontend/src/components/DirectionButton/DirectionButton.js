@@ -5,25 +5,39 @@ import useStyles from './styles';
 //import { createInstruction } from '../../actions/instructions'; 
 
 const DirectionButton = () => {
+    const [instructionData, setinstructionData] = useState({
+        direction: '', distance: 0, angle: 0, speed: 0
+    }); 
+
     const classes = useStyles();
 
+    const handleSubmit = async (e) => {
+    
+    };
+
+    const clear = () => {
+
+    };
+
     return (
-      <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
+      <Paper className={classes.paper} style={{width: 300, position: 'absolute', right:200, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-          <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Destination</Typography>
-          <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => {}} />
-          <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => {}} />
-          <Button variant="contained" color="primary" style={{width: 100, position: 'absolute', right:200, top:100}}>Forward</Button>
-                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:200, top:200}}>Back</Button>
-                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:320, top:150}}>Left</Button>
-                <Button variant="contained" color="primary" style={{width: 100,position: 'absolute', right:80, top:150}}>Right</Button>
-                <Button variant="contained" color="secondary" style={{width: 100,position: 'absolute', right:200, top:150}}>STOP</Button>
-          <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-          <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
+          <Typography variant="h5">Setting Direction</Typography>
+          <TextField name="distance" variant="outlined" label="distance" fullWidth value={instructionData.distance} onChange={(e) => setinstructionData({ ...instructionData, distance: e.target.value })} />
+          <Button className={classes.direction_button} variant="contained" color="primary">Forward</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary">Back</Button>
+          <TextField name="angle" variant="outlined" label="angle" fullWidth value={instructionData.angle} onChange={(e) => setinstructionData({ ...instructionData, angle: e.target.value })} />
+          <Button className={classes.direction_button} variant="contained" color="primary">Left</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary">Right</Button>
+          <TextField name="speed" variant="outlined" label="speed" fullWidth value={instructionData.speed} onChange={(e) => setinstructionData({ ...instructionData, speed: e.target.value })} />
+          <Button className={classes.full_width_button} variant="contained" color="secondary" fullWidth>STOP</Button>
+          <Button className={classes.full_width_button} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+          <Button variant="contained" color="textSecondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>
       </Paper>
     );
   };
 
+//style={{width: 100,position: 'absolute', right:320, top:150}}
 
 export default DirectionButton;

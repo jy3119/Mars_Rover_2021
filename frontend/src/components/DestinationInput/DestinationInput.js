@@ -40,7 +40,7 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
     return (
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-          <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Destination</Typography>
+          <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Coordinates</Typography>
           <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
           <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
           <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
