@@ -22,16 +22,21 @@ const DirectionButton = () => {
 
     };
 
+    const fill_direction = () => {
+        //somehow have some click id so that know what to fill? 
+        //instructionData.direction = something?? or value of direction field = something??  
+    };
+
     return (
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', right:200, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <Typography variant="h5">Setting Direction</Typography>
           <TextField name="distance" variant="outlined" label="distance" fullWidth value={instructionData.distance} onChange={(e) => setinstructionData({ ...instructionData, distance: e.target.value })} />
-          <Button className={classes.direction_button} variant="contained" color="primary">Forward</Button>
-          <Button className={classes.direction_button} variant="contained" color="primary">Back</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary" onClick={fill_direction}>Forward</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary" onClick={fill_direction}>Back</Button>
           <TextField name="angle" variant="outlined" label="angle" fullWidth value={instructionData.angle} onChange={(e) => setinstructionData({ ...instructionData, angle: e.target.value })} />
-          <Button className={classes.direction_button} variant="contained" color="primary">Left</Button>
-          <Button className={classes.direction_button} variant="contained" color="primary">Right</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary" onClick={fill_direction}>Left</Button>
+          <Button className={classes.direction_button} variant="contained" color="primary" onClick={fill_direction}>Right</Button>
           <TextField name="speed" variant="outlined" label="speed" fullWidth value={instructionData.speed} onChange={(e) => setinstructionData({ ...instructionData, speed: e.target.value })} />
           <Button className={classes.full_width_button} variant="contained" color="secondary" fullWidth>STOP</Button>
           <TextField name="direction" variant="outlined" label="direction" fullWidth value={instructionData.direction} onChange={(e) => setinstructionData({ ...instructionData, direction: e.target.value })} />
