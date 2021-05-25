@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
-//import { createInstruction } from '../../actions/instructions'; 
+import { createInstruction } from '../../actions/instructions-actions'; 
 
 const DirectionButton = () => {
     const [instructionData, setinstructionData] = useState({
@@ -10,9 +11,11 @@ const DirectionButton = () => {
     }); 
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
-    
+        e.preventDefault();
+        dispatch(createInstruction(instructionData));
     };
 
     const clear = () => {

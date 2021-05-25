@@ -1,6 +1,6 @@
 import { FETCH_ALL, CREATE, UPDATE } from '../constants/actionTypes';
 
-import * as api from '../api/instruction-api';
+import * as api from '../api/instruction-api.js';
 
 /******* Action Creators ********/
 
@@ -15,15 +15,16 @@ export const getInstruction = () => async (dispatch) => {
 };
 
 
-export const createInstruction = (post) => async (dispatch) => {
+export const createInstruction = (instruction) => async (dispatch) => {
   try {
-    const { data } = await api.createInstruction(post);
+    const { data } = await api.createInstruction(instruction);
 
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error.message);
   }
 };
+
 /*
 export const updateInstruction = (id, post) => async (dispatch) => {
     try {
