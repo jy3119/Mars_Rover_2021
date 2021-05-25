@@ -16,6 +16,6 @@ router.post('/', createDestination);
 router.patch('/:id', updateDestination);
 
 /******* Delete Requests ********/
-router.delete('/:id', deleteDestination)
+router.delete('/:id', deleteDestination);
 
 export default router;

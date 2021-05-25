@@ -3,11 +3,18 @@ import mongoose from 'mongoose';
 /*Instruction should contain x-coordinates, y-coordinates of obstacles*/ 
 const InstructionSchema = mongoose.Schema(
     {
-        index: {type: Number, default: 0},
         direction: String,
+        distance: {
+            type: Number, 
+            default: 0
+        },
+        angle: {
+            type: Number, 
+            default: 0
+        }
     }
 );
 
-const InstructionModel = mongoose.model('InstructionModel', InstructionSchema);
+var InstructionModel = mongoose.model('InstructionModel', InstructionSchema);
 
 export default InstructionModel;

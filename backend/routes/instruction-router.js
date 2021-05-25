@@ -4,15 +4,12 @@ import { getInstruction, createInstruction } from '../controllers/instruction-ct
 
 const router = express.Router()
 
-//reached at localhost:3000/instruction
+//reached at http://localhost:3000/instruction
+
+/******* Get Requests ********/
 router.get('/', getInstruction);
 
- /**************POST REQUESTS **************/
- /*
- *	Brief: Post instructions for rover 
- *	Path: /api/plant/control/:plantId
- */
-
+/******* Post Requests ********/
 router.post('/', createInstruction);
 
 export default router;
