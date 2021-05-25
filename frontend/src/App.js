@@ -6,7 +6,7 @@ import useStyles from './styles';
 /******** COMPONENTS *********/
 import Header from './components/Header';
 //import RoverMap from './components/RoverMap';
-import DirectionButton from './components/DirectionButton';
+import DirectionButton from './components/DirectionButton/DirectionButton';
 import DestinationInput from './components/DestinationInput/DestinationInput';
 import DestinationOutputs from './components/DestinationOutputs/DestinationOutputs';
 
