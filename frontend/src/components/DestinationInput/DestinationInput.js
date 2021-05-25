@@ -8,7 +8,7 @@ import { createDestination, updateDestination } from '../../actions/destinations
 const DestinationInput = ({ currentId, setCurrentId }) => {
     const [destinationData, setdestinationData] = useState({
         x_coordinate: 0, y_coordinate: 0
-    });
+    }); 
     //find post where id is equal to current id 
     const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();

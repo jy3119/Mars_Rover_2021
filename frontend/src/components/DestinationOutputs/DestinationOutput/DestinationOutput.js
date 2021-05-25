@@ -12,7 +12,7 @@ const DestinationOutput = ({destination, setCurrentId}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   //const destination = useSelector((state)=>state.destinations.getLastInsertedDocument.find({}).sort({_id:-1}).limit(1));
-  
+   
   return (
     <Card className={classes.card}>
       <div>
