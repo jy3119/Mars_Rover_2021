@@ -49,7 +49,7 @@ const DirectionButton = () => {
      };
 
     return (
-      <Paper className={classes.paper} style={{width: 300, position: 'absolute', right:200, top:100}}>
+      <Paper className={classes.paper} style={{width: 300, position: 'absolute', right:300, top:100}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <Typography variant="h5">Setting Direction</Typography>
           <TextField name="distance" variant="outlined" label="distance" fullWidth value={instructionData.distance} onChange={(e) => setinstructionData({ ...instructionData, distance: e.target.value })} />
