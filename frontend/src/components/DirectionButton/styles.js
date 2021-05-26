@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
       justifyContent: 'center',
     },
     full_width_button: {
-      marginBottom: 10,
+      margin: 10,
     },
     direction_button: {
         width: 100,
