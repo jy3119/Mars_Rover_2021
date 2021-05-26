@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, DELETE } from '../constants/actionTypes';
 
 import * as api from '../api/instruction-api.js';
 
@@ -25,14 +25,12 @@ export const createInstruction = (instruction) => async (dispatch) => {
   }
 };
 
-/*
-export const updateInstruction = (id, post) => async (dispatch) => {
-    try {
-      const { data } = await api.updateInstruction(id, post);
-  
-      dispatch({ type: UPDATE, payload: data });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-*/
+export const deleteInstruction = (id) => async (dispatch) => {
+  try {
+    await api.deleteInstruction(id);
+
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getInstruction, createInstruction } from '../controllers/instruction-ctrl.js' 
+import { getInstruction, createInstruction, deleteInstruction } from '../controllers/instruction-ctrl.js' 
 
 const router = express.Router()
 
@@ -11,5 +11,8 @@ router.get('/', getInstruction);
 
 /******* Post Requests ********/
 router.post('/', createInstruction);
+
+/******* Delete Requests ********/
+router.delete('/:id', deleteInstruction);
 
 export default router;

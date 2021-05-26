@@ -6,6 +6,7 @@ const url = 'http://localhost:3000/instruction';
 export const fetchInstruction = () => axios.get(url); 
 //create instruction in database 
 export const createInstruction = (newInstruct) => axios.post(url, newInstruct);
-
+//delete destination in database 
+export const deleteInstruction = (id) => axios.delete(`${url}/${id}`);
 
 

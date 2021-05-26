@@ -30,4 +30,15 @@ export const createInstruction = async (req,res)=> {
     }
 }
 
+export const deleteInstruction = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No instruction with id: ${id}`);
+
+    await InstructionModel.findByIdAndRemove(id);
+
+    res.json({ message: "Instruction deleted successfully." });
+}
+
+
 export default router; 

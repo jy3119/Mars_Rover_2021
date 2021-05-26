@@ -6,11 +6,8 @@ export default (instructions= [], action) => {
       return action.payload;
     case CREATE:
       return [...instructions, action.payload];
-    /*
-    case UPDATE:
-      return instructions.map((destination) => (destination._id === action.payload._id ? action.payload : destination));
     case DELETE:
-      return instructions.filter((destination) => destination._id !== action.payload);*/
+      return instructions.filter((instruction) => instruction._id !== action.payload);
     default:
       return instructions;
   }

@@ -9,6 +9,7 @@ import Header from './components/Header';
 import DirectionButton from './components/DirectionButton/DirectionButton.js';
 import DestinationInput from './components/DestinationInput/DestinationInput';
 import DestinationOutputs from './components/DestinationOutputs/DestinationOutputs';
+import DirectionLists from './components/DirectionLists/DirectionLists';
 
 /********** ACTIONS **********/
 import { getInstruction } from './actions/instructions-actions';
@@ -37,6 +38,9 @@ const App = () => {
           <Grid container justify="space-between" alignItems="stretch" spacing={3}>
             <Grid>
               <DirectionButton />
+            </Grid>
+            <Grid>
+              <DirectionLists />
             </Grid>
             <Grid item xs={12} sm={7}>
               <DestinationOutputs setCurrentId={setCurrentId}/>
