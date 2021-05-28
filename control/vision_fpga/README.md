@@ -1,16 +1,14 @@
-# CONTROL-VISION CONNECTION
+# Control-Vison Connection: I2C communication Protocol
 
-## I2C communication Protocol
-
-##### Features:
+### Features:
 - On-Chip Memory(RAM or ROM) Intel FPGA IP with dual port access 
 - I2C Slave to Avalon-MM Master Brdige Intel FPGA IP, byte addressing mode 4
 - i2c_adaptor.v
 
-###### How to augment on top of Vision's existing quartus files:
+## How to augment on top of Vision's existing quartus files:
 TBC
 
-###### How to use (Test version only): (might do a video walkthrough for clarity)
+## How to use (Test version only): (might do a video walkthrough for clarity)
 1. Create new Quartus project, name the project as whatever _projectname_ you want, or esp32_0 if you'd like
 2. Open nios2_cpu.qsys in Platform Designer(Tools --> Platform Designer ) and generate HDL (Generate --> Generate HDL)
 3. esp32_0.v contains the verilog code for the top-level module. Rename the verilog file to _projectname.v_ and module name as needed for your top-level verilog file. No renaming is required if your project is called esp32_0.
