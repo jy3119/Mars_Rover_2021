@@ -1,4 +1,4 @@
-# Control-Vison Connection: I2C communication Protocol
+# Control-Vision Connection: I2C communication Protocol
 
 ### Features:
 - On-Chip Memory(RAM or ROM) Intel FPGA IP with dual port access 
