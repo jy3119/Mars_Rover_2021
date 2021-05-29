@@ -1,58 +1,26 @@
 import React, { useEffect, useState, useSelector } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
-import { useDispatch } from 'react-redux'; 
+import { Container } from '@material-ui/core';
 import useStyles from './styles';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 /******** COMPONENTS *********/
-import Header from './components/Header';
+import NavBar from './components/NavBar/Navbar';
 //import RoverMap from './components/RoverMap';
-import DirectionButton from './components/DirectionButton/DirectionButton.js';
-import DestinationInput from './components/DestinationInput/DestinationInput';
-import DestinationOutputs from './components/DestinationOutputs/DestinationOutputs';
-import DirectionLists from './components/DirectionLists/DirectionLists';
-
-/********** ACTIONS **********/
-import { getInstruction } from './actions/instructions-actions';
-import { getDestination } from './actions/destinations-actions';
-
+import Home from './components/Home/Home'
 
 /*********** APP *************/
 const App = () => {
-  const [currentId, setCurrentId] = useState(0);
-  const classes = useStyles(); 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getDestination());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getInstruction());
-  }, [dispatch]);
-
   return (
-    <div>
-      <Header />
-      <Grow in>
-        <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            <Grid>
-              <DirectionButton />
-            </Grid>
-            <Grid>
-              <DirectionLists />
-            </Grid>
-            <Grid item xs={12} sm={7}>
-              <DestinationOutputs setCurrentId={setCurrentId}/>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <DestinationInput currentId={currentId} setCurrentId={setCurrentId}/>
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-      
-    </div>
+    <BrowserRouter>
+      <Container maxWidth="lg">
+        <NavBar />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/auth" exact component={Auth} />
+        </Switch>
+        <Home />
+      </Container>
+    </BrowserRouter>
   );
 };
 
