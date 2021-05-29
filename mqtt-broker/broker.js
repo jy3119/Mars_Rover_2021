@@ -5,7 +5,7 @@ var mqtt = require('mqtt'); //includes mqtt server
 //MONGODB
 var mongodb = require('mongodb'); // includes mongoDB 
 var mongodbClient = mongodb.MongoClient; //initialises the mongoDB client
-var mongodbURI='mongodb://username:password@server.mongohq.com:port/database';
+var mongodbURI='mongodb+srv://tsersiew:coolbeans1234@cluster0.gws9z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 var deviceRoot = "demo/device/"; //deviceroot is topic name given in arduino code 
 var collection,client; //initialise collection and client
 
