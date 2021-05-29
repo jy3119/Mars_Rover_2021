@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
+/* MQTT Setup */
+import mqtt from 'mqtt';
+
 import useStyles from './styles';
 import { createDestination, updateDestination } from '../../actions/destinations-actions';
 
@@ -13,7 +16,6 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
     const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
     const classes = useStyles();
-
     
     useEffect(() => {
         if (destination) setdestinationData(destination);
@@ -36,6 +38,20 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
         setdestinationData({ x_coordinate: 0, y_coordinate: 0});
       };
     
+    //MQTT Publishing
+    const [ConnectionStatus, setConnectionStatus] = useState(false);
+
+    useEffect(() => {
+      var client = mqtt.connect("ws://18.188.43.23:9001", {
+        //open connection with your broker in AWS via websocket
+        username:"mqtt-broker", //authenticate your broker with username and password
+        password:"coolbeans$4",
+      });  //connecting the mqtt server with the MongoDB database
+      client.on('connect', () => setConnectionStatus(true));
+      var options = {qos: 1};
+      client.publish("esp32-destinations", destinationData, options)
+    }, []);
+
   
     return (
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
