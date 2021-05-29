@@ -11,7 +11,7 @@ var collection; //initialise collection and client
 
 
 /*********Connect to MongoDB Database ***********/
-mongodbClient.connect(mongodbURI, setupCollection); //connect the database with collecion
+mongodbClient.connect(mongodbURI, setupCollection); //connect the database with collection
      
 function setupCollection(err, db) {
    if(err) throw err;
@@ -27,19 +27,20 @@ function setupCollection(err, db) {
 
 //function that displays the data in the MongoDataBase
 function insertEvent(topic,payload) {
-  var key=topic.replace(deviceRoot,''); //uses device name as key i.e. esp32
+  //var key=topic.replace(deviceRoot,''); //uses device name as key i.e. esp32
+  parse_string = payload.toString(); 
+  parse_coord = parse_string.split(',');
+  x_coord = parse_coord[0];
+  y_coord = parse_coord[1];
 
-  collection.update(
-  { _id:key }, 
-  { $push: { events: { event: {  value:payload, when:new Date() } } } }, 
-  { upsert:true },
+  collection.insert(
+   { x_coordinate: x_coord, y_coordinate: y_coord, when:new Date() }, 
+   //{ upsert:true },
 
-  function(err,docs) {  
-  if(err) {
-     console.log("Insert fail")// Improve error handling		
-  }
-}
-
-);
-
+   function(err,docs) {  
+      if(err) {
+         console.log("Insert fail")// Improve error handling		
+      }
+   }
+   );
 }
