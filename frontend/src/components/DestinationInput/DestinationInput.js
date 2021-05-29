@@ -49,7 +49,7 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
       });  //connecting the mqtt server with the MongoDB database
       client.on('connect', () => setConnectionStatus(true));
       var options = {qos: 1};
-      client.publish("esp32-destinations", destinationData, options)
+      client.publish("device/esp32/esp32-destinations", destinationData, options)
     }, []);
 
   
