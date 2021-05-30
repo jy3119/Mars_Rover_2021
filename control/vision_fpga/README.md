@@ -9,10 +9,10 @@
 TBC
 
 ## How to use (Test version only): (might do a video walkthrough for clarity)
-1. Create new Quartus project, name the project as whatever _projectname_ you want, or esp32_0 if you'd like
+1. Create new Quartus project, name the project as whatever _projectname_ you want
 2. Open nios2_cpu.qsys in Platform Designer(Tools --> Platform Designer ) and generate HDL (Generate --> Generate HDL)
-3. esp32_0.v contains the verilog code for the top-level module. Rename the verilog file to _projectname.v_ and module name as needed for your top-level verilog file. No renaming is required if your project is called esp32_0.
-5. Add the top-level verilog file, i2c_adaptor.v, pin_assignment.qsf nios2_cpu.qip file to project. (Project --> Add/Remove Files in Project... --> Add the needed files, then -->  Apply --> OK)
+3. top_level.v contains the verilog code for the top-level module. Add this to your project and set it as the top level file.
+5. Also add i2c_adaptor.v, pin_assignment.qsf nios2_cpu.qip file to project. (Project --> Add/Remove Files in Project... --> Add the needed files, then -->  Apply --> OK)
 6. Compile (the play button beside the STOP sign) to get .sof file
 7. Connect your FPGA to your laptop via the cable and blast the .sof file using Programmer (Tools --> programmer )
 8. Open eclipse editor

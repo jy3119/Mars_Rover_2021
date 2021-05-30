@@ -14,8 +14,8 @@ int main()
   alt_putstr("Hello from Nios II!\n");
 
   // EDIT VALUES OF PARAMETERS HERE as rover moves around.
-  alt_8 diag_dist = 0x05;			// diagonal distance of obstacle to rover, up to 255cm or 0xff
-  alt_8 hori_dist = 0x04;		    // horizontal distance of obstacle to rover, up to 255cm or 0xff
+  alt_8 diag_dist = 0x05;			      // diagonal distance of obstacle to rover, up to 255cm or 0xff
+  alt_8 hori_dist = 0x04;		        // horizontal distance of obstacle to rover, up to 255cm or 0xff
   alt_8 leftctr_or_right = 0x00;    // 1 if obstacle is to the right of rover, 0 otherwise (left or ctr of rover)
   alt_8 obstacle_detected = 0x01;   // 1 only if obstacle has been detected, 0 otherwise
 
