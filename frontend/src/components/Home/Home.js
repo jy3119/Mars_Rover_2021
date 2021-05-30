@@ -1,35 +1,11 @@
-import React, { useEffect, useState, useSelector } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
-import { useDispatch } from 'react-redux';  
-
-/******** COMPONENTS *********/
-import DirectionButton from '../DirectionButton/DirectionButton.js';
-import DirectionLists from '../DirectionLists/DirectionLists';
-
-/********** ACTIONS **********/
-import { getInstruction } from '../../actions/instructions-actions';
+import React from 'react';
 
 const Home = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getInstruction());
-    }, [dispatch]);
-
     return (
-        <Grow in>
-        <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            <Grid>
-              <DirectionButton />
-            </Grid>
-            <Grid>
-              <DirectionLists />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-    );
-};
+        <div>
+            Home
+        </div>
+    )
+}
 
-export default Home;
+export default Home; 

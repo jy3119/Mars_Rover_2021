@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
-import { createInstruction } from '../../actions/instructions-actions'; 
+import { createInstruction } from '../../../actions/instructions-actions'; 
 
 /* MQTT Setup */
 import mqtt from 'mqtt';

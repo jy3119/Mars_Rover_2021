@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
-import { deleteInstruction } from '../../../actions/instructions-actions';
+import { deleteInstruction } from '../../../../actions/instructions-actions';
 
 const DirectionList = ({instruction}) => {
   const dispatch = useDispatch();

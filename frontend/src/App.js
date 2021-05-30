@@ -5,9 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 /******** COMPONENTS *********/
 import NavBar from './components/NavBar/Navbar';
 //import RoverMap from './components/RoverMap';
-import Home from './components/Home/Home'
-import DestinationInput from './components/SetCoordinates/DestinationInput/DestinationInput';
-import DirectionButton from './components/DirectionButton/DirectionButton';
+import Home from './components/Home/Home';
+import SetDirections from './components/SetDirections/SetDirections';
 import SetCoordinates from './components/SetCoordinates/SetCoordinates';
 
 /*********** APP *************/
@@ -19,7 +18,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/coord_mode" exact component={SetCoordinates} />
-          <Route path="/direct_mode" exact component={DirectionButton} />
+          <Route path="/direct_mode" exact component={SetDirections} />
         </Switch>
       </Container>
     </BrowserRouter>
