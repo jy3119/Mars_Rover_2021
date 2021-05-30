@@ -56,7 +56,7 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
   return (
   <Container>
     <Grid>
-    <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:100}}>
+    <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:200}}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />

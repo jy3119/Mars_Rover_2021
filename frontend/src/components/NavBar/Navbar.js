@@ -1,5 +1,5 @@
-import React from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { AppBar, Typography, Toolbar, Avatar, Button, Grid } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home'; 
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useStyles from './styles'; 
@@ -7,7 +7,7 @@ import useStyles from './styles';
 const NavBar = () => {
     const classes = useStyles();
 
-    const control_mode = null;
+    const [control_mode, setcontrol_mode] = useState(false);
 
     return (
     <AppBar className={classes.appBar} position="static">
@@ -17,13 +17,13 @@ const NavBar = () => {
         <Toolbar className={classes.toolbar}>
         {control_mode? (
           <div className={classes.profile}>
-            <Typography className={classes.userName} variant="h6">{control_mode?.result.name}</Typography>
+            <Typography className={classes.userName} variant="h6">{control_mode}</Typography>
             <HomeIcon variant="contained" color="secondary" onClick={()=>{}}>Home</HomeIcon>
           </div>
         ) : (
           <div> 
-              <Button component={Link} to="/coord_mode" variant="contained" color="secondary">Set Coordinates Mode</Button>
-              <Button component={Link} to="/direct_mode" variant="contained" color="primary">Set Direction Mode</Button>
+                <Button className={classes.button_cmode} component={Link} to="/coord_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Set Coordinates Mode</Button>
+                <Button className={classes.button_dmode} component={Link} to="/direct_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Set Direction Mode</Button>
           </div>
         )}
       </Toolbar>

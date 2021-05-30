@@ -23,10 +23,18 @@ export default makeStyles((theme) => ({
     justifyContent: 'flex-end',
     width: '400px',
   },
-  profile: {
+  button_cmode: {
     display: 'flex',
-    justifyContent: 'space-between',
-    width: '400px',
+    flexDirection: 'row',
+    justifyContent: 'right',
+    alignItems: 'center',
+  },
+  button_dmode: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'right',
+    alignItems: 'center',
+    margin: 10,
   },
   userName: {
     display: 'flex',
