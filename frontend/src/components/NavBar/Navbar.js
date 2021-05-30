@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home'; 
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useStyles from './styles'; 
 
@@ -17,11 +18,13 @@ const NavBar = () => {
         {control_mode? (
           <div className={classes.profile}>
             <Typography className={classes.userName} variant="h6">{control_mode?.result.name}</Typography>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={()=>{}}>Set Coordinates Mode</Button>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={()=>{}}>Set Directions Mode</Button>
+            <HomeIcon variant="contained" color="secondary" onClick={()=>{}}>Home</HomeIcon>
           </div>
         ) : (
-          <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+          <div> 
+              <Button component={Link} to="/coord_mode" variant="contained" color="secondary">Set Coordinates Mode</Button>
+              <Button component={Link} to="/direct_mode" variant="contained" color="primary">Set Direction Mode</Button>
+          </div>
         )}
       </Toolbar>
     </AppBar>
