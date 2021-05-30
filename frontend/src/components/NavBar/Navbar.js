@@ -18,7 +18,9 @@ const NavBar = () => {
         {control_mode? (
           <div className={classes.profile}>
             <Typography className={classes.userName} variant="h6">{control_mode}</Typography>
-            <HomeIcon variant="contained" color="secondary" onClick={()=>{}}>Home</HomeIcon>
+            <Button component={Link} to="/" onClick={()=>{setcontrol_mode(false)}}> 
+                <HomeIcon variant="contained" color="secondary">Home</HomeIcon>
+            </Button>
           </div>
         ) : (
           <div> 
