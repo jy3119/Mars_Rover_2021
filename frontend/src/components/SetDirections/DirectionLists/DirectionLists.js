@@ -11,7 +11,7 @@ const DirectionLists = () => {
 
   return (
     !instructions.length ? <CircularProgress /> : (
-      <Grid className={classes.container} container alignItems="stretch" spacing={3} style={{position: 'absolute', left:600, top:150}}>
+      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         {instructions.map((instruction) => (
           <Grid key={instruction._id} item>
             <DirectionList instruction={instruction} />

@@ -11,7 +11,7 @@ const DestinationOutputs = ({ setCurrentId }) => {
 
   return (
     !destinations.length ? <CircularProgress /> : (
-      <Grid className={classes.container} container alignItems="stretch" spacing={3} style={{position: 'absolute', left:600, top:200}}>
+      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         {destinations.map((destination) => (
           <Grid key={destination._id} item>
             <DestinationOutput destination={destination} setCurrentId={setCurrentId} />
