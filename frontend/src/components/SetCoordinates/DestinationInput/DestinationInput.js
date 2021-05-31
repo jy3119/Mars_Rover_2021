@@ -42,14 +42,10 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
   const [ConnectionStatus, setConnectionStatus] = useState(false);
 
   useEffect(() => {
-    var client = mqtt.connect("ws://18.188.43.23:9001", {
-      //open connection with your broker in AWS via websocket
-      username:"mqtt-broker", //authenticate your broker with username and password
-      password:"coolbeans$4",
-    });  //connecting the mqtt server with the MongoDB database
+    var client = mqtt.connect("mqtt://ec2-18-223-237-159.us-east-2.compute.amazonaws.com", {port:1883});
     client.on('connect', () => setConnectionStatus(true));
     var options = {qos: 1};
-    client.publish("device/esp32/esp32-destinations", destinationData, options)
+    client.publish("my/test/topic", destinationData, options);
   }, []);
 
 
