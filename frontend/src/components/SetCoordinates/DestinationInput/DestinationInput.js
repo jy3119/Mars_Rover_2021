@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 /* MQTT Setup */
 import mqtt from 'mqtt';
+import { Connector,  useMqttState, publish } from 'mqtt-react-hooks';
 
 import useStyles from './styles';
 import { createDestination, updateDestination } from '../../../actions/destinations-actions';
@@ -39,15 +40,23 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
     };
   
   //MQTT Publishing
-  const [ConnectionStatus, setConnectionStatus] = useState(false);
+  //const [ConnectionStatus, setConnectionStatus] = useState(false);
+  //const { client } = useMqttState();
 
-  useEffect(() => {
+  /*useEffect(() => {
     var client = mqtt.connect("mqtt://ec2-18-223-237-159.us-east-2.compute.amazonaws.com", {port:1883});
     client.on('connect', () => setConnectionStatus(true));
     var options = {qos: 1};
     client.publish("my/test/topic", destinationData, options);
-  }, []);
+  }, []);*/
 
+  var client = mqtt.connect("mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com", {port:1883});
+  client.on('connect', function () {
+    console.log('Connected');
+  });
+  const publishClick = (message) => {
+    client.publish('my/test/topic', message);
+  }
 
   return (
   <Container>
@@ -57,11 +66,12 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
         <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
         <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={publishClick('hello world')}>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>
     </Grid>
+    <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={publishClick('hello world')}>Submit</Button>
   </Container>
   );
 };

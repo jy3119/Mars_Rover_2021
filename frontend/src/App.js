@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Connector } from 'mqtt-react-hooks'; //MQTT
 
 /******** COMPONENTS *********/
 import NavBar from './components/NavBar/Navbar';
@@ -12,6 +13,7 @@ import SetCoordinates from './components/SetCoordinates/SetCoordinates';
 /*********** APP *************/
 const App = () => {
   return (
+    <Connector brokerUrl="mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com:1883">
     <BrowserRouter>
       <Container maxWidth="lg">
         <NavBar />
@@ -22,6 +24,7 @@ const App = () => {
         </Switch>
       </Container>
     </BrowserRouter>
+    </Connector>
   );
 };
 
