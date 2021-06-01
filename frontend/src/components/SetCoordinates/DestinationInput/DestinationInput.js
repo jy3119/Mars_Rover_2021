@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper, Container, Grid } from '@material
 import { useDispatch, useSelector } from 'react-redux';
 
 /* MQTT Setup */
-import mqtt from 'mqtt';
+import mqtt, { MqttClient } from 'mqtt';
 import { Connector,  useMqttState, publish } from 'mqtt-react-hooks';
 
 import useStyles from './styles';
@@ -50,7 +50,8 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
     client.publish("my/test/topic", destinationData, options);
   }, []);*/
 
-  var client = mqtt.connect("mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com", {port:1883});
+  var myMqtt = new MqttClient();
+  var client = myMqtt.connect("mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com", {port:1883});
   client.on('connect', function () {
     console.log('Connected');
   });
