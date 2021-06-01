@@ -26,6 +26,7 @@ const NavBar = () => {
           <div> 
                 <Button className={classes.button_cmode} component={Link} to="/coord_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Set Coordinates Mode</Button>
                 <Button className={classes.button_dmode} component={Link} to="/direct_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Set Direction Mode</Button>
+                <Button className={classes.button_rmode} component={Link} to="/rad_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Set Radius Mode</Button>
           </div>
         )}
       </Toolbar>

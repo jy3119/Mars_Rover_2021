@@ -32,9 +32,15 @@ export default makeStyles((theme) => ({
   button_dmode: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'right',
+    justifyContent: 'space-between',
     alignItems: 'center',
     margin: 10,
+  },
+  button_rmode: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   userName: {
     display: 'flex',
