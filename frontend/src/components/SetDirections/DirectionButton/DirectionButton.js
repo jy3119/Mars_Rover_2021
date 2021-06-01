@@ -51,7 +51,7 @@ const DirectionButton = () => {
 
      };
 
-     //MQTT Publishing
+     /*MQTT Publishing
     const [ConnectionStatus, setConnectionStatus] = useState(false);
 
     useEffect(() => {
@@ -64,6 +64,7 @@ const DirectionButton = () => {
       var options = {qos: 1};
       client.publish("device/esp32/espinstructions", instructionData, options)
     }, []);
+    */
 
     return (
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:150}}>

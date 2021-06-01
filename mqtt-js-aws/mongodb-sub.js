@@ -20,7 +20,7 @@ async function main () {
             username: 'mqtt-broker',
             password: 'Coolbeans$4'
         }*/
-        var mqtt_client = mqtt.connect("mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com", {port:1883});
+        var mqtt_client = mqtt.connect("mqtt://ec2-18-218-199-204.us-east-2.compute.amazonaws.com", {port:1883});
         //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
         //setup the callbacks
         mqtt_client.on('connect', function () {

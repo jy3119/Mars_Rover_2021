@@ -50,11 +50,20 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
     client.publish("my/test/topic", destinationData, options);
   }, []);*/
 
+  var options = {
+    host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud',
+    port: 8883,
+    protocol: 'mqtts',
+    username: 'mqtt-broker',
+    password: 'Coolbeans$4'
+  }
+
   var myMqtt = new MqttClient();
-  var client = myMqtt.connect("mqtt://ec2-18-191-210-250.us-east-2.compute.amazonaws.com", {port:1883});
+  var client = myMqtt.connect(options);
   client.on('connect', function () {
     console.log('Connected');
   });
+
   const publishClick = (message) => {
     client.publish('my/test/topic', message);
   }
