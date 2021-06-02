@@ -21,7 +21,7 @@ void setAddress(long addr)  {
 void setup()
 {
   Wire.begin();           // I2C connection with vision's FPGA    
-  Serial.begin(115200);   // Serial Monitor for ESP32
+  Serial.begin(9600);     // Serial Monitor for ESP32
 }
 
 void loop()
