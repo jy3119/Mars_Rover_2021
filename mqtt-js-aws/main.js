@@ -27,7 +27,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('instructionsMode');
+client.subscribe('my/test/topic');
 
 // publish message 'Hello' to topic 'my/test/topic'
 //client.publish('my/test/topic', 'Hello from tser');
