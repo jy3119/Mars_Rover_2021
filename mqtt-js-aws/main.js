@@ -10,7 +10,7 @@ var mqtt = require('mqtt')
 
 //initialize the MQTT client
 //var client = mqtt.connect(options);
-var client = mqtt.connect("mqtt://ec2-18-191-229-120.us-east-2.compute.amazonaws.com", {port:1883});
+var client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
 
 //setup the callbacks
 client.on('connect', function () {
@@ -27,7 +27,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('my/test/topic');
+client.subscribe('instructionsMode');
 
 // publish message 'Hello' to topic 'my/test/topic'
-client.publish('my/test/topic', 'Hello from tser');
+//client.publish('my/test/topic', 'Hello from tser');

@@ -14,7 +14,7 @@ async function main () {
         // Use the collection "test"
         const col = db.collection("test");
         /*var options = {
-            host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud',
+            host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud', 
             port: 8883,
             protocol: 'mqtts',
             username: 'mqtt-broker',
@@ -68,11 +68,8 @@ main().catch(console.dir);
 mongodbClient.close();
 
 
-        /* Construct a document                                                                                                                                                              
-        let personDocument = {
-            "name": { "first": "Alan", "last": "Turing" },
-            "birth": new Date(1912, 5, 23), // June 23, 1912                                                                                                                                 
-            "death": new Date(1954, 5, 7),  // June 7, 1954                                                                                                                                  
-            "contribs": [ "Turing machine", "Turing test", "Turingery" ],
-            "views": 1250000
+        /* Public HiveMQ Broker                                                                                                                                                              
+        Broker: broker.hivemq.com
+        TCP Port: 1883
+        Websocket Port: 8000
         }*/

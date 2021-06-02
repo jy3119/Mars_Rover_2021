@@ -18,3 +18,10 @@ export default function Status() {
     <h1>{`Status: ${connectionStatus}`}</h1>
   );
 }
+/*
+var client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
+
+//setup the callbacks
+client.on('connect', function () {
+  console.log('Connected');
+});*/

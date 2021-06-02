@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Connector } from 'mqtt-react-hooks'; //MQTT
-import Status from './Status';
+//import { Connector } from 'mqtt-react-hooks'; //MQTT
+//import Status from './Status';
+import mqtt from 'mqtt';
 
 /******** COMPONENTS *********/
 import NavBar from './components/NavBar/Navbar';
@@ -15,11 +16,10 @@ import SetRadius from './components/SetRadius/SetRadius';
 /*********** APP *************/
 const App = () => {
   return (
-    <Connector brokerUrl="wss://test.mosquitto.org:8081">
+    //<Connector mqttProps={{url: "ws://broker.hivemq.com/mqtt:8000", options: { protocol: 'ws' },}}>
     <BrowserRouter>
       <Container maxWidth="lg">
         <NavBar />
-        <Status />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/coord_mode" exact component={SetCoordinates} />
@@ -28,7 +28,7 @@ const App = () => {
         </Switch>
       </Container>
     </BrowserRouter>
-    </Connector>
+    //</Connector>
   );
 };
 

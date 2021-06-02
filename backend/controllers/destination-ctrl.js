@@ -28,7 +28,7 @@ export const createDestination = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
-
+/*
 export const updateDestination = async (req, res) => {
     const { id } = req.params;
     const { x_coordinate, y_coordinate } = req.body;
@@ -40,7 +40,7 @@ export const updateDestination = async (req, res) => {
     await DestinationModel.findByIdAndUpdate(id, updatedDestination, { new: true });
 
     res.json(updatedDestination);
-}
+}*/
 
 
 export const deleteDestination = async (req, res) => {

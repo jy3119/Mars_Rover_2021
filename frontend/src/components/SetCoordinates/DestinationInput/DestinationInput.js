@@ -9,6 +9,7 @@ import { Connector,  useMqttState, publish } from 'mqtt-react-hooks';
 import useStyles from './styles';
 import { createDestination, updateDestination } from '../../../actions/destinations-actions';
 
+
 const DestinationInput = ({ currentId, setCurrentId }) => {
   const [destinationData, setdestinationData] = useState({
       x_coordinate: 0, y_coordinate: 0
@@ -22,6 +23,20 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
       if (destination) setdestinationData(destination);
   }, [destination]); 
 
+  const publishClick = (message) => {/*
+    const client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+    client.on('connect', function () {
+      console.log('Connected to broker');
+      client.subscribe("my/test/topic", error => {
+        if (error) console.error(error);
+        else {
+          client.publish('my/test/topic', message);
+        }
+      });
+    });
+    //client.end();*/
+  }
+
   const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -32,41 +47,13 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
         dispatch(updateDestination(currentId, destinationData));
         clear();
       }
+      publishClick("hello");
     };
 
   const clear = () => {
       setCurrentId(null);
       setdestinationData({ x_coordinate: 0, y_coordinate: 0});
     };
-  
-  //MQTT Publishing
-  //const [ConnectionStatus, setConnectionStatus] = useState(false);
-  //const { client } = useMqttState();
-
-  /*useEffect(() => {
-    var client = mqtt.connect("mqtt://ec2-18-223-237-159.us-east-2.compute.amazonaws.com", {port:1883});
-    client.on('connect', () => setConnectionStatus(true));
-    var options = {qos: 1};
-    client.publish("my/test/topic", destinationData, options);
-  }, []);*/
-
-  var options = {
-    host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud',
-    port: 8883,
-    protocol: 'mqtts',
-    username: 'mqtt-broker',
-    password: 'Coolbeans$4'
-  }
-
-  var myMqtt = new MqttClient();
-  var client = myMqtt.connect(options);
-  client.on('connect', function () {
-    console.log('Connected');
-  });
-
-  const publishClick = (message) => {
-    client.publish('my/test/topic', message);
-  }
 
   return (
   <Container>
@@ -76,15 +63,55 @@ const DestinationInput = ({ currentId, setCurrentId }) => {
         <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
         <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={publishClick('hello world')}>Submit</Button>
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>
     </Grid>
-    <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={publishClick('hello world')}>Submit</Button>
   </Container>
   );
 };
 
  
 export default DestinationInput;
+
+/*
+export default () => {
+  const [connectionStatus, setConnectionStatus] = React.useState(false);
+  const [messages, setMessages] = React.useState([]);
+ 
+  useEffect(() => {
+    const client = mqtt.connect(SOME_URL);
+    client.on('connect', () => setConnectionStatus(true));
+    client.on('message', (topic, payload, packet) => {
+      setMessages(messages.concat(payload.toString()));
+    });
+  }, []);
+
+  function CheckoutForm() {
+    const MQTTConnect = () => {
+        const client = mqtt.connect("mqtt://address.cloudmqtt.com", options);
+        client.on("connect", function() {
+          // When connected
+          console.log("connected");
+          client.subscribe("vendingmachine2/feedback", error => {
+            if (error) console.error(error);
+            else {
+              client.publish(topic, "0");
+            }
+          });
+          openDoor();
+        });
+        client.on("message", (topic, message) => {
+          console.log(topic, message.toString());
+        });
+        function openDoor() {
+          let door = [1, 2];
+          for (let i = 0; i < door.length; i++) {
+            client.publish(topic, `${door[i]}`);
+          }
+        }
+    };
+
+
+  */

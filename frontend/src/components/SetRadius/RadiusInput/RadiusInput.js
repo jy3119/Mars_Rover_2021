@@ -19,26 +19,26 @@ const RadiusInput = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(createRadius(radiusData));
+        publishClick(radiusData.radius_dist);
     };
 
     const clear = () => {
         setradiusData({ radius_dist: 0});
     };
 
-     //MQTT Publishing
-    const [ConnectionStatus, setConnectionStatus] = useState(false);
-
-    useEffect(() => {
-      var client = mqtt.connect("ws://18.188.43.23:9001", {
-        //open connection with your broker in AWS via websocket
-        username:"mqtt-broker", //authenticate your broker with username and password
-        password:"coolbeans$4",
-      });  //connecting the mqtt server with the MongoDB database
-      client.on('connect', () => setConnectionStatus(true));
-      var options = {qos: 1};
-      client.publish("device/esp32/espradiuss", radiusData, options)
-    }, []);
-
+    const publishClick = (message) => {
+      const client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+      client.on('connect', function () {
+        console.log('Connected to broker');
+        client.subscribe("radiusMode", error => {
+          if (error) console.error(error);
+          else {
+            client.publish('radiusMode', message);
+          }
+        });
+      });
+      //client.end();
+    }
     return (
       <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:150}}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
