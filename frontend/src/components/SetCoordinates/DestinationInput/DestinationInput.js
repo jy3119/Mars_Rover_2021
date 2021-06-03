@@ -7,60 +7,51 @@ import mqtt, { MqttClient } from 'mqtt';
 import { Connector,  useMqttState, publish } from 'mqtt-react-hooks';
 
 import useStyles from './styles';
-import { createDestination, updateDestination } from '../../../actions/destinations-actions';
+import { createDestination } from '../../../actions/destinations-actions';
 
 
-const DestinationInput = ({ currentId, setCurrentId }) => {
+const DestinationInput = () => {
   const [destinationData, setdestinationData] = useState({
       x_coordinate: 0, y_coordinate: 0
   }); 
-  //find post where id is equal to current id 
-  const destination = useSelector((state) => (currentId ? state.destinations.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
-  
-  useEffect(() => {
-      if (destination) setdestinationData(destination);
-  }, [destination]); 
-
-  const publishClick = (message) => {/*
-    const client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
-    client.on('connect', function () {
-      console.log('Connected to broker');
-      client.subscribe("my/test/topic", error => {
-        if (error) console.error(error);
-        else {
-          client.publish('my/test/topic', message);
-        }
-      });
-    });
-    //client.end();*/
-  }
 
   const handleSubmit = async (e) => {
       e.preventDefault();
-
-      if (currentId === 0) {
-        dispatch(createDestination(destinationData));
-        clear();
-      } else {
-        dispatch(updateDestination(currentId, destinationData));
-        clear();
-      }
-      publishClick("hello");
+      
+      dispatch(createDestination(destinationData));
+      clear();
+      var mes = (destinationData.x_coordinate).concat(',',destinationData.y_coordinate);
+      publishClick(mes);
     };
 
   const clear = () => {
-      setCurrentId(null);
       setdestinationData({ x_coordinate: 0, y_coordinate: 0});
     };
+
+  /*MQTT Publishing*/
+  const publishClick = (message) => {
+    const client = mqtt.connect("ws://ec2-3-133-83-209.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+    client.on('connect', function () {
+      console.log('Connected to broker');
+      client.subscribe("coordsMode", error => {
+        if (error) console.error(error);
+        else {
+          client.publish('coordsMode', message);
+        }
+      });
+    });
+    //client.end();
+  }
+
 
   return (
   <Container>
     <Grid>
     <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:200}}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h5">{ currentId ? 'Editing' : 'Setting'} Coordinates</Typography>
+        <Typography variant="h5">Setting Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
         <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>

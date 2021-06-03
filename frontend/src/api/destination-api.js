@@ -7,6 +7,6 @@ export const fetchDestination = () => axios.get(url);
 //create destination in database 
 export const createDestination = (newDest) => axios.post(url, newDest);
 //update destination in database
-export const updateDestination = (id, updatedDestination) => axios.patch(`${url}/${id}`, updatedDestination);
+//export const updateDestination = (id, updatedDestination) => axios.patch(`${url}/${id}`, updatedDestination);
 //delete destination in database 
 export const deleteDestination = (id) => axios.delete(`${url}/${id}`);

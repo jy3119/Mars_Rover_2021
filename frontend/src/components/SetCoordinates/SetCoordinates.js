@@ -8,7 +8,6 @@ import DestinationOutputs from './DestinationOutputs/DestinationOutputs';
 import { getDestination } from '../../actions/destinations-actions';
 
 export const SetCoordinates = () => {
-    const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,10 +20,10 @@ export const SetCoordinates = () => {
           <Container>
             <Grid container justify="space-between" alignItems="stretch" spacing={3}>
               <Grid item xs={12} sm={4}>
-                <DestinationInput currentId={currentId} setCurrentId={setCurrentId}/>
+                <DestinationInput />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <DestinationOutputs setCurrentId={setCurrentId}/>
+                <DestinationOutputs />
               </Grid>
             </Grid>
           </Container>

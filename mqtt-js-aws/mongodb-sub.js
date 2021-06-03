@@ -11,7 +11,7 @@ async function main () {
         await mongodbClient.connect();
         console.log("Connected to mongodb atlas");
         const db = mongodbClient.db(dbName);
-        // Use the collection "test"
+        /* Use the collection "test" */
         const col = db.collection("test");
         /*var options = {
             host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud', 
@@ -20,36 +20,39 @@ async function main () {
             username: 'mqtt-broker',
             password: 'Coolbeans$4'
         }*/
-        var mqtt_client = mqtt.connect("mqtt://ec2-18-218-199-204.us-east-2.compute.amazonaws.com", {port:1883});
+        var mqtt_client = mqtt.connect("mqtt://ec2-3-133-83-209.us-east-2.compute.amazonaws.com", {port:1883});
         //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
-        //setup the callbacks
+
+        /* setup the callbacks */
         mqtt_client.on('connect', function () {
             console.log('Connected to mqtt broker');
         });
         mqtt_client.on('error', function (error) {
             console.log(error);
         });
-
+        
+        /* parsing the message and inserting into mongodb 
+            Publishing from esp32 to topic
+            1 topic: obstacleCoords
+            send in this format: obstacle_x,obstacle_y
+        */ 
+        
         mqtt_client.on('message', function (topic, message) {
             //Called each time a message is received
             // Insert a single document, wait for promise so we can read it back
             var parse_string = message.toString(); 
             var parse_coord = parse_string.split(',');
-            var first_name_string = parse_coord[0]; 
-            var last_name_string = parse_coord[1]; 
-            var birth_string = parse_coord[2]; 
-            var death_string = parse_coord[3]; 
-            var contribs_string = parse_coord[4]; 
-            var views_string = parse_coord[5]; 
-            const p = col.insertOne({ name: {first: first_name_string, last: last_name_string}, birth: birth_string, death: death_string, contribs: contribs_string, views: views_string});
+            var obstacle_x = Number(parse_coord[0]); 
+            var obstacle_y = Number(parse_coord[1]); 
+            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y});
             console.log('Received message:', topic, message.toString());
         });
 
-         // subscribe to topic 'my/test/topic'
-         mqtt_client.subscribe('my/test/topic');
+         /* subscribe to topic 'my/test/topic' */
+         mqtt_client.subscribe('obstacleCoords');
         
-         // publish message 'Hello' to topic 'my/test/topic'
-         mqtt_client.publish('my/test/topic', 'Alan,Turing,1912-06-22T17:00:00.000+00:00,1954-06-06T16:30:00.000+00:00,Turingmachine,1230000');
+         /* publish message 'Hello' to topic 'my/test/topic' */
+         mqtt_client.publish('obstacleCoords', '244,345');
 
         // Find one document
         //const myDoc = await col.findOne();

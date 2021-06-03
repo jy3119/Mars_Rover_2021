@@ -24,7 +24,7 @@ export const createDestination = (destination) => async (dispatch) => {
   }
 };
 
-
+/*
 export const updateDestination = (id, destination) => async (dispatch) => {
     try {
       const { data } = await api.updateDestination(id, destination);
@@ -33,7 +33,7 @@ export const updateDestination = (id, destination) => async (dispatch) => {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }; */
 
 
 export const deleteDestination = (id) => async (dispatch) => {

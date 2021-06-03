@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getDestination, createDestination, updateDestination, deleteDestination} from '../controllers/destination-ctrl.js' 
+import { getDestination, createDestination, deleteDestination} from '../controllers/destination-ctrl.js' 
 
 const router = express.Router()
 
@@ -13,7 +13,7 @@ router.get('/', getDestination);
 router.post('/', createDestination);
 
 /******* Update Requests ********/
-router.patch('/:id', updateDestination);
+//router.patch('/:id', updateDestination);
 
 /******* Delete Requests ********/
 router.delete('/:id', deleteDestination);

@@ -6,6 +6,13 @@ var mqtt = require('mqtt')
     protocol: 'mqtts',
     username: 'mqtt-broker',
     password: 'Coolbeans$4'
+    //added following
+    keepalive: 60,
+    reconnectPeriod: 1000,
+    clean: true,
+    encoding: "utf8",
+    timeout: 3,
+    useSSL: true
 }*/
 
 //initialize the MQTT client
@@ -27,7 +34,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('instructionsMode');
+client.subscribe('my/test/topic');
 
 // publish message 'Hello' to topic 'my/test/topic'
 //client.publish('my/test/topic', 'Hello from tser');

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import DestinationOutput from './DestinationOutput/DestinationOutput';
 import useStyles from './styles';
 
-const DestinationOutputs = ({ setCurrentId }) => {
+const DestinationOutputs = () => {
   const destinations = useSelector((state) => state.destinations);
   const classes = useStyles();
 
@@ -14,7 +14,7 @@ const DestinationOutputs = ({ setCurrentId }) => {
       <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         {destinations.map((destination) => (
           <Grid key={destination._id} item>
-            <DestinationOutput destination={destination} setCurrentId={setCurrentId} />
+            <DestinationOutput destination={destination} />
           </Grid>
         ))}
       </Grid>
