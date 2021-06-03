@@ -1,7 +1,11 @@
 import React from 'react';
+import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'; 
+
+import RoverMap from './RoverMap/RoverMap'; 
 
 /* Brief 
-    Fetch coordinates 
+    Fetch coordinates from mongodb
+
 */
 
 const Home = () => {
@@ -9,19 +13,11 @@ const Home = () => {
         <div>
             Map
             Warnings
+            <RoverMap /> 
         </div>
     )
 }
 
 export default Home; 
 
-
-    getBlogPost = () => {
-        axios.get('/api')
-            .then((response)=> {
-                const data = response.data;
-                console.log('Datta received');
-            })
-            .catch
-    }
 

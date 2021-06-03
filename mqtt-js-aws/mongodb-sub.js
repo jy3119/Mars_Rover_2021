@@ -4,7 +4,7 @@ var mongodb = require('mongodb');
 const uri = 'mongodb+srv://tsersiew:coolbeans1234@cluster0.gws9z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 var mongodbClient = mongodb.MongoClient(uri,{ useUnifiedTopology: true, useNewUrlParser: true }); //initialises the mongoDB client 
 
-const dbName = "test";
+const dbName = "mapdb";
 
 async function main () {
     try {
@@ -12,7 +12,7 @@ async function main () {
         console.log("Connected to mongodb atlas");
         const db = mongodbClient.db(dbName);
         /* Use the collection "test" */
-        const col = db.collection("test");
+        const col = db.collection("mapmodels");
         /*var options = {
             host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud', 
             port: 8883,
@@ -52,7 +52,7 @@ async function main () {
          mqtt_client.subscribe('obstacleCoords');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         mqtt_client.publish('obstacleCoords', '244,345');
+         mqtt_client.publish('obstacleCoords', '69,52');
 
         // Find one document
         //const myDoc = await col.findOne();
