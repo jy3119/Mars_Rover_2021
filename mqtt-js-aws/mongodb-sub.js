@@ -49,10 +49,10 @@ async function main () {
         });
 
          /* subscribe to topic 'my/test/topic' */
-         mqtt_client.subscribe('my/test/topic');
+         mqtt_client.subscribe('obstacleCoords');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         mqtt_client.publish('my/test/topic', '244,345');
+         mqtt_client.publish('obstacleCoords', '244,345');
 
         // Find one document
         //const myDoc = await col.findOne();
