@@ -31,8 +31,8 @@ int main()
   alt_putstr("Writing into memory...\n");
 
   // writes into the 1st word of I2C MEM
-  updateTmp(I2C_MEM_BASE, diag_dist, angle, detected);
-
+  updateTmp(I2C_MEM_BASE, diag_dist, angle, detected);\
+  
   alt_putstr("Memory write done!\n");
 
 

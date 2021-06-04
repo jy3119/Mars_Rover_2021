@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <math.h>
 #include <Wire.h>
 
 // for connecting ESP32 to wifi and MQTT server
@@ -43,9 +44,14 @@ int detected;                       // 1 only if obstacle is detected, 0 other w
 int angle;                          // angle of osbtacle to rover. on left of rover = +ve, on right of rover = -ve
 int diag_dist;                      // diagonal distance of obstacle to rover
 
+// variables received from DRIVE
+int rover_x;          // current x-coordinates of rover
+int rover_y;          // current y-coordinates of rover
+int steeringAngle;    // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
+int roverSpeed;       // not sure if this is needed?
 
 // variables to send to COMMAND
-int obstacle_x;
+int obstacle_x;   
 int obstacle_y;
 
 int obst_x_last, obst_y_last;
@@ -236,9 +242,9 @@ void getVisionDataI2C() {
     detected = byte0;
     angle = byte1;
     if (angle < 0) {
-      diag_dist = ((byte3<<8) + byte2) + 1;
+      diag_dist = (((byte3<<8) + byte2) + 1) * 10;
      } else {
-      diag_dist = ((byte3<<8) + byte2);
+      diag_dist = ((byte3<<8) + byte2) * 10;
     }
     printVisionData(); // print variables received from VISION to serial monitor, for debugging 
   }
