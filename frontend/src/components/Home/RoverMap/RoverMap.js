@@ -21,12 +21,11 @@ import {
 */
 
 const RoverMap = () => {
-    const sdk = new ChartsEmbedSDK({
-        baseUrl: 'https://charts.mongodb.com/charts-design-project-2020-2021-zvubz'
-    });
-    const chart = sdk.createChart({ chartId: '181d5c7d-6f42-4774-9715-6287c9a82845' }); 
-    
-    return chart; 
+  return(
+    <div>
+      map
+    </div>
+  );
 }; 
 
 export default RoverMap;
