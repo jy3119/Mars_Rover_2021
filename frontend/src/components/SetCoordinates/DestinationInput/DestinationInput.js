@@ -12,7 +12,7 @@ import { createDestination } from '../../../actions/destinations-actions';
 
 const DestinationInput = () => {
   const [destinationData, setdestinationData] = useState({
-      x_coordinate: 0, y_coordinate: 0
+      x_coordinate: 0, y_coordinate: 0, radius_dist: 0
   }); 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -22,12 +22,12 @@ const DestinationInput = () => {
       
       dispatch(createDestination(destinationData));
       clear();
-      var mes = (destinationData.x_coordinate).concat(',',destinationData.y_coordinate);
+      var mes = (destinationData.x_coordinate).concat(',',destinationData.y_coordinate,',',destinationData.radius_dist);
       publishClick(mes);
     };
 
   const clear = () => {
-      setdestinationData({ x_coordinate: 0, y_coordinate: 0});
+      setdestinationData({ x_coordinate: 0, y_coordinate: 0, radius_dist: 0});
     };
 
   /*MQTT Publishing*/
@@ -35,10 +35,10 @@ const DestinationInput = () => {
     const client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
     client.on('connect', function () {
       console.log('Connected to broker');
-      client.subscribe("coordsMode", error => {
+      client.subscribe("auto", error => {
         if (error) console.error(error);
         else {
-          client.publish('coordsMode', message);
+          client.publish('auto', message);
         }
       });
     });
@@ -54,6 +54,7 @@ const DestinationInput = () => {
         <Typography variant="h5">Setting Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
         <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
+        <TextField name="radius" variant="outlined" label="radius" fullWidth value={destinationData.radius_dist} onChange={(e) => setdestinationData({ ...destinationData, radius_dist: e.target.value })} />
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>

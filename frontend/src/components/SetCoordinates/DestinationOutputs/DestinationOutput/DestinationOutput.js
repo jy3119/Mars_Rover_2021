@@ -20,6 +20,7 @@ const DestinationOutput = ({destination}) => {
       <CardContent>
         <Typography variant="body2" color="inherit" component="p" align="center">x_coordinate: {destination.x_coordinate}</Typography>
         <Typography variant="body2" color="inherit" component="p" align="center">y_coordinate: {destination.y_coordinate}</Typography>
+        <Typography variant="body2" color="inherit" component="p" align="center">radius: {destination.radius_dist}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => dispatch(deleteDestination(destination._id))}><DeleteIcon fontSize="small" /> Delete</Button>
