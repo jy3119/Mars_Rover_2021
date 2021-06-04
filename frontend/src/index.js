@@ -11,11 +11,6 @@ import './index.css';
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
-const sdk = new ChartsEmbedSDK({
-  baseUrl: 'https://charts.mongodb.com/charts-design-project-2020-2021-zvubz'
-});
-const chart = sdk.createChart({ chartId: '181d5c7d-6f42-4774-9715-6287c9a82845' }); 
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
