@@ -11,7 +11,6 @@ import NavBar from './components/NavBar/Navbar';
 import Home from './components/Home/Home';
 import SetDirections from './components/SetDirections/SetDirections';
 import SetCoordinates from './components/SetCoordinates/SetCoordinates';
-import SetRadius from './components/SetRadius/SetRadius';
 
 /*********** APP *************/
 const App = () => {
@@ -24,7 +23,6 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/coord_mode" exact component={SetCoordinates} />
           <Route path="/direct_mode" exact component={SetDirections} />
-          <Route path="/rad_mode" exact component={SetRadius} />
         </Switch>
       </Container>
     </BrowserRouter>

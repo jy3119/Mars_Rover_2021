@@ -19,7 +19,7 @@ const DirectionButton = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(createInstruction(instructionData));
-        var mes = (instructionData.distance).concat(',',instructionData.angle,',',instructionData.speed);
+        var mes = (instructionData.direction[0]).concat(',',instructionData.distance,',',instructionData.angle,',',instructionData.speed);
         publishClick(mes);
     };
 
@@ -55,13 +55,13 @@ const DirectionButton = () => {
 
      /*MQTT Publishing*/
      const publishClick = (message) => {
-      const client = mqtt.connect("ws://ec2-3-21-76-51.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+      const client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
       client.on('connect', function () {
         console.log('Connected to broker');
-        client.subscribe("instructionsMode", error => {
+        client.subscribe("manual", error => {
           if (error) console.error(error);
           else {
-            client.publish('instructionsMode', message);
+            client.publish('manual', message);
           }
         });
       });
