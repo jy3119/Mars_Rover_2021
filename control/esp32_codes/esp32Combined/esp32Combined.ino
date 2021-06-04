@@ -29,16 +29,19 @@ unsigned long lastMsgTime = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 
+// automatic mode
 // variables received from COMMAND to send to DRIVE
-int target_x;
-int target_y;
-int target_dist;
-int target_angle;
-int target_speed;
-int radius_dist;
+int target_x;       // target x-coordinate to travel to
+int target_y;       // target y-coordinate to travel to
+int radius;         // radius to sweep in automatic mode
+// manual mode: can only be used after all obstacles have been detected
+char cmd_direction[2];  // backwards or forwards
+char cmd_angle[2];      // left or right
+int cmd_speed;          // rover speed
+
 
 // variables received from VISION
-long BASE_ADDRESS = 0x40000;        // check platform designer in Quartus for BASE_ADDRESS of I2C_MEM
+long BASE_ADDRESS = 0x80000;        // check platform designer in Quartus for BASE_ADDRESS of I2C_MEM
 int8_t byte0, byte1, byte2, byte3;
 int detected;                       // 1 only if obstacle is detected, 0 other wise
 int angle;                          // angle of osbtacle to rover. on left of rover = +ve, on right of rover = -ve. range: -90 to 90 degrees
@@ -47,13 +50,13 @@ int diag_dist;                      // diagonal distance of obstacle to rover
 // variables received from DRIVE
 int rover_x;          // current x-coordinates of rover
 int rover_y;          // current y-coordinates of rover
-int steeringAngle;    // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
-int roverSpeed;       // not sure if this is needed?
+int steeringAngle = 0;    // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
 
 // variables for calculation of obstacle coords
 int camera_x, camera_y;          // x and y coordinates of rover's front camera corrected for rover length
 int roverCorrection = 220;       // correction for distance between coordinate detector and camera of rover
 int steerQuadrant;
+int dx, dy;                      // send to DRIVE from CONTROL for automatic mode
 
 // variables to send to COMMAND for mapping, and also send obstacle coords to DRIVE
 int obstacle_x;
@@ -78,9 +81,7 @@ void loop() {
   }
   client.loop();
 
-  getVisionData();    // receive data from VISION via I2C
-  //  getDriveData();        // receive data from DRIVE via Serial/UART
-  getCameraCoords();  //
+  getVisionData();     // receive data from VISION via I2C
   getObstacleCoords();
 
   // publish obstacle coordinates to COMMAND through topic obstacleCoords every 3 sec, only if detected is HIGH
@@ -106,24 +107,23 @@ void sendObstacleCoords() {
 
 // parse data received from COMMAND and store into variables as needed
 void parseData(char* topic, char incomingData[numChars]) {
-  if (strcmp(topic, "coordsMode") == 0) {
+  if (strcmp(topic, "auto") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
     target_x = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     target_y = atoi(strtokIndx);
+    strtokIndx = strtok(NULL, ",");
+    radius = atoi(strtokIndx);
   }
-  if (strcmp(topic, "instructionsMode") == 0) {
+  if (strcmp(topic, "manual") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
-    target_dist = atoi(strtokIndx);
+    strcpy(cmd_direction, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    target_angle = atoi(strtokIndx);
+    strcpy(cmd_angle, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    target_speed = atoi(strtokIndx);
-  }
-  if (strcmp(topic, "radiusMode") == 0) {
-    radius_dist = atoi(incomingData);
+    cmd_speed = atoi(strtokIndx);
   }
 }
 
@@ -156,9 +156,8 @@ void reconnect() {
       client.publish("outTopic", "Hello World from ESP32!");
 
       // SUBCSRIBE TO TOPICS HERE:
-      client.subscribe("coordsMode");
-      client.subscribe("instructionsMode");
-      client.subscribe("radiusMode");
+      client.subscribe("auto");
+      client.subscribe("manual");
 
     } else {
       // MQTT connection failed
@@ -202,14 +201,14 @@ void printCommandData() {
   Serial.println(target_x);
   Serial.print("target_y: ");
   Serial.println(target_y);
-  Serial.print("target_dist: ");
-  Serial.println(target_dist);
-  Serial.print("target_angle: ");
-  Serial.println(target_angle);
-  Serial.print("target_speed: ");
-  Serial.println(target_speed);
-  Serial.print("radius_dist: ");
-  Serial.println(radius_dist);
+  Serial.print("radius: ");
+  Serial.println(radius);
+  Serial.print("cmd_direction: ");
+  Serial.println(cmd_direction);
+  Serial.print("cmd_angle: ");
+  Serial.println(cmd_angle);
+  Serial.print("cmd_speed: ");
+  Serial.println(cmd_speed);
   delay(1000);
 }
 /*========================= END OF COMMAND =========================*/
@@ -234,7 +233,7 @@ void getVisionData() {
     } else {
       diag_dist = ((byte3 << 8) + byte2) * 10;
     }
-    //    printVisionData(); // print variables received from VISION to serial monitor, for debugging
+    printVisionData(); // print variables received from VISION to serial monitor, for debugging
   }
 }
 
@@ -291,7 +290,9 @@ void getObstacleCoords() {
   }
   obstacle_x = camera_x + x_dist;
   obstacle_y = camera_y + y_dist;
-  //  printObstacleCoords(); // print to serial monitor for debugging purposes
+  dx = x_dist;
+  dy = y_dist;
+//  printObstacleCoords(); // print to serial monitor for debugging purposes
 }
 
 // account for distance between rover camera and coordinate detection device
@@ -337,7 +338,7 @@ void getCameraCoords() {
   }
   camera_x = rover_x + x_dist;
   camera_y = rover_y + y_dist;
-  //  printCameraCoords(); // print to serial monitor for debugging purposes
+//  printCameraCoords(); // print to serial monitor for debugging purposes
 }
 
 // helper function for getting camera coordinates

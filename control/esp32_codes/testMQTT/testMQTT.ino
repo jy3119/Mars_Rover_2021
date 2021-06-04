@@ -1,10 +1,13 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <math.h>
+#include <Wire.h>
 
+// for connecting ESP32 to wifi and MQTT server
 // UPDATE HERE ACCORDING TO YOUR WIFI Name and password, and MQTT Server's Public DNS
 const char* ssid = "AH LAM";
 const char* password = "96258167";
-const char* mqtt_server = "ec2-3-21-76-51.us-east-2.compute.amazonaws.com";
+const char* mqtt_server = "ec2-18-224-199-255.us-east-2.compute.amazonaws.com";
 const int mqtt_port = 1883;
 
 WiFiClient espClient;
@@ -26,27 +29,35 @@ unsigned long lastMsgTime = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 
-// variables to send to DRIVE
-int target_x;
-int target_y;
-int target_dist;
-int target_angle;
-int target_speed;
-int radius_dist;
+// automatic mode
+// variables received from COMMAND to send to DRIVE
+int target_x;       // target x-coordinate to travel to
+int target_y;       // target y-coordinate to travel to
+int radius;         // radius to sweep in automatic mode
+// manual mode: can only be used after all obstacles have been detected
+char cmd_direction[2];  // backwards or forwards
+char cmd_angle[2];      // left or right
+int cmd_speed;      // rover speed
 
-// variables to send to COMMAND
-int obstacle_x = 200;
-int obstacle_y = 300;
-int detected_0 = 1;
+// variables received from VISION
+int detected = 0;                       // 1 only if obstacle is detected, 0 other wise
+
+
+// variables to send to COMMAND for mapping, and also send obstacle coords to DRIVE
+int obstacle_x = 130;
+int obstacle_y = 250;
+
 int obst_x_last, obst_y_last;
+
 
 
 // =======================================================================
 
 void setup() {
-  Serial.begin(115200);
-  setup_wifi();
-  setup_mqtt();
+  Serial.begin(115200);   // serial monitor for ESP32
+  Wire.begin();           // start I2C connection with VISION's FPGA
+  setup_wifi();           // connect ESP32 to WiFi
+  setup_mqtt();           // connect ESP32 to MQTT Broker
 }
 
 void loop() {
@@ -55,21 +66,20 @@ void loop() {
   }
   client.loop();
 
-  recvWithEndMarker();
-  detected_0 = atoi(receivedChars);
-
-  // publish obstacle coordinates to COMMAND through topic obstacle_coords every 2 sec, only if detected_0 is 1
-    currentTime = millis();
-    if (detected_0 == 1 && currentTime - lastMsgTime > 2000) {
-      lastMsgTime = currentTime;
-      sendObstacleCoords();
-    }
+  // publish obstacle coordinates to COMMAND through topic obstacleCoords every 3 sec, only if detected is HIGH
+  currentTime = millis();
+  if (detected == 1 && currentTime - lastMsgTime > 3000) {
+    lastMsgTime = currentTime;
+    sendObstacleCoords();
+  }
 }
 
 // =======================================================================
 
 // FUNCTION DEFINITIONS
 
+/*========================= COMMAND =========================*/
+// function to send coordinates of obstacle to COMMAND
 void sendObstacleCoords() {
   snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld", obstacle_x, obstacle_y);
   Serial.print("Publish message: ");
@@ -77,46 +87,29 @@ void sendObstacleCoords() {
   client.publish("obstacle_coords", msg, true);
 }
 
-void printDriveData() {
-  Serial.print("target_x: ");
-  Serial.println(target_x);
-  Serial.print("target_y: ");
-  Serial.println(target_y);
-  Serial.print("target_dist: ");
-  Serial.println(target_dist);
-  Serial.print("target_angle: ");
-  Serial.println(target_angle);
-  Serial.print("target_speed: ");
-  Serial.println(target_speed);
-  Serial.print("radius_dist: ");
-  Serial.println(radius_dist);
-  delay(10000);
-}
-
-// parse data and store into variables as needed
+// parse data received from COMMAND and store into variables as needed
 void parseData(char* topic, char incomingData[numChars]) {
-  if (strcmp(topic, "coordsMode") == 0) {
+  if (strcmp(topic, "auto") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
     target_x = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     target_y = atoi(strtokIndx);
+    strtokIndx = strtok(NULL, ",");
+    radius = atoi(strtokIndx);
   }
-  if (strcmp(topic, "instructionsMode") == 0) {
+  if (strcmp(topic, "manual") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
-    target_dist = atoi(strtokIndx);
+    strcpy(cmd_direction, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    target_angle = atoi(strtokIndx);
+    strcpy(cmd_angle, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    target_speed = atoi(strtokIndx);
-  }
-  if (strcmp(topic, "radiusMode") == 0) {
-    radius_dist = atoi(incomingData);
+    cmd_speed = atoi(strtokIndx);
   }
 }
 
-// function to execute when a message is received for a subscribed topic
+// function to execute whenever a message is received for a subscribed topic from COMMAND
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived for topic [");
   Serial.print(topic);
@@ -128,7 +121,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
   parseData(topic, incomingData);
-  printDriveData();
+  printCommandData();     // print data received from COMMAND to serial monitor, for debugging
 }
 
 // connect ESP32 to MQTT broker
@@ -145,9 +138,8 @@ void reconnect() {
       client.publish("outTopic", "Hello World from ESP32!");
 
       // SUBCSRIBE TO TOPICS HERE:
-      client.subscribe("coordsMode");
-      client.subscribe("instructionsMode");
-      client.subscribe("radiusMode");
+      client.subscribe("auto");
+      client.subscribe("manual");
 
     } else {
       // MQTT connection failed
@@ -184,6 +176,24 @@ void setup_mqtt() {
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 }
+
+// for debugging, function to print data received from COMMAND
+void printCommandData() {
+  Serial.print("target_x: ");
+  Serial.println(target_x);
+  Serial.print("target_y: ");
+  Serial.println(target_y);
+  Serial.print("radius: ");
+  Serial.println(radius);
+  Serial.print("cmd_direction: ");
+  Serial.println(cmd_direction);
+  Serial.print("cmd_angle: ");
+  Serial.println(cmd_angle);
+  Serial.print("cmd_speed: ");
+  Serial.println(cmd_speed);
+  delay(1000);
+}
+/*========================= END OF COMMAND =========================*/
 
 // receive what's written to serial monitor
 void recvWithEndMarker() {
