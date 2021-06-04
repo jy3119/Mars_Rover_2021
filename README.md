@@ -11,3 +11,22 @@ The command students will have different solutions that could be developed to co
 -A mobile app connecting back into a server with buttons for forward,back, rotate, etc.
 
 -A web application using nodejs and mongodb as backend and reactjs as frontend.
+
+To run the application: 
+- in frontend directory, run: 
+    ### `npm start`
+    Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
+- in backend directory, run: 
+    ### `npm start`
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- in mqtt-js-aws directory, run mongodb-sub.js file with command:
+    ### `node mongodb-sub.js`
+- Amazon EC2 Instance Public DNS address must be updated everytime instance is stopped. 
+
+mqtt.connect("ws://{Public DNS Address}/mqtt")
+
+Files utilising the address are as listed: 
+1. mqtt-js-aws/mongodb-sub.js
+2. frontend/src/components/SetCoordinates/DestinationInput/DestinationInput.js
+3. frontend/src/components/SetDirections/DirectionButton/DirectionButton.js
+4. frontend/src/components/SetRadius/RadiusInput/RadiusInput.js
