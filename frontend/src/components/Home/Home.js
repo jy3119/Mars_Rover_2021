@@ -1,6 +1,6 @@
 import React from 'react';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'; 
-import { Button } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
 import useStyles from './styles'; 
 
 import RoverMap from './RoverMap/RoverMap'; 
@@ -37,23 +37,31 @@ const sdk = new ChartsEmbedSDK({
 });
 const chart = sdk.createChart({ 
     chartId: '181d5c7d-6f42-4774-9715-6287c9a82845',
-    height: "500px"
+    height: "500px", 
+    autoRefresh: true,
+    maxDataAge: 10,
+    theme: "dark", 
+    showAttribution: false,
 }); 
 
 async function renderChart() {
     await chart.render(document.getElementById('chart'));
 };
 
+/*
+async function refreshChart() {
+    await chart.refresh();
+};*/ 
+
 class Home extends React.Component {
 
     render() {
         return(
-            <div id='chart'>
-                <Button 
-                style={{width: 500, height: 500, margin: 0, border: 1}} 
-                variant="contained" color="textSecondary" size="small" onClick={renderChart} fullWidth>Clear</Button>
-            </div>
-            
+            <Container maxWidth='lg'>
+                <Container id='chart'>
+                    <Button variant="contained" color="textSecondary" size="small" onClick={renderChart} fullWidth>Load Map</Button>
+                </Container>
+            </Container>
         )
     }
 } 

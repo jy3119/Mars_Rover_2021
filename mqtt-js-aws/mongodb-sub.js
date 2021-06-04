@@ -20,7 +20,7 @@ async function main () {
             username: 'mqtt-broker',
             password: 'Coolbeans$4'
         }*/
-        var mqtt_client = mqtt.connect("mqtt://ec2-3-133-83-209.us-east-2.compute.amazonaws.com", {port:1883});
+        var mqtt_client = mqtt.connect("mqtt://ec2-18-224-199-255.us-east-2.compute.amazonaws.com", {port:1883});
         //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
 
         /* setup the callbacks */
@@ -52,7 +52,7 @@ async function main () {
          mqtt_client.subscribe('obstacleCoords');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         mqtt_client.publish('obstacleCoords', '69,52');
+         mqtt_client.publish('obstacleCoords', '52,19');
 
         // Find one document
         //const myDoc = await col.findOne();
