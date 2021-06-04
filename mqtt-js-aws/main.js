@@ -34,7 +34,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('my/test/topic');
+client.subscribe('coordsMode');
 
 // publish message 'Hello' to topic 'my/test/topic'
 client.publish('obstacleCoords', '34,23');
