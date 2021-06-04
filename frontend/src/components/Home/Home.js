@@ -11,27 +11,6 @@ import { ReactReduxContext } from 'react-redux';
 
 */
 
-/*
-const Home = () => {
-    const sdk = new ChartsEmbedSDK({
-        baseUrl: 'https://charts.mongodb.com/charts-design-project-2020-2021-zvubz'
-    });
-    const chart = sdk.createChart({ chartId: '181d5c7d-6f42-4774-9715-6287c9a82845' }); 
-
-    async function renderChart() {
-        await chart.render(RoverMap);
-    };
-
-    return (
-        <div>
-            Map
-            Warnings
-            <Button variant="contained" color="textSecondary" size="small" onClick={renderChart} fullWidth>Clear</Button>
-            <RoverMap />
-        </div>
-    );
-}*/ 
-
 const sdk = new ChartsEmbedSDK({
     baseUrl: 'https://charts.mongodb.com/charts-design-project-2020-2021-zvubz'
 });
@@ -54,6 +33,19 @@ async function refreshChart() {
 };*/ 
 
 class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          count: 0
+        };
+      }
+    
+      componentDidMount() {
+        renderChart();
+      }
+      componentDidUpdate() {
+        chart.setAutoRefresh(10);
+      }
 
     render() {
         return(
