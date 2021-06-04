@@ -29,44 +29,44 @@ unsigned long lastMsgTime = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 
-// automatic mode
 // variables received from COMMAND to send to DRIVE
-int target_x;       // target x-coordinate to travel to
-int target_y;       // target y-coordinate to travel to
-int radius;         // radius to sweep in automatic mode
+// automatic mode
+int target_x;           // target x-coordinate to travel to
+int target_y;           // target y-coordinate to travel to
+int radius;             // radius to sweep in automatic mode
 // manual mode: can only be used after all obstacles have been detected
 char cmd_direction[2];  // backwards or forwards
-char cmd_angle[2];      // left or right
+int cmd_dist;           // travel distance in terms of mm
+int cmd_angle;          // left or right
 int cmd_speed;          // rover speed
 
 
 // variables received from VISION
 long BASE_ADDRESS = 0x80000;        // check platform designer in Quartus for BASE_ADDRESS of I2C_MEM
 int8_t byte0, byte1, byte2, byte3;
-int detected;                       // 1 only if obstacle is detected, 0 other wise
-int angle;                          // angle of osbtacle to rover. on left of rover = +ve, on right of rover = -ve. range: -90 to 90 degrees
-int diag_dist;                      // diagonal distance of obstacle to rover
+int detected0, detected1, detected2, detected3, detected4;              // 1 only if obstacle is detected, 0 other wise
+int angle0, angle1, angle2, angle3, angle4;                             // angle of osbtacle to rover. on left of rover = +ve, on right of rover = -ve. range: -90 to 90 degrees
+int diag_dist0, diag_dist1, diag_dist2, diag_dist3, diag_dist4;         // diagonal distance of obstacle to rover
+
 
 // variables received from DRIVE
-int rover_x;          // current x-coordinates of rover
-int rover_y;          // current y-coordinates of rover
+int rover_x = 0;          // current x-coordinates of rover
+int rover_y = 0;          // current y-coordinates of rover
 int steeringAngle = 0;    // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
 
 // variables for calculation of obstacle coords
 int camera_x, camera_y;          // x and y coordinates of rover's front camera corrected for rover length
 int roverCorrection = 220;       // correction for distance between coordinate detector and camera of rover
 int steerQuadrant;
-int dx, dy;                      // send to DRIVE from CONTROL for automatic mode
+int dx0, dx1, dx2, dx3, dx4;     // send to DRIVE from CONTROL for automatic mode
+int dy0, dy1, dy2, dy3, dy4;     // send to DRIVE from CONTROL for automatic mode
 
 // variables to send to COMMAND for mapping, and also send obstacle coords to DRIVE
-int obstacle_x;
-int obstacle_y;
-
-int obst_x_last, obst_y_last;
+int color0_x, color1_x, color2_x, color3_x, color4_x;
+int color0_y, color1_y, color2_y, color3_y, color4_y;
 
 
-
-// =======================================================================
+// ===========================================================================
 
 void setup() {
   Serial.begin(115200);   // serial monitor for ESP32
@@ -81,28 +81,38 @@ void loop() {
   }
   client.loop();
 
-  getVisionData();     // receive data from VISION via I2C
-  getObstacleCoords();
+  getAllVisionData();         // receive data from VISION via I2C
+  getAllObstacleCoords();     // calculate obstacle coordinates
 
-  // publish obstacle coordinates to COMMAND through topic obstacleCoords every 3 sec, only if detected is HIGH
+  // publish obstacle coordinates to COMMAND through topic obstacleCoords every 5 sec, only if detected is HIGH
   currentTime = millis();
-  if (detected == 1 && currentTime - lastMsgTime > 3000) {
+  if (currentTime - lastMsgTime > 5000) {
     lastMsgTime = currentTime;
-    sendObstacleCoords();
+    sendAllObstacleCoords();
   }
 }
 
-// =======================================================================
+// ===========================================================================
 
-// FUNCTION DEFINITIONS
 
-/*========================= COMMAND =========================*/
-// function to send coordinates of obstacle to COMMAND
-void sendObstacleCoords() {
-  snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld", obstacle_x, obstacle_y);
-  Serial.print("Publish message: ");
-  Serial.println(msg);
-  client.publish("obstacle_coords", msg, true);
+//                            FUNCTION DEFINITIONS                            //
+/*================================= COMMAND =================================*/
+void sendAllObstacleCoords(){
+  sendObstacleCoords(color0_x, color0_y, 0, detected0);
+  sendObstacleCoords(color1_x, color1_y, 1, detected1);
+  sendObstacleCoords(color2_x, color2_y, 2, detected2);
+  sendObstacleCoords(color3_x, color3_y, 3, detected3);
+  sendObstacleCoords(color4_x, color4_y, 4, detected4);
+}
+
+// function to send coordinates of obstacle to COMMAND, only if obstacle is detected
+void sendObstacleCoords(int obstacle_x, int obstacle_y, int color, int detected) {
+  if (detected == 1){
+    snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld,%ld", obstacle_x, obstacle_y, color);
+    Serial.print("Publish message: ");
+    Serial.println(msg);
+    client.publish("obstacleCoords", msg);
+  } else {}
 }
 
 // parse data received from COMMAND and store into variables as needed
@@ -121,7 +131,9 @@ void parseData(char* topic, char incomingData[numChars]) {
     strtokIndx = strtok(incomingData, ",");
     strcpy(cmd_direction, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    strcpy(cmd_angle, strtokIndx);
+    cmd_dist = atoi(strtokIndx);
+    strtokIndx = strtok(NULL, ",");
+    cmd_angle = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     cmd_speed = atoi(strtokIndx);
   }
@@ -139,7 +151,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
   parseData(topic, incomingData);
-  printCommandData();     // print data received from COMMAND to serial monitor, for debugging
+//  printCommandData();     // print data received from COMMAND to serial monitor, for debugging
 }
 
 // connect ESP32 to MQTT broker
@@ -205,17 +217,28 @@ void printCommandData() {
   Serial.println(radius);
   Serial.print("cmd_direction: ");
   Serial.println(cmd_direction);
+  Serial.print("cmd_dist: ");
+  Serial.println(cmd_dist);
   Serial.print("cmd_angle: ");
   Serial.println(cmd_angle);
   Serial.print("cmd_speed: ");
   Serial.println(cmd_speed);
   delay(1000);
 }
-/*========================= END OF COMMAND =========================*/
+/*================================= END OF COMMAND =================================*/
 
-/*============================= VISION =============================*/
+/*===================================== VISION =====================================*/
+void getAllVisionData(){
+  getVisionData0();
+  getVisionData1();
+  getVisionData2();
+  getVisionData3();
+  getVisionData4();
+//  printVisionData();
+}
+
 // receiving data from FPGA via I2C protocol
-void getVisionData() {
+void getVisionData0() {
   setAddress(BASE_ADDRESS);
   Wire.requestFrom(0x55, 4);    // request 1 word (4 bytes) from FPGA
   if (Wire.available() > 0) {
@@ -224,17 +247,123 @@ void getVisionData() {
     byte1 = (Wire.read());
     byte2 = (Wire.read());
     byte3 = (Wire.read());
-
     // store values read from VISION into variables
-    detected = byte0;
-    angle = byte1;
-    if (angle < 0) {
-      diag_dist = (((byte3 << 8) + byte2) + 1) * 10;
+    detected0 = byte0;
+    angle0 = byte1;
+    if (angle0 < 0) {
+      diag_dist0 = (((byte3 << 8) + byte2) + 1) * 10;
     } else {
-      diag_dist = ((byte3 << 8) + byte2) * 10;
+      diag_dist0 = ((byte3 << 8) + byte2) * 10;
     }
-    printVisionData(); // print variables received from VISION to serial monitor, for debugging
   }
+}
+void getVisionData1() {
+  setAddress(BASE_ADDRESS+4);
+  Wire.requestFrom(0x55, 4);    
+  if (Wire.available() > 0) {
+    byte0 = (Wire.read());
+    byte1 = (Wire.read());
+    byte2 = (Wire.read());
+    byte3 = (Wire.read());
+    detected1 = byte0;
+    angle1 = byte1;
+    if (angle1 < 0) {
+      diag_dist1 = (((byte3 << 8) + byte2) + 1) * 10;
+    } else {
+      diag_dist1 = ((byte3 << 8) + byte2) * 10;
+    }
+  }
+}
+void getVisionData2() {
+  setAddress(BASE_ADDRESS+8);
+  Wire.requestFrom(0x55, 4);    
+  if (Wire.available() > 0) {
+    byte0 = (Wire.read());
+    byte1 = (Wire.read());
+    byte2 = (Wire.read());
+    byte3 = (Wire.read());
+    detected2 = byte0;
+    angle2 = byte1;
+    if (angle2 < 0) {
+      diag_dist2 = (((byte3 << 8) + byte2) + 1) * 10;
+    } else {
+      diag_dist2 = ((byte3 << 8) + byte2) * 10;
+    }
+  }
+}
+void getVisionData3() {
+  setAddress(BASE_ADDRESS+12);
+  Wire.requestFrom(0x55, 4);    
+  if (Wire.available() > 0) {
+    byte0 = (Wire.read());
+    byte1 = (Wire.read());
+    byte2 = (Wire.read());
+    byte3 = (Wire.read());
+    detected3 = byte0;
+    angle3 = byte1;
+    if (angle3 < 0) {
+      diag_dist3 = (((byte3 << 8) + byte2) + 1) * 10;
+    } else {
+      diag_dist3 = ((byte3 << 8) + byte2) * 10;
+    }
+  }
+}
+void getVisionData4() {
+  setAddress(BASE_ADDRESS+16);
+  Wire.requestFrom(0x55, 4);    
+  if (Wire.available() > 0) {
+    byte0 = (Wire.read());
+    byte1 = (Wire.read());
+    byte2 = (Wire.read());
+    byte3 = (Wire.read());
+    detected4 = byte0;
+    angle4 = byte1;
+    if (angle4 < 0) {
+      diag_dist4 = (((byte3 << 8) + byte2) + 1) * 10;
+    } else {
+      diag_dist4 = ((byte3 << 8) + byte2) * 10;
+    }
+  }
+}
+
+// print out data received from VISION to serial monitor
+void printVisionData() {
+  Serial.println("DATA RECEIVED FROM VISION: ");
+  Serial.print("detected0: ");
+  Serial.print(detected0);
+  Serial.print(", angle0: ");
+  Serial.print(angle0);
+  Serial.print(", diag_dist0: ");
+  Serial.println(diag_dist0);
+
+  Serial.print("detected1: ");
+  Serial.print(detected1);
+  Serial.print(", angle1: ");
+  Serial.print(angle1);
+  Serial.print(", diag_dist1: ");
+  Serial.println(diag_dist1);
+
+  Serial.print("detected2: ");
+  Serial.print(detected1);
+  Serial.print(", angle2: ");
+  Serial.print(angle2);
+  Serial.print(", diag_dist2: ");
+  Serial.println(diag_dist2);
+
+  Serial.print("detected3: ");
+  Serial.print(detected3);
+  Serial.print(", angle3: ");
+  Serial.print(angle3);  
+  Serial.print(", diag_dist3: ");
+  Serial.println(diag_dist3);
+
+  Serial.print("detected4: ");
+  Serial.print(detected4);
+  Serial.print(", angle4: ");
+  Serial.print(angle4);
+  Serial.print(", diag_dist4: ");
+  Serial.println(diag_dist4);
+  delay(5000);
 }
 
 // helper function for I2C communication with vision's FPGA
@@ -246,53 +375,174 @@ void setAddress(long addr)  {
   Wire.write(addr & 255);
   Wire.endTransmission(false);
 }
+/*================================= END OF VISION =================================*/
 
-// print out data received from VISION to serial monitor
-void printVisionData() {
-  if (detected > 0) {
-    Serial.println("Data received from VISION: ");
-    Serial.print("detected: ");
-    Serial.println(detected);
-    Serial.print("angle: ");
-    Serial.println(angle);
-    Serial.println("Diagonal distance to rover in mm: ");
-    Serial.println(diag_dist);
-    delay(5000);
-  }
-}
-/*========================= END OF VISION =========================*/
-
-/*============== CALCULATION OF OBSTACLE COORDINATES ==============*/
+/*====================== CALCULATION OF OBSTACLE COORDINATES ======================*/
 // caculate x and y coordinates of obstacle
-void getObstacleCoords() {
-  getCameraCoords();
-  float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
-  int totalAngle = steeringAngle + angle;
-  float totalAngleRad = (totalAngle * 71) / 4068.0;
-  x_dist_tmp = diag_dist * sin(totalAngleRad);
-  y_dist_tmp = diag_dist * cos(totalAngleRad);
-  getSteerQuadrant();
-  if (totalAngle == 0) {
-    x_dist = 0;
-    y_dist = diag_dist;
-  } else if ((totalAngle == 180) || (totalAngle == 180)) {
-    x_dist = 0;
-    y_dist = -diag_dist;
-  } else if (totalAngle == 90) {
-    x_dist = -diag_dist;
-    y_dist = 0;
-  } else if (totalAngle == -90) {
-    x_dist = diag_dist;
-    y_dist = 0;
-  } else {
-    x_dist = -x_dist_tmp;
-    y_dist = y_dist_tmp;
-  }
-  obstacle_x = camera_x + x_dist;
-  obstacle_y = camera_y + y_dist;
-  dx = x_dist;
-  dy = y_dist;
-//  printObstacleCoords(); // print to serial monitor for debugging purposes
+void getAllObstacleCoords(){
+  getObstacleCoords0();
+  getObstacleCoords1();
+  getObstacleCoords2();
+  getObstacleCoords3();
+  getObstacleCoords4();
+//  printObstacleCoords();
+}
+
+// calculate coordinates of obstacles only if obstacle has been detected
+void getObstacleCoords0() {
+  if (detected0 == 1){
+    getCameraCoords();
+    float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
+    int totalAngle = steeringAngle + angle0;
+    float totalAngleRad = (totalAngle * 71) / 4068.0;
+    x_dist_tmp = diag_dist0 * sin(totalAngleRad);
+    y_dist_tmp = diag_dist0 * cos(totalAngleRad);
+    getSteerQuadrant();
+    if (totalAngle == 0) {
+      x_dist = 0;
+      y_dist = diag_dist0;
+    } else if ((totalAngle == 180) || (totalAngle == 180)) {
+      x_dist = 0;
+      y_dist = -diag_dist0;
+    } else if (totalAngle == 90) {
+      x_dist = -diag_dist0;
+      y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = diag_dist0;
+      y_dist = 0;
+    } else {
+      x_dist = -x_dist_tmp;
+      y_dist = y_dist_tmp;
+    }
+    color0_x = camera_x + x_dist;
+    color0_y = camera_y + y_dist;
+    dx0 = x_dist;
+    dy0 = y_dist;
+  } else {}
+}
+void getObstacleCoords1() {
+  if (detected1 == 1){
+    getCameraCoords();
+    float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
+    int totalAngle = steeringAngle + angle1;
+    float totalAngleRad = (totalAngle * 71) / 4068.0;
+    x_dist_tmp = diag_dist1 * sin(totalAngleRad);
+    y_dist_tmp = diag_dist1 * cos(totalAngleRad);
+    getSteerQuadrant();
+    if (totalAngle == 0) {
+      x_dist = 0;
+      y_dist = diag_dist1;
+    } else if ((totalAngle == 180) || (totalAngle == 180)) {
+      x_dist = 0;
+      y_dist = -diag_dist1;
+    } else if (totalAngle == 90) {
+      x_dist = -diag_dist1;
+      y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = diag_dist1;
+      y_dist = 0;
+    } else {
+      x_dist = -x_dist_tmp;
+      y_dist = y_dist_tmp;
+    }
+    color1_x = camera_x + x_dist;
+    color1_y = camera_y + y_dist;
+    dx1 = x_dist;
+    dy1 = y_dist;
+  } else {}
+}
+void getObstacleCoords2() {
+  if (detected2 == 1){
+    getCameraCoords();
+    float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
+    int totalAngle = steeringAngle + angle2;
+    float totalAngleRad = (totalAngle * 71) / 4068.0;
+    x_dist_tmp = diag_dist2 * sin(totalAngleRad);
+    y_dist_tmp = diag_dist2 * cos(totalAngleRad);
+    getSteerQuadrant();
+    if (totalAngle == 0) {
+      x_dist = 0;
+      y_dist = diag_dist2;
+    } else if ((totalAngle == 180) || (totalAngle == 180)) {
+      x_dist = 0;
+      y_dist = -diag_dist2;
+    } else if (totalAngle == 90) {
+      x_dist = -diag_dist2;
+      y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = diag_dist2;
+      y_dist = 0;
+    } else {
+      x_dist = -x_dist_tmp;
+      y_dist = y_dist_tmp;
+    }
+    color2_x = camera_x + x_dist;
+    color2_y = camera_y + y_dist;
+    dx2 = x_dist;
+    dy2 = y_dist;
+  } else {}
+}
+void getObstacleCoords3() {
+  if (detected3 == 1){
+    getCameraCoords();
+    float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
+    int totalAngle = steeringAngle + angle3;
+    float totalAngleRad = (totalAngle * 71) / 4068.0;
+    x_dist_tmp = diag_dist3 * sin(totalAngleRad);
+    y_dist_tmp = diag_dist3 * cos(totalAngleRad);
+    getSteerQuadrant();
+    if (totalAngle == 0) {
+      x_dist = 0;
+      y_dist = diag_dist3;
+    } else if ((totalAngle == 180) || (totalAngle == 180)) {
+      x_dist = 0;
+      y_dist = -diag_dist3;
+    } else if (totalAngle == 90) {
+      x_dist = -diag_dist3;
+      y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = diag_dist3;
+      y_dist = 0;
+    } else {
+      x_dist = -x_dist_tmp;
+      y_dist = y_dist_tmp;
+    }
+    color3_x = camera_x + x_dist;
+    color3_y = camera_y + y_dist;
+    dx3 = x_dist;
+    dy3 = y_dist;
+  } else {}
+}
+void getObstacleCoords4() {
+  if (detected4 == 1){
+    getCameraCoords();
+    float x_dist, y_dist, x_dist_tmp, y_dist_tmp;
+    int totalAngle = steeringAngle + angle4;
+    float totalAngleRad = (totalAngle * 71) / 4068.0;
+    x_dist_tmp = diag_dist4 * sin(totalAngleRad);
+    y_dist_tmp = diag_dist4 * cos(totalAngleRad);
+    getSteerQuadrant();
+    if (totalAngle == 0) {
+      x_dist = 0;
+      y_dist = diag_dist4;
+    } else if ((totalAngle == 180) || (totalAngle == 180)) {
+      x_dist = 0;
+      y_dist = -diag_dist4;
+    } else if (totalAngle == 90) {
+      x_dist = -diag_dist4;
+      y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = diag_dist4;
+      y_dist = 0;
+    } else {
+      x_dist = -x_dist_tmp;
+      y_dist = y_dist_tmp;
+    }
+    color4_x = camera_x + x_dist;
+    color4_y = camera_y + y_dist;
+    dx4 = x_dist;
+    dy4 = y_dist;
+  } else {}
 }
 
 // account for distance between rover camera and coordinate detection device
@@ -364,11 +614,31 @@ void getSteerQuadrant() {
 
 // print obstacle coordinates to serial monitor, for debugging
 void printObstacleCoords() {
-  Serial.print("x-coordinates of obstacle: ");
-  Serial.println(obstacle_x);
-  Serial.print("y-coordinates of obstacle: ");
-  Serial.println(obstacle_y);
-  delay(3000);
+  Serial.print("color0 x: ");
+  Serial.print(color0_x);
+  Serial.print(", color0 y: ");
+  Serial.println(color0_y);
+  
+  Serial.print("color1 x: ");
+  Serial.print(color1_x);
+  Serial.print(", color1 y: ");
+  Serial.println(color1_y);
+  
+  Serial.print("color2 x: ");
+  Serial.print(color2_x);
+  Serial.print(", color2 y: ");
+  Serial.println(color2_y);
+  
+  Serial.print("color3 x: ");
+  Serial.print(color3_x);
+  Serial.print(", color3 y: ");
+  Serial.println(color3_y);
+  
+  Serial.print("color4 x: ");
+  Serial.print(color4_x);
+  Serial.print(", color4 y: ");
+  Serial.println(color4_y);
+  delay(5000);
 }
 // print camera coordinates to serial monitor, for debugging
 void printCameraCoords() {
@@ -378,7 +648,7 @@ void printCameraCoords() {
   Serial.println(camera_y);
   delay(3000);
 }
-/*========== END OF CALCULATION OF OBSTACLE COORDINATES ==========*/
+/*================== END OF CALCULATION OF OBSTACLE COORDINATES ==================*/
 
 // receive what's written to serial monitor
 void recvWithEndMarker() {

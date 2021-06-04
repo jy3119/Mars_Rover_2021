@@ -29,15 +29,16 @@ unsigned long lastMsgTime = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 
-// automatic mode
 // variables received from COMMAND to send to DRIVE
+// automatic mode
 int target_x;       // target x-coordinate to travel to
 int target_y;       // target y-coordinate to travel to
 int radius;         // radius to sweep in automatic mode
 // manual mode: can only be used after all obstacles have been detected
 char cmd_direction[2];  // backwards or forwards
-char cmd_angle[2];      // left or right
-int cmd_speed;      // rover speed
+int cmd_dist;           // travel distance in terms of mm
+int cmd_angle;          // left or right
+int cmd_speed;          // rover speed
 
 // variables received from VISION
 int detected = 0;                       // 1 only if obstacle is detected, 0 other wise
@@ -68,9 +69,9 @@ void loop() {
 
   // publish obstacle coordinates to COMMAND through topic obstacleCoords every 3 sec, only if detected is HIGH
   currentTime = millis();
-  if (detected == 1 && currentTime - lastMsgTime > 3000) {
+  if (currentTime - lastMsgTime > 5000) {
     lastMsgTime = currentTime;
-    sendObstacleCoords();
+    sendAllObstacleCoords();
   }
 }
 
@@ -80,11 +81,22 @@ void loop() {
 
 /*========================= COMMAND =========================*/
 // function to send coordinates of obstacle to COMMAND
-void sendObstacleCoords() {
-  snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld", obstacle_x, obstacle_y);
-  Serial.print("Publish message: ");
-  Serial.println(msg);
-  client.publish("obstacle_coords", msg, true);
+void sendAllObstacleCoords(){
+  sendObstacleCoords(color0_x, color0_y, 0, detected0);
+  sendObstacleCoords(color1_x, color1_y, 1, detected1);
+  sendObstacleCoords(color2_x, color2_y, 2, detected2);
+  sendObstacleCoords(color3_x, color3_y, 3, detected3);
+  sendObstacleCoords(color4_x, color4_y, 4, detected4);
+}
+
+// function to send coordinates of obstacle to COMMAND
+void sendObstacleCoords(int obstacle_x, int obstacle_y, int color, int detected) {
+  if (detected == 1){
+    snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld,%ld", obstacle_x, obstacle_y, color);
+    Serial.print("Publish message: ");
+    Serial.println(msg);
+    client.publish("obstacleCoords", msg);
+  } else {}
 }
 
 // parse data received from COMMAND and store into variables as needed
@@ -103,7 +115,9 @@ void parseData(char* topic, char incomingData[numChars]) {
     strtokIndx = strtok(incomingData, ",");
     strcpy(cmd_direction, strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    strcpy(cmd_angle, strtokIndx);
+    cmd_dist = atoi(strtokIndx);
+    strtokIndx = strtok(NULL, ",");
+    cmd_angle = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     cmd_speed = atoi(strtokIndx);
   }
@@ -187,6 +201,8 @@ void printCommandData() {
   Serial.println(radius);
   Serial.print("cmd_direction: ");
   Serial.println(cmd_direction);
+  Serial.print("cmd_dist: ");
+  Serial.println(cmd_dist);
   Serial.print("cmd_angle: ");
   Serial.println(cmd_angle);
   Serial.print("cmd_speed: ");
