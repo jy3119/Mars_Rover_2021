@@ -11,7 +11,6 @@ import mqtt from 'mqtt';
 import InstructionRouter from './routes/instruction-router.js';
 import DestinationRouter from './routes/destination-router.js';
 //const MapRouter = require('./routes/map-router')
-import RadiusRouter from './routes/radius-router.js';
 
 const server = express();
 
@@ -22,7 +21,6 @@ server.use(cors());
 
 server.use('/instruction', InstructionRouter);
 server.use('/destination', DestinationRouter);
-server.use('/radius', RadiusRouter);
 //server.use(MapRouter)
 
 /* Get port */
