@@ -34,7 +34,10 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('warning');
+client.subscribe('obstacle');
 
 // publish message 'Hello' to topic 'my/test/topic'
-client.publish('warning', '12,45');
+client.publish('obstacle', '12,45,0');
+client.publish('obstacle', '9,23,2');
+
+
