@@ -30,7 +30,11 @@ const DirectionButton = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(createInstruction(instructionData));
-        var mes = (instructionData.direction[0]).concat(',',instructionData.distance,',',instructionData.angle,',',instructionData.speed);
+        //0 for Forward, 1 for Backward
+        var dir_int;
+        if (instructionData.direction=='Forward') {dir_int='0';}
+        else {dir_int='1';}
+        var mes = (dir_int).concat(',',instructionData.distance,',',instructionData.angle,',',instructionData.speed);
         publishClick(mes);
     };
 
@@ -44,7 +48,7 @@ const DirectionButton = () => {
 
      /*MQTT Publishing*/
      const publishClick = (message) => {
-      const client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+      const client = mqtt.connect("ws://ec2-3-131-135-32.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
       client.on('connect', function () {
         console.log('Connected to broker');
         client.subscribe("manual", error => {

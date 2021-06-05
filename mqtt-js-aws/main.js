@@ -34,7 +34,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('obstacle');
+client.subscribe('manual');
 
 // publish message 'Hello' to topic 'my/test/topic'
 client.publish('obstacle', '12,45,0');
