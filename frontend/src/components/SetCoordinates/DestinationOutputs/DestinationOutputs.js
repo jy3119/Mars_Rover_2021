@@ -13,7 +13,7 @@ const DestinationOutputs = () => {
     !destinations.length ? <CircularProgress /> : (
       <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         {destinations.map((destination) => (
-          <Grid key={destination._id} item>
+          <Grid key={destination._id} item lg={3}>
             <DestinationOutput destination={destination} />
           </Grid>
         ))}

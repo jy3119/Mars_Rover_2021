@@ -63,7 +63,7 @@ const DirectionButton = () => {
   };
 
     return (
-      <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:150}}>
+      <Paper className={classes.paper} elevation={6}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <Typography variant="h5">Setting Instruction</Typography>
           <TextField
@@ -86,7 +86,7 @@ const DirectionButton = () => {
           <TextField name="speed" variant="outlined" label="speed" fullWidth value={instructionData.speed} onChange={(e) => setinstructionData({ ...instructionData, speed: e.target.value })} />
           <Button className={classes.full_width_button} variant="contained" color="secondary" fullWidth onClick={stop}>STOP</Button>
           <Button className={classes.full_width_button} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-          <Button variant="contained" color="textSecondary" size="small" onClick={clear} fullWidth>Clear</Button>
+          <Button className={classes.full_width_button} variant="contained" color="textSecondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>
       </Paper>
     );

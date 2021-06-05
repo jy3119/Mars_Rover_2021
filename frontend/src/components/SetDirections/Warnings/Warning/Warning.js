@@ -1,33 +1,44 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Alert from '@material-ui/lab/Alert';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
 import { deleteInstruction } from '../../../../actions/instructions-actions';
 
-const DirectionList = ({instruction}) => {
+/* Brief 
+  Subscribe to topic warnings
+  if new message received, then show alert? 
+*/ 
+
+const Warning = ({instruction}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  /*MQTT Publishing*/
+  const publishClick = (message) => {
+    const client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+    client.on('connect', function () {
+      console.log('Connected to broker');
+      client.subscribe("manual", error => {
+        if (error) console.error(error);
+        else {
+          client.publish('manual', message);
+        }
+      });
+    });
+    //client.end();
+  }
    
   return (
-    <Card className={classes.card}>
       <div>
-      <Typography variant="body2" color="textSecondary">{moment(instruction.SetAt).format()}</Typography>
+         <Alert variant="outlined" severity="warning">
+          This is a warning alert — check it out!
+        </Alert>
       </div>
-      <CardContent>
-        <Typography variant="body2" color="inherit" component="p" align="center">direction: {instruction.direction}</Typography>
-        <Typography variant="body2" color="inherit" component="p" align="center">speed: {instruction.speed}</Typography>
-        <Typography variant="body2" color="inherit" component="p" align="center">angle: {instruction.angle}</Typography>
-        <Typography variant="body2" color="inherit" component="p" align="center">distance: {instruction.distance}</Typography>
-      </CardContent>
-      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => dispatch(deleteInstruction(instruction._id))}><DeleteIcon fontSize="small" /> Delete</Button>
-      </CardActions>
-    </Card>
   );
 };
   
   
-export default DirectionList;
+export default Warning;

@@ -49,7 +49,7 @@ const DestinationInput = () => {
   return (
   <Container>
     <Grid>
-    <Paper className={classes.paper} style={{width: 300, position: 'absolute', left:200, top:200}}>
+    <Paper className={classes.paper} elevation={6}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h5">Setting Coordinates</Typography>
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />

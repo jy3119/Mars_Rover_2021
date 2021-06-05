@@ -13,7 +13,7 @@ const DirectionList = ({instruction}) => {
   //const destination = useSelector((state)=>state.destinations.getLastInsertedDocument.find({}).sort({_id:-1}).limit(1));
    
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
       <div>
       <Typography variant="body2" color="textSecondary">{moment(instruction.SetAt).format()}</Typography>
       </div>

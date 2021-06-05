@@ -13,13 +13,13 @@ const DestinationOutput = ({destination}) => {
   const classes = useStyles();
    
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
       <div>
         <Typography variant="body2" color="textSecondary">{moment(destination.SetAt).format()}</Typography>
       </div>
       <CardContent>
-        <Typography variant="body2" color="inherit" component="p" align="center">x_coordinate: {destination.x_coordinate}</Typography>
-        <Typography variant="body2" color="inherit" component="p" align="center">y_coordinate: {destination.y_coordinate}</Typography>
+        <Typography variant="body2" color="inherit" component="p" align="center">x-coordinate: {destination.x_coordinate}</Typography>
+        <Typography variant="body2" color="inherit" component="p" align="center">y-coordinate: {destination.y_coordinate}</Typography>
         <Typography variant="body2" color="inherit" component="p" align="center">radius: {destination.radius_dist}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
