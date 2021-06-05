@@ -30,12 +30,13 @@ unsigned long lastMsgTime = 0;
 char msg[MSG_BUFFER_SIZE];
 
 // variables received from COMMAND to send to DRIVE
+int driveMode;
 // automatic mode
 int target_x;           // target x-coordinate to travel to
 int target_y;           // target y-coordinate to travel to
 int radius;             // radius to sweep in automatic mode
 // manual mode: can only be used after all obstacles have been detected
-char cmd_direction[2];  // backwards or forwards
+int cmd_direction;      // forwards (0) or backwards(1)
 int cmd_dist;           // travel distance in terms of mm
 int cmd_angle;          // left or right
 int cmd_speed;          // rover speed
@@ -108,10 +109,10 @@ void sendAllObstacleCoords(){
 // function to send coordinates of obstacle to COMMAND, only if obstacle is detected
 void sendObstacleCoords(int obstacle_x, int obstacle_y, int color, int detected) {
   if (detected == 1){
-    snprintf (msg, MSG_BUFFER_SIZE, "%ld,%ld,%ld", obstacle_x, obstacle_y, color);
+    snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", obstacle_x, obstacle_y, color);
     Serial.print("Publish message: ");
     Serial.println(msg);
-    client.publish("obstacleCoords", msg);
+    client.publish("obstacle", msg);
   } else {}
 }
 
@@ -125,17 +126,19 @@ void parseData(char* topic, char incomingData[numChars]) {
     target_y = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     radius = atoi(strtokIndx);
+    driveMode = 0;
   }
   if (strcmp(topic, "manual") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
-    strcpy(cmd_direction, strtokIndx);
+    cmd_direction = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     cmd_dist = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     cmd_angle = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
     cmd_speed = atoi(strtokIndx);
+    driveMode = 1;
   }
 }
 
@@ -151,7 +154,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
   parseData(topic, incomingData);
-//  printCommandData();     // print data received from COMMAND to serial monitor, for debugging
+  printCommandData();     // print data received from COMMAND to serial monitor, for debugging
 }
 
 // connect ESP32 to MQTT broker
@@ -209,13 +212,15 @@ void setup_mqtt() {
 
 // for debugging, function to print data received from COMMAND
 void printCommandData() {
+  Serial.print("0 for auto, 1 for manual: ");
+  Serial.println(driveMode);
   Serial.print("target_x: ");
   Serial.println(target_x);
   Serial.print("target_y: ");
   Serial.println(target_y);
   Serial.print("radius: ");
   Serial.println(radius);
-  Serial.print("cmd_direction: ");
+  Serial.print("cmd_direction (0 for fwd, 1 for backwards): ");
   Serial.println(cmd_direction);
   Serial.print("cmd_dist: ");
   Serial.println(cmd_dist);
