@@ -17,7 +17,7 @@ const App = () => {
   return (
     //<Connector mqttProps={{url: "ws://broker.hivemq.com/mqtt:8000", options: { protocol: 'ws' },}}>
     <BrowserRouter>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <NavBar />
         <Switch>
           <Route path="/" exact component={Home} />

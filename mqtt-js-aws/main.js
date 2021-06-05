@@ -17,7 +17,7 @@ var mqtt = require('mqtt')
 
 //initialize the MQTT client
 //var client = mqtt.connect(options);
-var client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
+var client = mqtt.connect("ws://ec2-3-131-135-32.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
 
 //setup the callbacks
 client.on('connect', function () {
@@ -34,7 +34,13 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('auto');
+client.subscribe('manual');
 
 // publish message 'Hello' to topic 'my/test/topic'
-//client.publish('obstacleCoords', '34,23');
+client.publish('obstacle', '12,45,0');
+client.publish('obstacle', '9,23,2');
+
+client.publish('liveloc', '9,4');
+client.publish('liveloc', '12,45');
+
+

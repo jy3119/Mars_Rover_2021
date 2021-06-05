@@ -8,6 +8,7 @@ import DirectionLists from './DirectionLists/DirectionLists';
 
 /********** ACTIONS **********/
 import { getInstruction } from '../../actions/instructions-actions';
+import Warnings from './Warnings/Warnings';
 
 const SetDirections = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const SetDirections = () => {
               </Grid>
               <Grid item xs={12} sm={7}>
                 <DirectionLists />
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <Warnings />
               </Grid>
             </Grid>
           </Container>
