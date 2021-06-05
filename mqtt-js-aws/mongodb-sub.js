@@ -20,7 +20,7 @@ async function main () {
             username: 'mqtt-broker',
             password: 'Coolbeans$4'
         }*/
-        var mqtt_client = mqtt.connect("mqtt://ec2-18-224-199-255.us-east-2.compute.amazonaws.com", {port:1883});
+        var mqtt_client = mqtt.connect("mqtt://ec2-3-21-102-39.us-east-2.compute.amazonaws.com", {port:1883});
         //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
 
         /* setup the callbacks */
@@ -44,16 +44,15 @@ async function main () {
             var parse_coord = parse_string.split(',');
             var obstacle_x = Number(parse_coord[0]); 
             var obstacle_y = Number(parse_coord[1]); 
-            /* 
-            add in corresponding colour to the numbers
-            0: 
-            1:
-            2: 
-            3: 
-            4:
-            */
-            var obstacle_colour = parse_coord[2];
-            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obstacle_colour});
+            var colour_num = parse_coord[2];
+            /* add in corresponding colour to the numbers */
+            if (colour_num=='0') {var obs_colour = 'red';}
+            if (colour_num=='1') {var obs_colour = 'green';}
+            if (colour_num=='2') {var obs_colour = 'blue';}
+            if (colour_num=='3') {var obs_colour = 'pink';}
+            if (colour_num=='4') {var obs_colour = 'yellow';}
+            
+            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
             console.log('Received message:', topic, message.toString());
         });
 

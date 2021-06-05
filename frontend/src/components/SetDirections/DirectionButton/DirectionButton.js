@@ -48,9 +48,9 @@ const DirectionButton = () => {
 
      /*MQTT Publishing*/
      const publishClick = (message) => {
-      const client = mqtt.connect("ws://ec2-3-131-135-32.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+      const client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
       client.on('connect', function () {
-        console.log('Connected to broker');
+        console.log('form connected to broker');
         client.subscribe("manual", error => {
           if (error) console.error(error);
           else {
