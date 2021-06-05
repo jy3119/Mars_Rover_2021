@@ -44,7 +44,16 @@ async function main () {
             var parse_coord = parse_string.split(',');
             var obstacle_x = Number(parse_coord[0]); 
             var obstacle_y = Number(parse_coord[1]); 
-            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y});
+            /* 
+            add in corresponding colour to the numbers
+            0: 
+            1:
+            2: 
+            3: 
+            4:
+            */
+            var obstacle_colour = parse_coord[2];
+            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obstacle_colour});
             console.log('Received message:', topic, message.toString());
         });
 
@@ -52,7 +61,7 @@ async function main () {
          mqtt_client.subscribe('obstacleCoords');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         mqtt_client.publish('obstacleCoords', '52,19');
+         mqtt_client.publish('obstacleCoords', '52,19,0');
 
         // Find one document
         //const myDoc = await col.findOne();

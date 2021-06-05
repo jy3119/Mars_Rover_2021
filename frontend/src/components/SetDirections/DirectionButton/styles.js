@@ -18,7 +18,10 @@ export default makeStyles((theme) => ({
       margin: 10,
     },
     direction_button: {
+      display: 'flex',
         width: 100,
         margin: 10
     }
   }));
+
+  
