@@ -5,10 +5,10 @@ import { useDispatch } from 'react-redux';
 /******** COMPONENTS *********/
 import DirectionButton from './DirectionButton/DirectionButton';
 import DirectionLists from './DirectionLists/DirectionLists';
+import Warning from './Warning/Warning';
 
 /********** ACTIONS **********/
 import { getInstruction } from '../../actions/instructions-actions';
-import Warnings from './Warnings/Warnings';
 
 const SetDirections = () => {
     const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const SetDirections = () => {
                 <DirectionLists />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <Warnings />
+                <Warning />
               </Grid>
             </Grid>
           </Container>
