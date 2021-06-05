@@ -40,4 +40,7 @@ client.subscribe('obstacle');
 client.publish('obstacle', '12,45,0');
 client.publish('obstacle', '9,23,2');
 
+client.publish('liveloc', '9,4');
+client.publish('liveloc', '12,45');
+
 

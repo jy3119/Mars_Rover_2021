@@ -50,26 +50,12 @@ const Warning = () => {
     var y = Number(parse_coord[1]); 
     var colour_num = parse_coord[2];
     if (topic == 'obstacle') {
-       /* add in corresponding colour to the numbers */
-        switch (colour_num) {
-          case 0: 
-            var obs_colour = 'red';
-            break;
-          case 1:
-            var obs_colour = 'green';
-            break;
-          case 2: 
-            var obs_colour = 'blue';
-            break;
-          case 3: 
-            var obs_colour = 'pink';
-            break;
-          case 4:
-            var obs_colour = 'yellow';
-            break;
-          default: 
-            var obs_colour = '';
-        }
+       /* add in corresponding colour to the numbers */ 
+       if (colour_num=='0') {var obs_colour = 'red';}
+       if (colour_num=='1') {var obs_colour = 'green';}
+       if (colour_num=='2') {var obs_colour = 'blue';}
+       if (colour_num=='3') {var obs_colour = 'pink';}
+       if (colour_num=='4') {var obs_colour = 'yellow';}
       setwarningData({x_coord: x, y_coord: y, colour: obs_colour});
     }
     else if (topic == 'liveloc') {
@@ -84,6 +70,12 @@ const Warning = () => {
   client.subscribe('liveloc');
    
   return (
+    (warningData.x_coord==0 && warningData.y_coord==0) ? 
+    <div className={classes.root}>
+      <Alert severity="info">
+        rover is at position ({positionData.x_coord}, {positionData.y_coord})
+      </Alert>
+    </div> :
     <div className={classes.root}>
     <Collapse in={open}>
       <Alert
@@ -113,15 +105,5 @@ const Warning = () => {
       
   );
 };
-  
-
-/* 
-    (warningData.x_coord!=0 && warningData.y_coord!=0) ? 
-    <div className={classes.root}>
-      <Alert severity="info">
-        rover is at position ({positionData.x_coord}, {positionData.y_coord})
-      </Alert>
-    </div> :
-*/
   
 export default Warning;
