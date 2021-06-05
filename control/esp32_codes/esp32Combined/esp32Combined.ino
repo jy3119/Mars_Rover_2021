@@ -7,7 +7,7 @@
 // UPDATE HERE ACCORDING TO YOUR WIFI Name and password, and MQTT Server's Public DNS
 const char* ssid = "AH LAM";
 const char* password = "96258167";
-const char* mqtt_server = "ec2-18-224-199-255.us-east-2.compute.amazonaws.com";
+const char* mqtt_server = "ec2-3-21-102-39.us-east-2.compute.amazonaws.com";
 const int mqtt_port = 1883;
 
 WiFiClient espClient;
@@ -65,6 +65,8 @@ int dy0, dy1, dy2, dy3, dy4;     // send to DRIVE from CONTROL for automatic mod
 // variables to send to COMMAND for mapping, and also send obstacle coords to DRIVE
 int color0_x, color1_x, color2_x, color3_x, color4_x;
 int color0_y, color1_y, color2_y, color3_y, color4_y;
+int x_last0, x_last1, x_last2, x_last3, x_last4;
+int y_last0, y_last1, y_last2, y_last3, y_last4;
 
 
 // ===========================================================================
@@ -85,9 +87,8 @@ void loop() {
   getAllVisionData();         // receive data from VISION via I2C
   getAllObstacleCoords();     // calculate obstacle coordinates
 
-  // publish obstacle coordinates to COMMAND through topic obstacleCoords every 5 sec, only if detected is HIGH
   currentTime = millis();
-  if (currentTime - lastMsgTime > 5000) {
+  if (currentTime - lastMsgTime > 5000){
     lastMsgTime = currentTime;
     sendAllObstacleCoords();
   }
@@ -99,22 +100,75 @@ void loop() {
 //                            FUNCTION DEFINITIONS                            //
 /*================================= COMMAND =================================*/
 void sendAllObstacleCoords(){
-  sendObstacleCoords(color0_x, color0_y, 0, detected0);
-  sendObstacleCoords(color1_x, color1_y, 1, detected1);
-  sendObstacleCoords(color2_x, color2_y, 2, detected2);
-  sendObstacleCoords(color3_x, color3_y, 3, detected3);
-  sendObstacleCoords(color4_x, color4_y, 4, detected4);
+  sendColor0Coords();
+  sendColor1Coords();
+  sendColor2Coords();
+  sendColor3Coords();
+  sendColor4Coords();
 }
 
-// function to send coordinates of obstacle to COMMAND, only if obstacle is detected
-void sendObstacleCoords(int obstacle_x, int obstacle_y, int color, int detected) {
-  if (detected == 1){
-    snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", obstacle_x, obstacle_y, color);
-    Serial.print("Publish message: ");
-    Serial.println(msg);
-    client.publish("obstacle", msg);
-  } else {}
+void sendColor0Coords(){
+  if ((color0_x!=x_last0) || (color0_y!=y_last0)){
+    x_last0 = color0_x;
+    y_last0 = color0_y;
+    if (detected0 == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", color0_x, color0_y, 0);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("obstacle", msg);
+    } else {}
+  } else{}
 }
+void sendColor1Coords(){
+  if ((color1_x!=x_last1) || (color1_y!=y_last1)){
+    x_last1 = color1_x;
+    y_last1 = color1_y;
+    if (detected1 == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", color1_x, color1_y, 1);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("obstacle", msg);
+    } else {}
+  } else{}
+}
+void sendColor2Coords(){
+  if ((color2_x!=x_last2) || (color2_y!=y_last2)){
+    x_last2 = color2_x;
+    y_last2 = color2_y;
+    if (detected2 == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", color2_x, color2_y, 2);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("obstacle", msg);
+    } else {}
+  } else{}
+}
+void sendColor3Coords(){
+  if ((color3_x!=x_last3) || (color3_y!=y_last3)){
+    x_last3 = color3_x;
+    y_last3 = color3_y;
+    if (detected3 == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", color3_x, color3_y, 3);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("obstacle", msg);
+    } else {}
+  } else{}
+}
+void sendColor4Coords(){
+  if ((color4_x!=x_last4) || (color4_y!=y_last4)){
+    x_last4 = color4_x;
+    y_last4 = color4_y;
+    if (detected4 == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", color4_x, color4_y, 4);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("obstacle", msg);
+    } else {}
+  } else{}
+}
+
+
 
 // parse data received from COMMAND and store into variables as needed
 void parseData(char* topic, char incomingData[numChars]) {
@@ -212,23 +266,32 @@ void setup_mqtt() {
 
 // for debugging, function to print data received from COMMAND
 void printCommandData() {
-  Serial.print("0 for auto, 1 for manual: ");
-  Serial.println(driveMode);
-  Serial.print("target_x: ");
-  Serial.println(target_x);
-  Serial.print("target_y: ");
-  Serial.println(target_y);
-  Serial.print("radius: ");
-  Serial.println(radius);
-  Serial.print("cmd_direction (0 for fwd, 1 for backwards): ");
-  Serial.println(cmd_direction);
-  Serial.print("cmd_dist: ");
-  Serial.println(cmd_dist);
-  Serial.print("cmd_angle: ");
-  Serial.println(cmd_angle);
-  Serial.print("cmd_speed: ");
-  Serial.println(cmd_speed);
-  delay(1000);
+  if (driveMode == 0){
+    Serial.println("Auto mode selected");
+    Serial.print("0 for auto: ");
+    Serial.println(driveMode);
+    Serial.print("target_x: ");
+    Serial.println(target_x);
+    Serial.print("target_y: ");
+    Serial.println(target_y);
+    Serial.print("radius: ");
+    Serial.println(radius);
+    delay(1000);
+  }
+  if (driveMode == 1){
+    Serial.println("Manual mode selected");
+    Serial.print("1 for manual: ");
+    Serial.println(driveMode);
+    Serial.print("cmd_direction (0 for fwd, 1 for backwards): ");
+    Serial.println(cmd_direction);
+    Serial.print("cmd_dist: ");
+    Serial.println(cmd_dist);
+    Serial.print("cmd_angle: ");
+    Serial.println(cmd_angle);
+    Serial.print("cmd_speed: ");
+    Serial.println(cmd_speed);
+    delay(1000);
+  }
 }
 /*================================= END OF COMMAND =================================*/
 
