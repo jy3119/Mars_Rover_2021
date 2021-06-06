@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Battery({ level, charging }) {
   return (
-    <svg width="150" height="50">
+    <svg width="120" height="35">
       <defs>
         <linearGradient id="progress" x1="0" y1="1" x2="0" y2="0">
           <stop id="stop1" offset={level} stopColor="#37F53B" />

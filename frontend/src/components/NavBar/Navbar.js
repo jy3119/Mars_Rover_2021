@@ -20,17 +20,17 @@ const NavBar = () => {
         {control_mode? (
           <div className={classes.profile}>
             <Typography className={classes.userName} variant="h6">{control_mode}</Typography>
+            <BatteryStatus />
             <Button component={Link} to="/" onClick={()=>{setcontrol_mode(false)}}> 
                 <HomeIcon variant="contained" color="secondary">Home</HomeIcon>
             </Button>
           </div>
         ) : (
-          <div> 
-            <div>
+          <div className={classes.profile}> 
                 <BatteryStatus />
-            </div>
                 <Button className={classes.button_cmode} component={Link} to="/coord_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Automatic Mode</Button>
                 <Button className={classes.button_dmode} component={Link} to="/direct_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Manual Mode</Button>
+                
           </div>
         )}
       </Toolbar>

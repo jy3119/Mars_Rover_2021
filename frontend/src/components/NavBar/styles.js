@@ -11,6 +11,15 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     padding: '10px 50px',
   },
+  profile: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 20,
+      justifyContent: 'center',
+    },
+  },
   heading: {
     color: 'rgba(0,183,255, 1)',
     textDecoration: 'none',
@@ -29,6 +38,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'right',
     alignItems: 'center',
+    width: 290
   },
   button_dmode: {
     display: 'flex',
@@ -36,6 +46,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: 10,
+    width: 250
   },
   button_rmode: {
     display: 'flex',

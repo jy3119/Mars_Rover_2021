@@ -48,7 +48,7 @@ const BatteryStatus = () => {
   client.subscribe('battery');
 
     return (
-        <Container maxWidth='xs'>
+        <Container>
             <BatteryContainer className={classes.battery} {...battery}/>
         </Container>
     );
