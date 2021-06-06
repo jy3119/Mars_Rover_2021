@@ -241,14 +241,12 @@ void reconnect() {
 
 // connect ESP32 to WiFi
 void setup_wifi() {
-  delay(10);
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
     Serial.print(".");
   }
   randomSeed(micros());
@@ -276,7 +274,6 @@ void printCommandData() {
     Serial.println(target_y);
     Serial.print("radius: ");
     Serial.println(radius);
-    delay(1000);
   }
   if (driveMode == 1){
     Serial.println("Manual mode selected");
@@ -290,7 +287,6 @@ void printCommandData() {
     Serial.println(cmd_angle);
     Serial.print("cmd_speed: ");
     Serial.println(cmd_speed);
-    delay(1000);
   }
 }
 /*================================= END OF COMMAND =================================*/
@@ -431,7 +427,6 @@ void printVisionData() {
   Serial.print(angle4);
   Serial.print(", diag_dist4: ");
   Serial.println(diag_dist4);
-  delay(5000);
 }
 
 // helper function for I2C communication with vision's FPGA
@@ -706,7 +701,6 @@ void printObstacleCoords() {
   Serial.print(color4_x);
   Serial.print(", color4 y: ");
   Serial.println(color4_y);
-  delay(5000);
 }
 // print camera coordinates to serial monitor, for debugging
 void printCameraCoords() {
@@ -714,7 +708,6 @@ void printCameraCoords() {
   Serial.println(camera_x);
   Serial.print("y-coordinates of camera: ");
   Serial.println(camera_y);
-  delay(3000);
 }
 /*================== END OF CALCULATION OF OBSTACLE COORDINATES ==================*/
 
