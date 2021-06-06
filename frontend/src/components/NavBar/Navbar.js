@@ -4,6 +4,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useStyles from './styles'; 
 
+import BatteryStatus from './BatteryStatus/BatteryStatus';
+
 const NavBar = () => {
     const classes = useStyles();
 
@@ -24,6 +26,7 @@ const NavBar = () => {
           </div>
         ) : (
           <div> 
+                <BatteryStatus />
                 <Button className={classes.button_cmode} component={Link} to="/coord_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Automatic Mode</Button>
                 <Button className={classes.button_dmode} component={Link} to="/direct_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Manual Mode</Button>
           </div>
