@@ -40,11 +40,12 @@ async function main () {
         mqtt_client.on('message', function (topic, message) {
             //Called each time a message is received
             // Insert a single document, wait for promise so we can read it back
+            //'O',color,coordx,coordy
             var parse_string = message.toString(); 
             var parse_coord = parse_string.split(',');
-            var obstacle_x = Number(parse_coord[0]); 
-            var obstacle_y = Number(parse_coord[1]); 
-            var colour_num = parse_coord[2];
+            var obstacle_x = Number(parse_coord[2]); 
+            var obstacle_y = Number(parse_coord[3]); 
+            var colour_num = parse_coord[1];
             /* add in corresponding colour to the numbers */
             if (colour_num=='0') {var obs_colour = 'red';}
             if (colour_num=='1') {var obs_colour = 'green';}
@@ -60,7 +61,7 @@ async function main () {
          mqtt_client.subscribe('obstacle');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         //mqtt_client.publish('obstacle', '52,19,0');
+         //mqtt_client.publish('obstacle', '52,19,3');
 
         // Find one document
         //const myDoc = await col.findOne();

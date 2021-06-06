@@ -14,6 +14,9 @@ const DestinationInput = () => {
   const [destinationData, setdestinationData] = useState({
       x_coordinate: 0, y_coordinate: 0, radius_dist: 0
   }); 
+
+  const [id, setid] = useState(-1);
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -22,7 +25,7 @@ const DestinationInput = () => {
       
       dispatch(createDestination(destinationData));
       clear();
-      var mes = (destinationData.x_coordinate).concat(',',destinationData.y_coordinate,',',destinationData.radius_dist);
+      var mes = (id.toString()).concat(',',destinationData.x_coordinate,',',destinationData.y_coordinate,',',destinationData.radius_dist);
       publishClick(mes);
     };
 
@@ -55,7 +58,7 @@ const DestinationInput = () => {
         <TextField name="x-coordinate" variant="outlined" label="x-coordinate" fullWidth value={destinationData.x_coordinate} onChange={(e) => setdestinationData({ ...destinationData, x_coordinate: e.target.value })} />
         <TextField name="y-coordinate" variant="outlined" label="y-coordinate" fullWidth value={destinationData.y_coordinate} onChange={(e) => setdestinationData({ ...destinationData, y_coordinate: e.target.value })} />
         <TextField name="radius" variant="outlined" label="radius" fullWidth value={destinationData.radius_dist} onChange={(e) => setdestinationData({ ...destinationData, radius_dist: e.target.value })} />
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={() => setid(id+1)}>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>

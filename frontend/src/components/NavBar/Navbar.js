@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Avatar, Button, Grid } from '@material-ui/
 import HomeIcon from '@material-ui/icons/Home'; 
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useStyles from './styles'; 
+import {Alert, AlertTitle} from '@material-ui/lab';
 
 import BatteryStatus from './BatteryStatus/BatteryStatus';
 

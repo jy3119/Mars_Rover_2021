@@ -24,6 +24,8 @@ const DirectionButton = () => {
         direction: 'Forward', distance: 5, angle:0, speed: 5
     }); 
 
+    const [id, setid] = useState(-1);
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ const DirectionButton = () => {
         var dir_int;
         if (instructionData.direction=='Forward') {dir_int='0';}
         else {dir_int='1';}
-        var mes = (dir_int).concat(',',instructionData.distance,',',instructionData.angle,',',instructionData.speed);
+        var mes = (id.toString()).concat(',',dir_int,',',instructionData.distance,',',instructionData.angle,',',instructionData.speed);
         publishClick(mes);
     };
 
@@ -89,7 +91,7 @@ const DirectionButton = () => {
           <TextField name="angle" variant="outlined" label="angle" fullWidth value={instructionData.angle} onChange={(e) => setinstructionData({ ...instructionData, angle: e.target.value })} helperText="Please select between -180 to 180"/>
           <TextField name="speed" variant="outlined" label="speed" fullWidth value={instructionData.speed} onChange={(e) => setinstructionData({ ...instructionData, speed: e.target.value })} />
           <Button className={classes.full_width_button} variant="contained" color="secondary" fullWidth onClick={stop}>STOP</Button>
-          <Button className={classes.full_width_button} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+          <Button className={classes.full_width_button} variant="contained" color="primary" size="large" type="submit" fullWidth onClick={() => setid(id+1)}>Submit</Button>
           <Button className={classes.full_width_button} variant="contained" color="textSecondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>
       </Paper>
