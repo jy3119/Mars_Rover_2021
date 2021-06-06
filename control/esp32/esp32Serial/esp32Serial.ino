@@ -40,11 +40,11 @@ void loop() {
 void sendToDrive() {
   // automatic mode
   if (driveMode == 0) {
-    snprintf (msg, MSG_BUFFER_SIZE, "<%i,%i,%i,%i>", driveMode, target_x, target_y, radius);
+    snprintf (msg, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i>", 'A', target_x, target_y, radius);
   }
   // manual mode
   if (driveMode == 1) {
-    snprintf (msg, MSG_BUFFER_SIZE, "<%i,%i,%i,%i,%i>", driveMode, cmd_direction, cmd_dist, cmd_angle, cmd_speed);
+    snprintf (msg, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>", 'M', cmd_direction, cmd_dist, cmd_angle, cmd_speed);
   }
   Serial2.write(msg);
   delay(10000);

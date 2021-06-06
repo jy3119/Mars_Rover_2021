@@ -168,10 +168,8 @@ void sendColor4Coords(){
   } else{}
 }
 
-
-
 // parse data received from COMMAND and store into variables as needed
-void parseData(char* topic, char incomingData[numChars]) {
+void parseCommandData(char* topic, char incomingData[numChars]) {
   if (strcmp(topic, "auto") == 0) {
     char * strtokIndx;
     strtokIndx = strtok(incomingData, ",");
@@ -207,7 +205,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     incomingData[i] = (char)payload[i];
   }
   Serial.println();
-  parseData(topic, incomingData);
+  parseCommandData(topic, incomingData);
   printCommandData();     // print data received from COMMAND to serial monitor, for debugging
 }
 
