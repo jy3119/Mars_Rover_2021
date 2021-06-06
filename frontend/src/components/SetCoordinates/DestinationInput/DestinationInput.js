@@ -32,7 +32,7 @@ const DestinationInput = () => {
 
   /*MQTT Publishing*/
   const publishClick = (message) => {
-    const client = mqtt.connect("ws://ec2-18-224-199-255.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+    const client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
     client.on('connect', function () {
       console.log('Connected to broker');
       client.subscribe("auto", error => {
