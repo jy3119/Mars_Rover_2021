@@ -53,6 +53,7 @@ void sendToDrive() {
 void getDriveData() {
   recvFromSerial2();
   if (newData == true) {
+    Serial.println(recvFromDrive);
     strcpy(tmpFromDrive, recvFromDrive);
     parseDriveData();
     printDriveData();

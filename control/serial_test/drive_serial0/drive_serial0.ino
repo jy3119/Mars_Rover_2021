@@ -47,8 +47,10 @@ void sendToControl(){
 
 void getControlData(){
   recvFromSerial1();
+  Serial.println(recvFromControl);
   if (newData == true) {
     strcpy(tmpFromControl, recvFromControl);
+    Serial.println(recvFromControl);
     parseControlData();
     printControlData();
     newData = false;
@@ -66,14 +68,14 @@ void recvFromSerial1() {
     rc = Serial1.read();
     if (recvInProgress == true) {
       if (rc != endMarker) {
-        recvFromCTRL[ndx] = rc;
+        recvFromControl[ndx] = rc;
         ndx++;
         if (ndx >= MSG_BUFFER_SIZE) {
           ndx = MSG_BUFFER_SIZE - 1;
         }
       }
       else {
-        recvFromCTRL[ndx] = '\0'; // terminate the string
+        recvFromControl[ndx] = '\0'; // terminate the string
         recvInProgress = false;
         ndx = 0;
         newData = true;
