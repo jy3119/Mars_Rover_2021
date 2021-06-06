@@ -28,7 +28,7 @@ const BatteryStatus = () => {
     console.log(error);
   });
 
-  //dataString = .........+String(SOC)+","+String(SOH)
+  //dataString = String(SOC)+","+String(SOH)+","+String(state_num)
   
   client.on('message', function (topic, message) {
     //Called each time a message is received
