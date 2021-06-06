@@ -34,13 +34,14 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('auto');
+client.subscribe('battery');
 
 // publish message 'Hello' to topic 'my/test/topic'
 //client.publish('obstacle', '12,45,0');
 //client.publish('obstacle', '9,23,2');
 
-client.publish('liveloc', '9,4');
-client.publish('liveloc', '12,45');
-
+//client.publish('liveloc', '9,4');
+//client.publish('liveloc', '12,45');
+client.publish ('battery', '0.23,45,0');
+client.publish ('battery', '0.43,45,1');
 

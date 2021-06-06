@@ -13,6 +13,10 @@ export default makeStyles((theme) => ({
         width: '100%',
         margin: '2px 0',
         background: '#01770a',
+    }, 
+
+    battery: {
+        transform: [{ rotate: '90deg'}]
     }
     /*
     .battery-empty .battery-inner {

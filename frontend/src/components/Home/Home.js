@@ -1,6 +1,6 @@
 import React from 'react';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'; 
-import { Button, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import useStyles from './styles'; 
 
 import RoverMap from './RoverMap/RoverMap'; 
@@ -51,7 +51,6 @@ class Home extends React.Component {
         return(
             <Container maxWidth='lg'>
                 <Container id='chart'>
-                    <Button variant="contained" color="textSecondary" size="small" onClick={renderChart} fullWidth>Load Map</Button>
                 </Container>
             </Container>
         )

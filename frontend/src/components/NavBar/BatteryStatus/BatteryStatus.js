@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import mqtt from 'mqtt';
+import { Container } from '@material-ui/core'; 
+import useStyles from './styles'; 
 
 import BatteryContainer from './BatteryContainer/BatteryContainer';
 
@@ -10,6 +12,7 @@ import BatteryContainer from './BatteryContainer/BatteryContainer';
 
 const BatteryStatus = () => {
     const [batteryStrokes, setBatteryStrokes] = useState(Array(5).fill(true));
+    const classes = useStyles();
 
     const [battery, setBattery] = useState({ level: 0, charging: false }); 
 
@@ -33,9 +36,9 @@ const BatteryStatus = () => {
     var parse_coord = parse_string.split(',');
     var SOC = Number(parse_coord[0]); 
     var SOH = Number(parse_coord[1]); 
-    var charge_bool = parse_coord[2];
-    if (charge_bool == '1') {var charge = true;}
-    if (charge_bool == '0') {var charge = false;}
+    var state_num = parse_coord[2];
+    if (state_num == '1') {var charge = true;}
+    if (state_num == '0') {var charge = false;}
     /* include SOH later */ 
     setBattery({ level: SOC, charging: charge});
     console.log('Received message:', topic, message.toString());
@@ -45,7 +48,9 @@ const BatteryStatus = () => {
   client.subscribe('battery');
 
     return (
-        <BatteryContainer {...battery} />
+        <Container maxWidth='xs'>
+            <BatteryContainer className={classes.battery} {...battery}/>
+        </Container>
     );
 }
 

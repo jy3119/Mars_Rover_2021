@@ -26,7 +26,9 @@ const NavBar = () => {
           </div>
         ) : (
           <div> 
+            <div>
                 <BatteryStatus />
+            </div>
                 <Button className={classes.button_cmode} component={Link} to="/coord_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Automatic Mode</Button>
                 <Button className={classes.button_dmode} component={Link} to="/direct_mode" variant="contained" color="secondary" onClick={()=>setcontrol_mode(true)}>Manual Mode</Button>
           </div>

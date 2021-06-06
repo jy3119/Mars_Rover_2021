@@ -21,6 +21,7 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
+    flexDirection: 'row',
     width: '400px',
   },
   button_cmode: {
