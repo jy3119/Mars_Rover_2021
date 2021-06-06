@@ -31,3 +31,4 @@ Files utilising the address are as listed:
 3. frontend/src/components/SetDirections/DirectionButton/DirectionButton.js
 4. frontend/src/components/SetRadius/RadiusInput/RadiusInput.js
 5. frontend/src/components/SetDirections/Warning/Warning.js
+6. frontend/src/components/NavBar/BatteryStatus/BatteryStatus.js
