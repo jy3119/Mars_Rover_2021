@@ -86,13 +86,13 @@ void loop() {
   if (!client.connected()) {
     reconnect();
   }
-  client.loop();
+  client.loop();              // receive data from COMMAND via MQTT
   
-  sendToDrive();
-  getDriveData();
-  getAllVisionData();         // receive data from VISION via I2C
-  getAllObstacleCoords();     // calculate obstacle coordinates
-  sendAllObstacleCoords();
+  sendToDrive();              // send data receive from COMMAND to DRIVE via Serial/UART
+  getDriveData();             // receive rover data from DRIVE via Serial/UART
+  getAllVisionData();         // receive obstacle data from VISION via I2C
+  getAllObstacleCoords();     // calculate obstacle coordinates basesd on data from DRIVE and VISION
+  sendAllObstacleCoords();    // send obstacle data to COMMAND for mapping and DRIVE for obstacle avoidance
 
 }
 
@@ -109,6 +109,7 @@ void sendAllObstacleCoords(){
   sendColor4Coords();
 }
 
+// send obstacle data to COMMAND for mapping and DRIVE for obstacle avoidance
 void sendColor0Coords(){
   if ((color0_x!=x_last0) || (color0_y!=y_last0)){
     x_last0 = color0_x;
@@ -385,6 +386,7 @@ void recvFromSerial2() {
   }
 }
 
+// parse data received from DRIVE and store values into variables
 void parseDriveData() {
   char * strtokIndx;
   strtokIndx = strtok(recvFromDrive, ",");
