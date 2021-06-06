@@ -5,9 +5,9 @@
 
 // for connecting ESP32 to wifi and MQTT server
 // UPDATE HERE ACCORDING TO YOUR WIFI Name and password, and MQTT Server's Public DNS
-const char* ssid = "AH LAM";
-const char* password = "96258167";
-const char* mqtt_server = "ec2-3-21-102-39.us-east-2.compute.amazonaws.com";
+const char* ssid = "AH LAM";          // your WiFi name
+const char* password = "96258167";    // your WiFi password
+const char* mqtt_server = "ec2-3-21-102-39.us-east-2.compute.amazonaws.com";  // Server's public DNS
 const int mqtt_port = 1883;
 
 WiFiClient espClient;
