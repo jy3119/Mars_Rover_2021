@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import mqtt from 'mqtt';
 import { Container } from '@material-ui/core'; 
 import useStyles from './styles'; 
+import {Alert, AlertTitle} from '@material-ui/lab';
 
 import BatteryContainer from './BatteryContainer/BatteryContainer';
 
@@ -15,6 +16,8 @@ const BatteryStatus = () => {
     const classes = useStyles();
 
     const [battery, setBattery] = useState({ level: 0, charging: false }); 
+
+    const [health, sethealth] = useState(null); 
 
     /*MQTT Subscribing*/
   var client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
@@ -50,6 +53,9 @@ const BatteryStatus = () => {
     return (
         <Container>
             <BatteryContainer className={classes.battery} {...battery}/>
+            <Alert severity="info" className={classes.notifs} display='flex'>
+              SOH
+            </Alert>
         </Container>
     );
 }
