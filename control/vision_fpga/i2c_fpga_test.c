@@ -31,11 +31,11 @@ int main()
   alt_putstr("Writing into memory...\n");
 
   // writes into the 1st word of I2C MEM
-  updateTmp(I2C_MEM_BASE, 0x0005, angle, obstacle_detected);
-  updateTmp(I2C_MEM_BASE+4, 0x0004, 0x2D, obstacle_detected);
-  updateTmp(I2C_MEM_BASE+8, 0x0003, angle, obstacle_detected);
-  updateTmp(I2C_MEM_BASE+12, 0x0002, 0x2D, 0);
-  updateTmp(I2C_MEM_BASE+16, 0x0001, angle, obstacle_detected);
+  updateTmp(I2C_MEM_BASE,    0x0005, 0xD3, 0);	// red
+  updateTmp(I2C_MEM_BASE+4,  0x0004, 0x2D, 0);  // green
+  updateTmp(I2C_MEM_BASE+8,  0x0003, 0xD3, 0);	// blue
+  updateTmp(I2C_MEM_BASE+12, 0x0002, 0x2D, 0);	// pink
+  updateTmp(I2C_MEM_BASE+16, 0x0001, 0xD3, 0);	// yellow
   alt_putstr("Memory write done!\n");
 
 

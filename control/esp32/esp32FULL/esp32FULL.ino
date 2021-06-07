@@ -5,8 +5,8 @@
 
 // for connecting ESP32 to wifi and MQTT server
 // UPDATE HERE ACCORDING TO YOUR WIFI Name and password, and MQTT Server's Public DNS
-const char* ssid = "AH LAM";          // your WiFi name
-const char* password = "96258167";    // your WiFi password
+const char* ssid = "WIFINAME";          // your WiFi name
+const char* password = "WIFIPASSWORD";    // your WiFi password
 const char* mqtt_server = "ec2-3-21-102-39.us-east-2.compute.amazonaws.com";  // Server's public DNS
 const int mqtt_port = 1883;
 
@@ -21,6 +21,7 @@ PubSubClient client(espClient);
 #define MSG_BUFFER_SIZE (50)
 char msgDrive[MSG_BUFFER_SIZE];
 char msgObst[MSG_BUFFER_SIZE];
+char msgLiveLoc[MSG_BUFFER_SIZE];
 char recvFromDrive[MSG_BUFFER_SIZE];
 char tmpFromDrive[MSG_BUFFER_SIZE];
 boolean newData = false;
@@ -57,6 +58,7 @@ int diag_dist0, diag_dist1, diag_dist2, diag_dist3, diag_dist4;         // diago
 int rover_x;                     // current x-coordinates of rover
 int rover_y;                     // current y-coordinates of rover
 int steeringAngle;               // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
+int roverPrevX, roverPrevY;
 
 // variables for calculation of obstacle coords
 int camera_x, camera_y;          // x and y coordinates of rover's front camera corrected for rover length
@@ -90,10 +92,10 @@ void loop() {
   
   sendToDrive();              // send data receive from COMMAND to DRIVE via Serial/UART
   getDriveData();             // receive rover data from DRIVE via Serial/UART
+  sendLiveLoc();              // send rover's live location to COMMAND
   getAllVisionData();         // receive obstacle data from VISION via I2C
-  getAllObstacleCoords();     // calculate obstacle coordinates basesd on data from DRIVE and VISION
+  getAllObstacleCoords();     // calculate obstacle coordinates based on data from DRIVE and VISION
   sendAllObstacleCoords();    // send obstacle data to COMMAND for mapping and DRIVE for obstacle avoidance
-
 }
 
 // ===========================================================================
@@ -101,6 +103,17 @@ void loop() {
 
 //                            FUNCTION DEFINITIONS                            //
 /*============================= COMMAND FUNCTIONS (and sending obstacle coords to DRIVE) =============================*/
+// send rover coordinates to COMMAND only if there are changes to rover coordinates
+void sendLiveLoc(){
+  if ((rover_x!=roverPrevX) || (rover_y!=roverPrevY)) {
+    roverPrevX = rover_x;
+    roverPrevY = rover_y;
+    snprintf (msgLiveLoc, MSG_BUFFER_SIZE, "%i,%i", rover_x, rover_y);
+    // Serial.println(msgLiveLoc); // for debugging
+    client.publish("liveloc", msgLiveLoc);
+  }
+}
+
 void sendAllObstacleCoords(){
   sendColor0Coords();
   sendColor1Coords();
@@ -117,13 +130,12 @@ void sendColor0Coords(){
     if (detected0 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 0, color0_x, color0_y);
-      Serial.print("Publish message: ");
-      Serial.println(msg);
+      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 0, color0_x, color0_y, dx0, dy0);
       Serial2.write(msgObst);
-    //   Serial.println(msgObst); // for debugging
+//      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -134,8 +146,7 @@ void sendColor1Coords(){
     if (detected1 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 1, color1_x, color1_y);
-      Serial.print("Publish message: ");
-      Serial.println(msg);
+      // Serial.println(msg); //for debugging
       client.publish("obstacle", msg);
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 1, color1_x, color1_y, dx1, dy1);
@@ -151,8 +162,8 @@ void sendColor2Coords(){
     if (detected2 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 2, color2_x, color2_y);
-      Serial.print("Publish message: ");
-      Serial.println(msg);
+      // Serial.print("Publish message: ");
+      // Serial.println(msg);   // for debugging
       client.publish("obstacle", msg);
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 2, color2_x, color2_y, dx2, dy2);
@@ -168,8 +179,7 @@ void sendColor3Coords(){
     if (detected3 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 3, color3_x, color3_y);
-      Serial.print("Publish message: ");
-      Serial.println(msg);
+      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 3, color3_x, color3_y, dx3, dy3);
@@ -185,8 +195,7 @@ void sendColor4Coords(){
     if (detected4 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 4, color4_x, color4_y);
-      Serial.print("Publish message: ");
-      Serial.println(msg);
+      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 4, color4_x, color4_y, dx4, dy4);
