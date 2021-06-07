@@ -40,17 +40,20 @@ void loop() {
   sendToControl();
 }
 
-// Send rover data to CONTROL every second
+// Send rover data to CONTROL every 3 seconds
 void sendToControl() {
   snprintf (msg, MSG_BUFFER_SIZE, "<%i,%i,%i>", rover_x, rover_y, steeringAngle);
   Serial1.write(msg);
-  delay(1000);
+  Serial.print("To CONTROL: rover coordinates and steering angle: "); // for debugging
+  Serial.println(msg); // for debugging
+  delay(3000);
 }
 
 void getControlData() {
   recvFromSerial1();
   if (newData == true) {
-    strcpy(tmpFromControl, recvFromControl);
+    Serial.println("From CONTROL: Instruction sent over by COMMAND"); // for debugging
+    strcpy(tmpFromControl, recvFromControl); // for debugging
     parseControlData();
     printControlData();   // for debugging
     newData = false;
@@ -175,6 +178,7 @@ void parseControlData() {
 
 // for debugging, print data received from CONTROL to serial monitor
 void printControlData() {
+  Serial.println("The following information is printed by printControlData function: ");
   if (strcmp(tmpMode, "A") == 0) {
     Serial.println("Automatic mode selected.");
     Serial.print("driveMode: ");

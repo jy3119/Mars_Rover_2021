@@ -5,8 +5,8 @@
 
 // for connecting ESP32 to wifi and MQTT server
 // UPDATE HERE ACCORDING TO YOUR WIFI Name and password, and MQTT Server's Public DNS
-const char* ssid = "WIFINAME";          // your WiFi name
-const char* password = "WIFIPASSWORD";    // your WiFi password
+const char* ssid = "AH LAM";          // your WiFi name
+const char* password = "96258167";    // your WiFi password
 const char* mqtt_server = "ec2-3-21-102-39.us-east-2.compute.amazonaws.com";  // Server's public DNS
 const int mqtt_port = 1883;
 
@@ -21,7 +21,6 @@ PubSubClient client(espClient);
 #define MSG_BUFFER_SIZE (50)
 char msgDrive[MSG_BUFFER_SIZE];
 char msgObst[MSG_BUFFER_SIZE];
-char msgLiveLoc[MSG_BUFFER_SIZE];
 char recvFromDrive[MSG_BUFFER_SIZE];
 char tmpFromDrive[MSG_BUFFER_SIZE];
 boolean newData = false;
@@ -31,6 +30,7 @@ char incomingData[MSG_BUFFER_SIZE];
 
 // MQTT variables for publishing messages to COMMAND
 char msg[MSG_BUFFER_SIZE];
+char msgLiveLoc[MSG_BUFFER_SIZE];
 
 // variables received from COMMAND to send to DRIVE
 int cmdID, prevID;              // ID of message received from COMMAND
@@ -62,16 +62,16 @@ int roverPrevX, roverPrevY;
 
 // variables for calculation of obstacle coords
 int camera_x, camera_y;          // x and y coordinates of rover's front camera corrected for rover length
-int roverCorrection = 220;       // correction for distance between coordinate detector and camera of rover
+long roverCorrection = 220;       // correction for distance between coordinate detector and camera of rover
 int steerQuadrant;
 int dx0, dx1, dx2, dx3, dx4;     // send to DRIVE 
 int dy0, dy1, dy2, dy3, dy4;     // send to DRIVE 
 
 // variables to send to COMMAND for mapping, and also send obstacle coords to DRIVE
-int color0_x, color1_x, color2_x, color3_x, color4_x;
-int color0_y, color1_y, color2_y, color3_y, color4_y;
-int x_last0, x_last1, x_last2, x_last3, x_last4;
-int y_last0, y_last1, y_last2, y_last3, y_last4;
+long color0_x = 10000, color1_x = 10000, color2_x = 10000, color3_x = 10000, color4_x = 10000;
+long color0_y = 10000, color1_y = 10000, color2_y = 10000, color3_y = 10000, color4_y = 10000;
+long x_last0 = 10000, x_last1 = 10000, x_last2 = 10000, x_last3 = 10000, x_last4 = 10000;
+long y_last0 = 10000, y_last1 = 10000, y_last2 = 10000, y_last3 = 10000, y_last4 = 10000;
 
 
 // ===========================================================================
@@ -109,7 +109,8 @@ void sendLiveLoc(){
     roverPrevX = rover_x;
     roverPrevY = rover_y;
     snprintf (msgLiveLoc, MSG_BUFFER_SIZE, "%i,%i", rover_x, rover_y);
-    // Serial.println(msgLiveLoc); // for debugging
+    Serial.print("To COMMAND: Rover's current coordinates: "); // for debugging
+    Serial.println(msgLiveLoc); // for debugging
     client.publish("liveloc", msgLiveLoc);
   }
 }
@@ -130,12 +131,14 @@ void sendColor0Coords(){
     if (detected0 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 0, color0_x, color0_y);
-      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
+      Serial.print("To COMMAND: obstacle's colour, x coords and y coords: "); // for debugging
+      Serial.println(msg);   // for debugging
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 0, color0_x, color0_y, dx0, dy0);
       Serial2.write(msgObst);
-//      Serial.println(msgObst); // for debugging
+      Serial.print("To DRIVE: obstacle coordinates(x,y) and distance (dx and dy) data: "); // for debugging
+      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -146,12 +149,14 @@ void sendColor1Coords(){
     if (detected1 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 1, color1_x, color1_y);
-      // Serial.println(msg); //for debugging
       client.publish("obstacle", msg);
+      Serial.print("To COMMAND: obstacle's colour, x coords and y coords: "); // for debugging
+      Serial.println(msg);   // for debugging
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 1, color1_x, color1_y, dx1, dy1);
       Serial2.write(msgObst);
-    //   Serial.println(msgObst); // for debugging
+      Serial.print("To DRIVE: obstacle coordinates(x,y) and distance (dx and dy) data: "); // for debugging
+      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -162,13 +167,14 @@ void sendColor2Coords(){
     if (detected2 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 2, color2_x, color2_y);
-      // Serial.print("Publish message: ");
-      // Serial.println(msg);   // for debugging
       client.publish("obstacle", msg);
+      Serial.print("To COMMAND: obstacle's colour, x coords and y coords: "); // for debugging
+      Serial.println(msg);   // for debugging
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 2, color2_x, color2_y, dx2, dy2);
       Serial2.write(msgObst);
-    //   Serial.println(msgObst); // for debugging
+      Serial.print("To DRIVE: obstacle coordinates(x,y) and distance (dx and dy) data: "); // for debugging
+      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -179,12 +185,14 @@ void sendColor3Coords(){
     if (detected3 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 3, color3_x, color3_y);
-      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
+      Serial.print("To COMMAND: obstacle's colour, x coords and y coords: "); // for debugging
+      Serial.println(msg);   // for debugging
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 3, color3_x, color3_y, dx3, dy3);
       Serial2.write(msgObst);
-    //   Serial.println(msgObst); // for debugging
+      Serial.print("To DRIVE: obstacle coordinates(x,y) and distance (dx and dy) data: "); // for debugging
+      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -195,12 +203,14 @@ void sendColor4Coords(){
     if (detected4 == 1) {
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 4, color4_x, color4_y);
-      // Serial.println(msg); // for debugging
       client.publish("obstacle", msg);
+      Serial.print("To COMMAND: obstacle's colour, x coords and y coords: "); // for debugging
+      Serial.println(msg);   // for debugging
       // to DRIVE
       snprintf (msgObst, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i,%i>",'O', 4, color4_x, color4_y, dx4, dy4);
       Serial2.write(msgObst);
-    //   Serial.println(msgObst); // for debugging
+      Serial.print("To DRIVE: obstacle coordinates(x,y) and distance (dx and dy) data: "); // for debugging
+      Serial.println(msgObst); // for debugging
     } else {}
   } else{}
 }
@@ -237,9 +247,9 @@ void parseCommandData(char* topic, char incomingData[MSG_BUFFER_SIZE]) {
 
 // function to execute whenever a message is received for a subscribed topic from COMMAND
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived for topic [");
-  Serial.print(topic);
-  Serial.println("] :");
+  Serial.print("From COMMAND: Message arrived for topic ["); // for debugging
+  Serial.print(topic); // for debugging
+  Serial.print("] : "); // for debugging
   memset(incomingData, 0, MSG_BUFFER_SIZE);
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
@@ -247,7 +257,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
   parseCommandData(topic, incomingData);
-//   printCommandData();     // for debugging
+  printCommandData();     // for debugging
 }
 
 // connect ESP32 to MQTT broker
@@ -304,6 +314,7 @@ void setup_mqtt() {
 
 // for debugging, function to print data received from COMMAND
 void printCommandData() {
+  Serial.println("The following information is printed by printCommandData function: ");
   Serial.print("Instruction ID: ");  
   Serial.println(cmdID);
   if (driveMode == 'A'){
@@ -340,9 +351,11 @@ void printCommandData() {
 void getDriveData() {
   recvFromSerial2();
   if (newData == true) {
+    Serial.print("From DRIVE: rover coordinates and steering angle: "); // for debugging
+    Serial.println(recvFromDrive); // for debugging
     strcpy(tmpFromDrive, recvFromDrive);
     parseDriveData();
-    // printDriveData();    // for debugging
+    printDriveData();    // for debugging
     newData = false;
   }
 }
@@ -359,8 +372,9 @@ void sendToDrive() {
     if (driveMode == 'M') {
       snprintf (msgDrive, MSG_BUFFER_SIZE, "<%c,%i,%i,%i,%i>", driveMode, cmd_direction, cmd_dist, cmd_angle, cmd_speed);
     }
-    // Serial.println(msgDrive); // for debugging
     Serial2.write(msgDrive);
+    Serial.print("To DRIVE: instruction mode and values from COMMAND: "); // for debugging
+    Serial.println(msgDrive); // for debugging
   } else {}
 }
 
@@ -408,6 +422,7 @@ void parseDriveData() {
 
 // for debugging, print data received from DRIVE to serial monitor
 void printDriveData() {
+  Serial.println("The following information is printed by printDriveData function: ");
   Serial.print("rover_x: ");
   Serial.println(rover_x);
   Serial.print("rover_y: ");
