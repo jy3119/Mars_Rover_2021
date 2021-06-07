@@ -73,7 +73,7 @@ const Warning = () => {
     (warningData.x_coord==0 && warningData.y_coord==0) ? 
     <div className={classes.root}>
       <Alert severity="info">
-        rover is at position ({positionData.x_coord}, {positionData.y_coord})
+        rover is at position ({positionData.x_coord},{positionData.y_coord})
       </Alert>
     </div> :
     <div className={classes.root}>
@@ -99,7 +99,7 @@ const Warning = () => {
       </Alert>
       </Collapse>
       <Alert severity="info" className={classes.notifs}>
-        rover is at position ({positionData.x_coord}, {positionData.y_coord})
+        rover is at position ({positionData.x_coord},{positionData.y_coord})
       </Alert>
   </div>
       
