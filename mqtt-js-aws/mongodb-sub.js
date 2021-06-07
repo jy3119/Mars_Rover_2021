@@ -44,9 +44,9 @@ async function main () {
                 //color,coordx,coordy
                 var parse_string = message.toString(); 
                 var parse_coord = parse_string.split(',');
+                var colour_num = parse_coord[0];
                 var obstacle_x = Number(parse_coord[1]); 
                 var obstacle_y = Number(parse_coord[2]); 
-                var colour_num = parse_coord[0];
                 /* add in corresponding colour to the numbers */
                 if (colour_num=='0') {var obs_colour = 'red';}
                 if (colour_num=='1') {var obs_colour = 'green';}
@@ -54,7 +54,7 @@ async function main () {
                 if (colour_num=='3') {var obs_colour = 'pink';}
                 if (colour_num=='4') {var obs_colour = 'yellow';}
             
-                const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
+                const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour, category: 'obstacle position'});
             }
 
             else if (topic=='liveloc') {
@@ -64,7 +64,7 @@ async function main () {
                 var rover_x = Number(parse_coord[0]); 
                 var rover_y = Number(parse_coord[1]); 
                 
-                const p = col.insertOne({ x_coord: rover_x, y_coord: rover_y, colour: 'rover live position'});
+                const p = col.insertOne({ x_coord: rover_x, y_coord: rover_y, category: 'rover position'});
             }
     
             console.log('Received message:', topic, message.toString());
