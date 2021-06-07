@@ -38,21 +38,30 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'right',
     alignItems: 'center',
-    width: 290
+    margin: 10,
+    width: 165
   },
   button_dmode: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 10,
-    width: 250
+    margin: 15,
+    width: 145
   },
   button_rmode: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  soh_alert: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 10, 
+    width: 140
   },
   userName: {
     display: 'flex',
