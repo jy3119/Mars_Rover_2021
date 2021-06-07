@@ -12,7 +12,6 @@ import BatteryContainer from './BatteryContainer/BatteryContainer';
 */
 
 const BatteryStatus = () => {
-    const [batteryStrokes, setBatteryStrokes] = useState(Array(5).fill(true));
     const classes = useStyles();
 
     const [battery, setBattery] = useState({ level: 0, charging: false }); 
@@ -44,6 +43,7 @@ const BatteryStatus = () => {
     if (state_num == '0') {var charge = false;}
     /* include SOH later */ 
     setBattery({ level: SOC, charging: charge});
+    sethealth(SOH); 
     console.log('Received message:', topic, message.toString());
 });
 
@@ -52,10 +52,15 @@ const BatteryStatus = () => {
 
     return (
         <Container>
-            <BatteryContainer className={classes.battery} {...battery}/>
+            <BatteryContainer {...battery}/>
+            {(health<20) ? 
+            <Alert severity="error" fontSize='10'>Change battery</Alert> 
+            :
             <Alert severity="info" className={classes.notifs} display='flex'>
-              SOH
+              Battery SOH: {health} 
             </Alert>
+            }
+            
         </Container>
     );
 }
