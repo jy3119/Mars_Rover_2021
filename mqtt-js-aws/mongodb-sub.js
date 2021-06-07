@@ -40,25 +40,39 @@ async function main () {
         mqtt_client.on('message', function (topic, message) {
             //Called each time a message is received
             // Insert a single document, wait for promise so we can read it back
-            //'O',color,coordx,coordy
-            var parse_string = message.toString(); 
-            var parse_coord = parse_string.split(',');
-            var obstacle_x = Number(parse_coord[2]); 
-            var obstacle_y = Number(parse_coord[3]); 
-            var colour_num = parse_coord[1];
-            /* add in corresponding colour to the numbers */
-            if (colour_num=='0') {var obs_colour = 'red';}
-            if (colour_num=='1') {var obs_colour = 'green';}
-            if (colour_num=='2') {var obs_colour = 'blue';}
-            if (colour_num=='3') {var obs_colour = 'pink';}
-            if (colour_num=='4') {var obs_colour = 'yellow';}
+            if (topic=='obstacle') {
+                //color,coordx,coordy
+                var parse_string = message.toString(); 
+                var parse_coord = parse_string.split(',');
+                var obstacle_x = Number(parse_coord[1]); 
+                var obstacle_y = Number(parse_coord[2]); 
+                var colour_num = parse_coord[0];
+                /* add in corresponding colour to the numbers */
+                if (colour_num=='0') {var obs_colour = 'red';}
+                if (colour_num=='1') {var obs_colour = 'green';}
+                if (colour_num=='2') {var obs_colour = 'blue';}
+                if (colour_num=='3') {var obs_colour = 'pink';}
+                if (colour_num=='4') {var obs_colour = 'yellow';}
             
-            const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
+                const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
+            }
+
+            else if (topic=='liveloc') {
+                //coordx, coordy
+                var parse_string = message.toString(); 
+                var parse_coord = parse_string.split(',');
+                var rover_x = Number(parse_coord[0]); 
+                var rover_y = Number(parse_coord[1]); 
+                
+                const p = col.insertOne({ x_coord: rover_x, y_coord: rover_y, colour: 'rover live position'});
+            }
+    
             console.log('Received message:', topic, message.toString());
         });
 
          /* subscribe to topic 'my/test/topic' */
          mqtt_client.subscribe('obstacle');
+         mqtt_client.subscribe('liveloc');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
          //mqtt_client.publish('obstacle', '52,19,3');
