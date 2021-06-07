@@ -27,13 +27,12 @@ boolean newData = false;
 
 // MQTT variables for receiving messages on subcsribed topics from COMMAND
 char incomingData[MSG_BUFFER_SIZE];
-
 // MQTT variables for publishing messages to COMMAND
 char msg[MSG_BUFFER_SIZE];
 char msgLiveLoc[MSG_BUFFER_SIZE];
 
 // variables received from COMMAND to send to DRIVE
-int cmdID, prevID;              // ID of message received from COMMAND
+int cmdID, prevID;              // ID of message received from COMMAND. helper variable
 char driveMode, prevMode;       // mode = 'A' for auto, 'M' for manual  
 // automatic mode
 int target_x;                   // target x-coordinate to travel to
@@ -125,7 +124,8 @@ void sendAllObstacleCoords(){
 
 // send obstacle data to COMMAND for mapping and DRIVE for obstacle avoidance
 void sendColor0Coords(){
-  if ((color0_x!=x_last0) || (color0_y!=y_last0)){
+  // account for uncertainty value of diameter of a ping pong ball
+  if ( (abs(color0_x-x_last0)>40) || (abs(color0_y-y_last0)>40) ) {
     x_last0 = color0_x;
     y_last0 = color0_y;
     if (detected0 == 1) {
@@ -143,7 +143,7 @@ void sendColor0Coords(){
   } else{}
 }
 void sendColor1Coords(){
-  if ((color1_x!=x_last1) || (color1_y!=y_last1)){
+  if ( (abs(color1_x-x_last1)>40) || (abs(color1_y-y_last1)>40) ) {
     x_last1 = color1_x;
     y_last1 = color1_y;
     if (detected1 == 1) {
@@ -161,7 +161,7 @@ void sendColor1Coords(){
   } else{}
 }
 void sendColor2Coords(){
-  if ((color2_x!=x_last2) || (color2_y!=y_last2)){
+  if ( (abs(color2_x-x_last2)>40) || (abs(color2_y-y_last2)>40) ) {
     x_last2 = color2_x;
     y_last2 = color2_y;
     if (detected2 == 1) {
@@ -179,7 +179,7 @@ void sendColor2Coords(){
   } else{}
 }
 void sendColor3Coords(){
-  if ((color3_x!=x_last3) || (color3_y!=y_last3)){
+  if ( (abs(color3_x-x_last3)>40) || (abs(color3_y-y_last3)>40) ) {
     x_last3 = color3_x;
     y_last3 = color3_y;
     if (detected3 == 1) {
@@ -197,7 +197,7 @@ void sendColor3Coords(){
   } else{}
 }
 void sendColor4Coords(){
-  if ((color4_x!=x_last4) || (color4_y!=y_last4)){
+  if ( (abs(color4_x-x_last4)>40) || (abs(color4_y-y_last4)>40) ) {
     x_last4 = color4_x;
     y_last4 = color4_y;
     if (detected4 == 1) {
