@@ -46,6 +46,5 @@ client.publish('obstacle', '4,32,53');
 
 client.publish('liveloc', '9,4');
 client.publish('liveloc', '12,45'); */
-//client.publish ('battery', '0.50,45,0');
-client.publish ('battery', '0.2,45,1');
-
+client.publish ('battery', '1,45,0');
+//client.publish ('battery', '0.43,45,1');
