@@ -1,9 +1,9 @@
 #include <ControlLib.h>
 
-// UPDATE HERE ACCORDING TO YOUR WIFI Name and Password
-const char* ssid = "WIFINAME";          // your WiFi name
-const char* password = "PASSWORD";    // your WiFi password
-const char* mqtt_server = "SOMETHING.us-east-2.compute.amazonaws.com";  // Server's public DNS
+// UPDATE HERE ACCORDING TO YOUR WiFi Name, WiFi password, and Server's Public DNS Address
+const char* ssid = "WIFINAME";                                            // your WiFi name
+const char* password = "PASSWORD";                                        // your WiFi password
+const char* mqtt_server = "SOMETHING.us-east-2.compute.amazonaws.com";    // Server's Public DNS (get from COMMAND)
 
 void setup() {
   Serial.begin(115200);               // for debugging, set up Serial Monitor for ESP32
