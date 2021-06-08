@@ -4,6 +4,7 @@ Files for Control subsystem.
 
 ## Folder Directory:
 ```bash
+control
 ├── ControlESP32
 │   └── ControlESP32.ino                // FOR UPLOAD TO ESP32
 ├── ControlLib                          // FOR DOWNLOAD, library containing all functions and variables needed for CONTROL to work
