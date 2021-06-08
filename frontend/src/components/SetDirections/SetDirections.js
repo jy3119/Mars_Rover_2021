@@ -28,12 +28,12 @@ const SetDirections = () => {
               <Grid item xs={12} sm={7}>
                 <DirectionLists />
               </Grid>
-              <Grid item xs={12} sm={7}>
+              <Grid item>
                 <Warning />
               </Grid>
             </Grid>
           </Container>
-        </Grow>
+        </Grow> 
       </Container>
     );
 };
