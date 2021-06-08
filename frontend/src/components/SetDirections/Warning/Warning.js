@@ -46,20 +46,23 @@ const Warning = () => {
     //Called each time a message is received
     var parse_string = message.toString(); 
     var parse_coord = parse_string.split(',');
-    var x = Number(parse_coord[0]); 
-    var y = Number(parse_coord[1]); 
-    var colour_num = parse_coord[2];
     if (topic == 'obstacle') {
        /* add in corresponding colour to the numbers */ 
+       var colour_num = parse_coord[0];
+       var obstacle_x = Number(parse_coord[1]); 
+       var obstacle_y = Number(parse_coord[2]); 
+       /* add in corresponding colour to the numbers */
        if (colour_num=='0') {var obs_colour = 'red';}
        if (colour_num=='1') {var obs_colour = 'green';}
        if (colour_num=='2') {var obs_colour = 'blue';}
        if (colour_num=='3') {var obs_colour = 'pink';}
        if (colour_num=='4') {var obs_colour = 'yellow';}
-      setwarningData({x_coord: x, y_coord: y, colour: obs_colour});
+      setwarningData({x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
     }
     else if (topic == 'liveloc') {
-      setpositionData({x_coord: x, y_coord: y});
+      var rover_x = Number(parse_coord[0]); 
+      var rover_y = Number(parse_coord[1]); 
+      setpositionData({x_coord: rover_x, y_coord: rover_y});
     }
     console.log('Received message:', topic, message.toString());
 });

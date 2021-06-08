@@ -1,4 +1,4 @@
-var mqtt = require('mqtt')
+import mqtt from 'mqtt';
 
 /*var options = {
     host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud',
@@ -34,10 +34,10 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('obstacle');
+client.subscribe('battery');
 
 // publish message 'Hello' to topic 'my/test/topic'
-/*
+
 client.publish('obstacle', '0,12,45');
 client.publish('obstacle', '2,9,23');
 client.publish('obstacle', '1,4,29');
@@ -45,7 +45,7 @@ client.publish('obstacle', '3,45,2');
 client.publish('obstacle', '4,32,53');
 
 client.publish('liveloc', '9,4');
-client.publish('liveloc', '12,45'); */
-//client.publish ('battery', '0.50,45,0');
-client.publish ('battery', '0.2,45,1');
+client.publish('liveloc', '12,45'); 
+//client.publish ('battery', '50,45,0');
+//client.publish ('battery', '0.2,45,1');
 

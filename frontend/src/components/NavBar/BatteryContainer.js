@@ -38,7 +38,7 @@ export default function Battery({ level, charging }) {
             "-apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif'"
         }}
       >
-        {level * 100}%
+        {level*100}%
       </text>
       </g>
     </svg>

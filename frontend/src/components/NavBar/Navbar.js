@@ -37,7 +37,7 @@ const NavBar = () => {
     //Called each time a message is received
     var parse_string = message.toString(); 
     var parse_coord = parse_string.split(',');
-    var SOC = Number(parse_coord[0]); 
+    var SOC = (Number(parse_coord[0]))/100; 
     var SOH = Number(parse_coord[1]); 
     var state_num = parse_coord[2];
     if (state_num == '1') {var charge = true;}
@@ -45,11 +45,14 @@ const NavBar = () => {
     /* include SOH later */ 
     setBattery({ level: SOC, charging: charge});
     sethealth(SOH); 
-    if (SOC == 0.5 && state_num=='0') {
+    if (SOC == 50 && state_num=='0') {
       setmessage({open: true, type: 0});
     } 
-    if (SOC == 0.2 && state_num=='1') {
+    if (SOC == 20 && state_num=='1') {
       setmessage({open: true, type: 1});
+    }
+    if (SOC == 100) {
+      setmessage({open: true, type: 2});
     }
     console.log('Received message:', topic, message.toString());
 });
@@ -108,12 +111,15 @@ const NavBar = () => {
           <Alert severity="warning" onClose={handleClose}>
             low battery: rover slowing down
           </Alert>
-          : 
+          : (message.type==1) ?
           <Alert severity="success" onClose={handleClose}>
             battery at 20%: switched to charging mode
           </Alert>
+          :
+          <Alert severity="success" onClose={handleClose}>
+            battery fully charged
+          </Alert>
         }
-        
       </Snackbar> 
     </div>
     );

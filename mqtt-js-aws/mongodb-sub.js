@@ -1,5 +1,5 @@
-var mqtt = require('mqtt');
-var mongodb = require('mongodb');
+import mqtt from 'mqtt';
+import mongodb from 'mongodb';
 
 const uri = 'mongodb+srv://tsersiew:coolbeans1234@cluster0.gws9z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 var mongodbClient = mongodb.MongoClient(uri,{ useUnifiedTopology: true, useNewUrlParser: true }); //initialises the mongoDB client 
