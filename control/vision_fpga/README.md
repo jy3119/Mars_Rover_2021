@@ -5,10 +5,7 @@
 - I2C Slave to Avalon-MM Master Brdige Intel FPGA IP, byte addressing mode 4
 - i2c_adaptor.v
 
-## How to augment on top of Vision's existing quartus files:
-TBC
-
-## How to use (Test version only):
+## How to use (Test Version):
 1. Create new Quartus project, name the project as whatever _projectname_ you want
 2. Open nios2_cpu.qsys in Platform Designer(Tools --> Platform Designer ) and generate HDL (Generate --> Generate HDL)
 3. top_level.v contains the verilog code for the top-level module. Add this to your project and set it as the top level file.
@@ -19,4 +16,4 @@ TBC
 9. Create new Nios II Application and BSP from template, use Hello World Small and choose the needed .sopcinfo (should be nios2_cpu.sopcinfo)
 10. Copy paste the C code found in i2c_fpga_test.c into hello_world_small.c
 11. Right click your folder, click on Build project, and then click on Run, run as NIOS II Hardware to program the Nios II CPU
-12. While the FPGA is still connected to the laptop, connect your ESP32
+
