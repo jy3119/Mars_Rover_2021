@@ -61,7 +61,7 @@ int roverPrevX, roverPrevY;
 
 // variables for calculation of obstacle coords
 int camera_x, camera_y;          // x and y coordinates of rover's front camera corrected for rover length
-long roverCorrection = 220;       // correction for distance between coordinate detector and camera of rover
+long roverCorrection = 220;      // correction for distance between coordinate detector and camera of rover
 int steerQuadrant;
 int dx0, dx1, dx2, dx3, dx4;     // send to DRIVE 
 int dy0, dy1, dy2, dy3, dy4;     // send to DRIVE 
