@@ -48,10 +48,10 @@ const NavBar = () => {
     if (SOC == 50 && state_num=='0') {
       setmessage({open: true, type: 0});
     } 
-    if (SOC == 20 && state_num=='1') {
+    else if (SOC == 20 && state_num=='1') {
       setmessage({open: true, type: 1});
     }
-    if (SOC == 100) {
+    else if (SOC <= 100 && (state_num=='1' || state_num=='0')) {
       setmessage({open: true, type: 2});
     }
     console.log('Received message:', topic, message.toString());
@@ -96,7 +96,7 @@ const NavBar = () => {
                   <Alert severity="error" className={classes.soh_alert}>Change battery</Alert> 
                   :
                   <Alert severity="info" className={classes.soh_alert} display='flex'>
-                  Battery SOH: {health} 
+                  Battery SOH: {health}
                   </Alert>
                 }
                 <BatteryContainer {...battery}/>
