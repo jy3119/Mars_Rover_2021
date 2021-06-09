@@ -6,6 +6,86 @@ var mongodbClient = mongodb.MongoClient(uri,{ useUnifiedTopology: true, useNewUr
 
 const dbName = "mapdb";
 
+function Queue() {
+    this.elements = [];
+ }
+
+Queue.prototype.enqueue = function (e) {
+    this.elements.push(e);
+};
+
+// remove an element from the front of the queue
+Queue.prototype.dequeue = function () {
+    return this.elements.shift();
+};
+
+Queue.prototype.length = function() {
+    return this.elements.length;
+}
+
+let q = new Queue();
+q.enqueue(0);
+q.enqueue(0);
+var distance = 0; 
+
+async function distance_map () {
+    try {
+        await mongodbClient.connect();
+        console.log("Connected to mongodb atlas");
+        const db = mongodbClient.db(dbName);
+        /* Use the collection "test" */
+        const col = db.collection("distancemodels");
+        var mqtt_client = mqtt.connect("mqtt://ec2-18-223-15-156.us-east-2.compute.amazonaws.com", {port:1883});
+        //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
+
+        /* setup the callbacks */
+        mqtt_client.on('connect', function () {
+            console.log('Connected to mqtt broker');
+        });
+        mqtt_client.on('error', function (error) {
+            console.log(error);
+        });
+        
+        /* parsing the message and inserting into mongodb 
+            Publishing from esp32 to topic
+            1 topic: liveloc
+            send in this format: x,y
+        */ 
+        
+        mqtt_client.on('message', function (topic, message) {
+            //Called each time a message is received
+            // Insert a single document, wait for promise so we can read it back
+                //coordx, coordy
+                var parse_string = message.toString(); 
+                var parse_coord = parse_string.split(',');
+                var rover_x = Number(parse_coord[0]); 
+                var rover_y = Number(parse_coord[1]); 
+                
+                q.enqueue(rover_x);
+                q.enqueue(rover_y); 
+                if (q.length()>4) {
+                    q.dequeue();
+                    q.dequeue();
+                }
+                var vert = Math.pow(q[3]-q[1],2);
+                var hor = Math.pow(q[2]-q[0],2);
+                distance += sqrt(vert+hor);
+                const p = col.insertOne({ dist: distance, });
+    
+            console.log('Received message:', topic, message.toString());
+        });
+
+         /* subscribe to topic 'my/test/topic' */
+         mqtt_client.subscribe('liveloc');
+        
+         /* publish message 'Hello' to topic 'my/test/topic' */
+         //mqtt_client.publish('obstacle', '52,19,3');
+        
+       } catch (err) {
+        console.log(err.stack);
+    }
+}
+
 async function main () {
     try {
         await mongodbClient.connect();
@@ -91,6 +171,7 @@ async function main () {
 }
 
 main().catch(console.dir);
+distance_map().catch(console.dir);
 mongodbClient.close();
 
 

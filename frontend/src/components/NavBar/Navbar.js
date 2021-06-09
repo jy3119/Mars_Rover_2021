@@ -82,7 +82,7 @@ const NavBar = () => {
               <Alert severity="error" fontSize='10'>Change battery</Alert> 
               :
               <Alert severity="info" className={classes.notifs} display='flex'>
-              Battery SOH: {health} 
+              Battery Health: {health}% 
               </Alert>
             }
             <BatteryContainer {...battery}/>
@@ -96,7 +96,7 @@ const NavBar = () => {
                   <Alert severity="error" className={classes.soh_alert}>Change battery</Alert> 
                   :
                   <Alert severity="info" className={classes.soh_alert} display='flex'>
-                  Battery SOH: {health}
+                  Battery Health: {health}%
                   </Alert>
                 }
                 <BatteryContainer {...battery}/>
