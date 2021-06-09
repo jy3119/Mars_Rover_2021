@@ -1,41 +1,27 @@
-/* NOTES:
-   each digit of hex number represents 4 bits in binary so alt_16 will be a 4 digit hex number, alt_8 will be a 2 digit hex number
-   to convert to signed 2's complement, invert all bits of the binary number, and then add 1 after inversion.
-   so e.g:
-      45 degrees = 0x2D i.e. 00101101
-     -45 degrees = 0xD3 i.e. 11010011
-*/
-
 #include "sys/alt_stdio.h"
 #include "system.h"
 #include "io.h"
 
 #define mem_limit 1024
-alt_16 diag_dist;			 // diagonal distance of obstacle to rover
-alt_8 angle;                // angle of obstacle from rover. to left of rover: +ve, to right of rover: -ve
-alt_8 obstacle_detected;    // 1 only if obstacle has been detected, 0 otherwise
+alt_16 hori_dist;			        // horizontal distance of obstacle from rover in mm, left pos right neg
+alt_8 diag_dist;              // diagonal distance of obstacle from rover in cm
+alt_8 detected;    		        // 1 only if obstacle has been detected, 0 otherwise
 
-void updateTmp(alt_32 base_addr, alt_16 diag_dist, alt_8 angle, alt_8 obstacle_detected){
-	alt_32 tmp = (diag_dist<<16) + (angle<<8) + obstacle_detected;
+void updateTmp(alt_32 base_addr, alt_16 hori_dist, alt_8 diag_dist, alt_8 detected){
+	alt_32 tmp = (hori_dist<<16) + (diag_dist<<8) + detected;
 	IOWR(base_addr, 0, tmp);
 }
+
 int main()
 { 
   alt_putstr("Hello from Nios II!\n");
 
-  // EDIT VALUES OF PARAMETERS HERE as rover moves around.
-  diag_dist = 0x0005;			       // diagonal distance of obstacle to rover in cm
-  angle = 0xD3;                // angle of obstacle from rover. to left of rover: +ve, to right of rover: -ve
-  obstacle_detected = 0x01;    // 1 only if obstacle has been detected, 0 otherwise
-
   alt_putstr("Writing into memory...\n");
-
-  // writes into the 1st word of I2C MEM
-  updateTmp(I2C_MEM_BASE,    0x0005, 0xD3, 0);	// red
-  updateTmp(I2C_MEM_BASE+4,  0x0004, 0x2D, 0);  // green
-  updateTmp(I2C_MEM_BASE+8,  0x0003, 0xD3, 0);	// blue
-  updateTmp(I2C_MEM_BASE+12, 0x0002, 0x2D, 0);	// pink
-  updateTmp(I2C_MEM_BASE+16, 0x0001, 0xD3, 0);	// yellow
+  updateTmp(I2C_MEM_BASE,    0x001E, 0x05, 0x01);	 // red
+  updateTmp(I2C_MEM_BASE+4,  0xFFE2, 0x05, 0x01);  // green
+  updateTmp(I2C_MEM_BASE+8,  0x0028, 0x05, 0x01);	 // blue
+  updateTmp(I2C_MEM_BASE+12, 0xFFD8, 0x05, 0x01);	 // pink
+  updateTmp(I2C_MEM_BASE+16, 0x0019, 0x05, 0x01);	 // yellow
   alt_putstr("Memory write done!\n");
 
 
