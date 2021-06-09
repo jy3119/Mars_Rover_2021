@@ -2,7 +2,7 @@ import mqtt from 'mqtt';
 
 //initialize the MQTT client
 //var client = mqtt.connect(options);
-var client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
+var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
 
 //setup the callbacks
 client.on('connect', function () {

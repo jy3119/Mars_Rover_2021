@@ -31,7 +31,7 @@ const Warning = () => {
   const [open, setOpen] = useState(true);
 
   /*MQTT Subscribing*/
-  var client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
+  var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
   
   //setup the callbacks
   client.on('connect', function () {
