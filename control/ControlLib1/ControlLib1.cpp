@@ -637,32 +637,32 @@ void getCameraCoords() {
       x_dist = 0;
       y_dist = roverCorrection;
       break;
-    case 2: // steering angle between 0 and 90 degrees: x -ve, y +ve
-      x_dist = -x_dist_tmp;
+    case 2: // steering angle between 0 and 90 degrees: x +ve, y +ve
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
       break;
     case 3: // steering angle = 90, i.e. rover is facing 90 degrees to the left / ACW
-      x_dist = -roverCorrection;
+      x_dist = roverCorrection;
       y_dist = 0;
       break;
-    case 4: // steering angle between 90 and 180 degrees: x -ve, y -ve
-      x_dist = -x_dist_tmp;
+    case 4: // steering angle between 90 and 180 degrees: x +ve, y -ve
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
       break;
     case 5: // steering angle = 180 or -180, i.e. rover is facing straight behind
       x_dist = 0;
       y_dist = -roverCorrection;
       break;
-    case 6: // steering angle between 0 and -90 degrees: x +ve, y +ve
-      x_dist = -x_dist_tmp;
+    case 6: // steering angle between 0 and -90 degrees: x -ve, y +ve
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
       break;
     case 7: // steering angle = -90, i.e. rover is facing 90 degrees to the right / CW
-      x_dist = roverCorrection;
+      x_dist = -roverCorrection;
       y_dist = 0;
       break;
-    case 8: // steering angle between -90 and -180 degrees: x +ve, y -ve
-      x_dist = -x_dist_tmp;
+    case 8: // steering angle between -90 and -180 degrees: x -ve, y -ve
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
       break;
   }
@@ -705,13 +705,13 @@ void getObstacleCoords0() {
       x_dist = 0;
       y_dist = -diag_dist0;
     } else if (totalAngle == 90) {
-      x_dist = -diag_dist0;
-      y_dist = 0;
-    } else if (totalAngle == -90) {
       x_dist = diag_dist0;
       y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = -diag_dist0;
+      y_dist = 0;
     } else {
-      x_dist = -x_dist_tmp;
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
     }
     color0_x = camera_x + x_dist;
@@ -736,13 +736,13 @@ void getObstacleCoords1() {
       x_dist = 0;
       y_dist = -diag_dist1;
     } else if (totalAngle == 90) {
-      x_dist = -diag_dist1;
-      y_dist = 0;
-    } else if (totalAngle == -90) {
       x_dist = diag_dist1;
       y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = -diag_dist1;
+      y_dist = 0;
     } else {
-      x_dist = -x_dist_tmp;
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
     }
     color1_x = camera_x + x_dist;
@@ -767,13 +767,13 @@ void getObstacleCoords2() {
       x_dist = 0;
       y_dist = -diag_dist2;
     } else if (totalAngle == 90) {
-      x_dist = -diag_dist2;
-      y_dist = 0;
-    } else if (totalAngle == -90) {
       x_dist = diag_dist2;
       y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = -diag_dist2;
+      y_dist = 0;
     } else {
-      x_dist = -x_dist_tmp;
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
     }
     color2_x = camera_x + x_dist;
@@ -798,13 +798,13 @@ void getObstacleCoords3() {
       x_dist = 0;
       y_dist = -diag_dist3;
     } else if (totalAngle == 90) {
-      x_dist = -diag_dist3;
-      y_dist = 0;
-    } else if (totalAngle == -90) {
       x_dist = diag_dist3;
       y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = -diag_dist3;
+      y_dist = 0;
     } else {
-      x_dist = -x_dist_tmp;
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
     }
     color3_x = camera_x + x_dist;
@@ -829,13 +829,13 @@ void getObstacleCoords4() {
       x_dist = 0;
       y_dist = -diag_dist4;
     } else if (totalAngle == 90) {
-      x_dist = -diag_dist4;
-      y_dist = 0;
-    } else if (totalAngle == -90) {
       x_dist = diag_dist4;
       y_dist = 0;
+    } else if (totalAngle == -90) {
+      x_dist = -diag_dist4;
+      y_dist = 0;
     } else {
-      x_dist = -x_dist_tmp;
+      x_dist = x_dist_tmp;
       y_dist = y_dist_tmp;
     }
     color4_x = camera_x + x_dist;

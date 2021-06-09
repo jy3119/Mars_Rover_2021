@@ -1,8 +1,8 @@
 #include <ControlLib1.h>
 
 // UPDATE HERE ACCORDING TO YOUR WiFi Name, WiFi password, and Server's Public DNS Address
-const char* ssid = "wifiname";                                            // your WiFi name
-const char* password = "password";                                        // your WiFi password
+const char* ssid = "";                                            // your WiFi name
+const char* password = "";                                        // your WiFi password
 const char* mqtt_server = "ec2-18-223-15-156.us-east-2.compute.amazonaws.com";    // Server's Public DNS (get from COMMAND)
 
 void setup() {
