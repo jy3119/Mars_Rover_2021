@@ -19,8 +19,9 @@ To run the application:
 - in backend directory, run: 
     ### `npm start`
     Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-- in mqtt-js-aws directory, run mongodb-sub.js file with command:
-    ### `node mongodb-sub.js`
+- in mqtt-js-aws directory, run mongodb-sub.js file and proxy-battpub.js file with command:
+    ### `node mongodb-sub.js` 
+    ### `node proxy-battpub.js` 
 - Amazon EC2 Instance Public DNS address must be updated everytime instance is stopped. 
 
 mqtt.connect("ws://{Public DNS Address}/mqtt")
@@ -29,6 +30,6 @@ Files utilising the address are as listed:
 1. mqtt-js-aws/mongodb-sub.js
 2. frontend/src/components/SetCoordinates/DestinationInput/DestinationInput.js
 3. frontend/src/components/SetDirections/DirectionButton/DirectionButton.js
-4. frontend/src/components/SetRadius/RadiusInput/RadiusInput.js
-5. frontend/src/components/SetDirections/Warning/Warning.js
-6. frontend/src/components/NavBar/BatteryStatus/BatteryStatus.js
+4. frontend/src/components/SetDirections/Warning/Warning.js
+5. frontend/src/components/NavBar/NavBar.js
+6. mqtt-js-aws/proxy-battpub.js
