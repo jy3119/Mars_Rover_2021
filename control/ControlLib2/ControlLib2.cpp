@@ -44,7 +44,7 @@ int roverPrevX, roverPrevY;
 
 
 // variables received from VISION
-long BASE_ADDRESS = 0x80000;                                            // check platform designer in Quartus for BASE_ADDRESS of I2C_MEM
+long BASE_ADDRESS = 0x40000;                                            // check platform designer in Quartus for BASE_ADDRESS of I2C_MEM
 int8_t byte0, byte1, byte2, byte3;                                      // for storing data read from VISION
 int detected0, detected1, detected2, detected3, detected4;              // 1 only if obstacle is detected, 0 other wise
 int diag_dist0, diag_dist1, diag_dist2, diag_dist3, diag_dist4;         // diagonal distance of obstacle to rover, received in cm

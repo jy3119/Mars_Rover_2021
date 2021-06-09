@@ -7,9 +7,9 @@ Files for Control subsystem.
 control
 ├── ControlESP32
 │   └── ControlESP32.ino                // FOR UPLOAD TO ESP32
-├── ControlLib                          // FOR DOWNLOAD, library containing all functions and variables needed for CONTROL to work
-│   ├── ControlLib.cpp
-│   └── ControlLib.h
+├── ControlLib2                         // FOR DOWNLOAD, library containing all functions and variables needed for CONTROL to work
+│   ├── ControlLib2.cpp
+│   └── ControlLib2.h
 ├── ESP32testing                        // ESP32 TEST .ino FILES
 │   ├── esp32FULL
 │   │   └── esp32FULL.ino                 // full functionality ESP32 code
