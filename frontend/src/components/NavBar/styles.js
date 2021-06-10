@@ -67,7 +67,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: 10, 
-    width: 140
+    width: 170
   },
   userName: {
     display: 'flex',

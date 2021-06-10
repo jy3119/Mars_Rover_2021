@@ -17,7 +17,7 @@ import mqtt from 'mqtt';
 
 //initialize the MQTT client
 //var client = mqtt.connect(options);
-var client = mqtt.connect("ws://ec2-3-21-102-39.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
+var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
 
 //setup the callbacks
 client.on('connect', function () {
@@ -34,7 +34,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('battery');
+client.subscribe('liveloc');
 
 // publish message 'Hello' to topic 'my/test/topic'
 /*
@@ -45,8 +45,15 @@ client.publish('obstacle', '3,45,2');
 client.publish('obstacle', '4,32,53');
 
 client.publish('liveloc', '9,4');
-client.publish('liveloc', '12,45'); */
+client.publish('liveloc', '30,45'); 
 //client.publish ('battery', '50,45,0');
 client.publish ('battery', '100,45,0');
+*/
+//client.publish('liveloc', '58,12');
+//client.publish('liveloc', '45,17');
+//client.publish('liveloc', '58,34');
+//client.publish('liveloc', '66,14');
+//client.publish('liveloc', '49,12');
+client.publish('liveloc', '55,27');
 
 
