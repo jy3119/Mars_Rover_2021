@@ -40,7 +40,7 @@ int rover_x;                     // current x-coordinates of rover
 int rover_y;                     // current y-coordinates of rover
 int steeringAngle;               // steering angle of rover, ACW +ve, CW -ve, range is -180 to 180 degrees
 double steeringAngleRad;
-int roverPrevX, roverPrevY;
+int roverPrevX, roverPrevY, prevSteerAngle;
 
 
 // variables received from VISION
@@ -208,11 +208,12 @@ void printCommandData() {
 
 // send rover coordinates to COMMAND only if there are changes to rover coordinates
 void sendLiveLoc(){
-  if ((rover_x!=roverPrevX) || (rover_y!=roverPrevY)) {
+  if ((rover_x!=roverPrevX) || (rover_y!=roverPrevY) || (steeringAngle!=prevSteerAngle)) {
     roverPrevX = rover_x;
     roverPrevY = rover_y;
-    snprintf (msgLiveLoc, MSG_BUFFER_SIZE, "%i,%i", rover_x, rover_y);
-    Serial.print("To COMMAND: Rover's current coordinates: "); // for debugging
+    prevSteerAngle = steeringAngle;
+    snprintf (msgLiveLoc, MSG_BUFFER_SIZE, "%i,%i,%i", rover_x, rover_y, steeringAngle);
+    Serial.print("To COMMAND: Rover's current coordinates and steering angle: "); // for debugging
     Serial.println(msgLiveLoc); // for debugging
     client.publish("liveloc", msgLiveLoc);
   }
