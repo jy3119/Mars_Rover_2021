@@ -22,6 +22,7 @@ To run the application:
 - in mqtt-js-aws directory, run mongodb-sub.js file and proxy-battpub.js file with command:
     ### `node mongodb-sub.js` 
     ### `node proxy-battpub.js` 
+    ### `node distance.js` 
 - Amazon EC2 Instance Public DNS address must be updated everytime instance is stopped. 
 
 mqtt.connect("ws://{Public DNS Address}/mqtt")
@@ -33,3 +34,4 @@ Files utilising the address are as listed:
 4. frontend/src/components/SetDirections/Warning/Warning.js
 5. frontend/src/components/NavBar/NavBar.js
 6. mqtt-js-aws/proxy-battpub.js
+7. mqtt-js-aws/distance.js
