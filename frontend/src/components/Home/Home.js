@@ -2,10 +2,12 @@ import React from 'react';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'; 
 import { Container, Button, TextField, MenuItem } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import RoverPos from './RoverPos/RoverPos';
+
+import mqtt from 'mqtt';
 
 /* Brief 
     Fetch coordinates from mongodb
-
 */
 
 const sdk = new ChartsEmbedSDK({
@@ -64,12 +66,14 @@ const obstacle_colours = [
     },
   ];
 
-
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          colour: 'All'
+          colour: 'All',
+          x_coord: 0, 
+          y_coord: 0, 
+          angle: 0
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -138,6 +142,9 @@ class Home extends React.Component {
                     </Button>
                     </form>
                 </Container>
+                <div style={{display: 'flex', margin: 15, justifyContent: 'center'}}>
+                    <RoverPos />
+                </div>
                 <Container id='dist_chart'>
                 </Container>
             </Container>
