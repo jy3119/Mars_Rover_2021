@@ -44,8 +44,8 @@ client.publish('obstacle', '1,4,29');
 client.publish('obstacle', '3,45,2');
 client.publish('obstacle', '4,32,53');
 
-client.publish('liveloc', '9,4');
-client.publish('liveloc', '30,45'); 
+client.publish('liveloc', '9,4,80');
+client.publish('liveloc', '30,45,90'); 
 //client.publish ('battery', '50,45,0');
 client.publish ('battery', '100,45,0');
 */
@@ -54,6 +54,6 @@ client.publish ('battery', '100,45,0');
 //client.publish('liveloc', '58,34');
 //client.publish('liveloc', '66,14');
 //client.publish('liveloc', '49,12');
-client.publish('liveloc', '55,27');
+client.publish('liveloc', '55,27,90');
 
 

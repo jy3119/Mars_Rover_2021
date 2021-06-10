@@ -76,11 +76,6 @@ async function main () {
         
          /* publish message 'Hello' to topic 'my/test/topic' */
          //mqtt_client.publish('obstacle', '52,19,3');
-
-        // Find one document
-        //const myDoc = await col.findOne();
-        // Print to the console
-        //console.log(myDoc);
         
        } catch (err) {
         console.log(err.stack);
