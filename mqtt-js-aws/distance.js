@@ -50,7 +50,7 @@ async function distance_map () {
                 var vert = Math.pow(q[3]-q[1],2);
                 var hor = Math.pow(q[2]-q[0],2);
                 console.log(vert,hor);
-                distance = Math.sqrt(vert+hor);
+                distance += Math.sqrt(vert+hor);
                 const p = col.insertOne({ dist: distance, timestamp: new Date()});
     
             console.log('Received message:', topic, message.toString());
@@ -60,12 +60,6 @@ async function distance_map () {
          mqtt_client.subscribe('liveloc');
         
          /* publish message 'Hello' to topic 'my/test/topic' */
-         mqtt_client.publish('liveloc', '58,12');
-         mqtt_client.publish('liveloc', '45,17');
-         mqtt_client.publish('liveloc', '58,34');
-         mqtt_client.publish('liveloc', '66,14');
-         mqtt_client.publish('liveloc', '49,12');
-         mqtt_client.publish('liveloc', '55,27');
         
        } catch (err) {
         console.log(err.stack);

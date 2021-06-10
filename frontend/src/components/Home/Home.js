@@ -24,6 +24,19 @@ async function renderChart() {
     await chart.render(document.getElementById('chart'));
 };
 
+const dist_chart = sdk.createChart({ 
+    chartId: '4f8171fa-fd43-4949-b174-bfe231487ec0',
+    height: "500px", 
+    autoRefresh: true,
+    maxDataAge: 10,
+    theme: "dark", 
+    showAttribution: false,
+}); 
+
+async function renderDistChart() {
+    await dist_chart.render(document.getElementById('dist_chart'));
+};
+
 const obstacle_colours = [
     {
         value: 'All',
@@ -62,12 +75,14 @@ class Home extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
-      componentDidMount() {
+    componentDidMount() {
         renderChart();
-      }
-      componentDidUpdate() {
+        renderDistChart();
+    }
+    componentDidUpdate() {
         chart.setAutoRefresh(10);
-      }
+        dist_chart.setAutoRefresh(10);
+    }
 
     filter_obstacles () {
         chart.setFilter({category: "obstacle position"})
@@ -122,6 +137,8 @@ class Home extends React.Component {
                         <FilterListIcon variant="contained" color="secondary">Filter</FilterListIcon>
                     </Button>
                     </form>
+                </Container>
+                <Container id='dist_chart'>
                 </Container>
             </Container>
         )

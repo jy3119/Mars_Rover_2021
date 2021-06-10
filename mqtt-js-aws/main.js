@@ -34,10 +34,10 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('battery');
+client.subscribe('liveloc');
 
 // publish message 'Hello' to topic 'my/test/topic'
-
+/*
 client.publish('obstacle', '0,12,45');
 client.publish('obstacle', '2,9,23');
 client.publish('obstacle', '1,4,29');
@@ -48,5 +48,12 @@ client.publish('liveloc', '9,4');
 client.publish('liveloc', '30,45'); 
 //client.publish ('battery', '50,45,0');
 client.publish ('battery', '100,45,0');
+*/
+//client.publish('liveloc', '58,12');
+//client.publish('liveloc', '45,17');
+//client.publish('liveloc', '58,34');
+//client.publish('liveloc', '66,14');
+//client.publish('liveloc', '49,12');
+client.publish('liveloc', '55,27');
 
 
