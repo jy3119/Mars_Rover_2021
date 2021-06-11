@@ -237,7 +237,6 @@ void sendColor0Coords(){
     x_last0 = color0_x;
     y_last0 = color0_y;
     if (detected0 == 1) {
-      Serial.println("From VISION: RED Obstacle detected.");
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 0, color0_x, color0_y);
       client.publish("obstacle", msg);
@@ -256,7 +255,6 @@ void sendColor1Coords(){
     x_last1 = color1_x;
     y_last1 = color1_y;
     if (detected1 == 1) {
-      Serial.println("From VISION: GREEN Obstacle detected.");
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 1, color1_x, color1_y);
       client.publish("obstacle", msg);
@@ -275,7 +273,6 @@ void sendColor2Coords(){
     x_last2 = color2_x;
     y_last2 = color2_y;
     if (detected2 == 1) {
-      Serial.println("From VISION: BLUE Obstacle detected.");
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 2, color2_x, color2_y);
       client.publish("obstacle", msg);
@@ -294,7 +291,6 @@ void sendColor3Coords(){
     x_last3 = color3_x;
     y_last3 = color3_y;
     if (detected3 == 1) {
-      Serial.println("From VISION: PINK Obstacle detected.");
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 3, color3_x, color3_y);
       client.publish("obstacle", msg);
@@ -313,7 +309,6 @@ void sendColor4Coords(){
     x_last4 = color4_x;
     y_last4 = color4_y;
     if (detected4 == 1) {
-      Serial.println("From VISION: YELLOW Obstacle detected.");
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 4, color4_x, color4_y);
       client.publish("obstacle", msg);
