@@ -21,11 +21,13 @@ server.use(cors());
 
 server.use('/instruction', InstructionRouter);
 server.use('/destination', DestinationRouter);
-//server.use(MapRouter)
+
+server.get('/', (req,res) => {
+    res.send('APP IS RUNNING.');
+});
 
 /* Get port */
 const PORT = process.env.PORT || 3000;
-
 
 /************************ CONNECTION TO MONGO DATABASE **********************/
 const CONNECTION_URL = 'mongodb+srv://tsersiew:coolbeans1234@cluster0.gws9z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
