@@ -233,10 +233,10 @@ void sendObstacleCoords(){
 }
 void sendColor0Coords(){
   // account for uncertainty value of diameter of a ping pong ball
-  if ( (abs(color0_x-x_last0)>40) || (abs(color0_y-y_last0)>40) ) {
-    x_last0 = color0_x;
-    y_last0 = color0_y;
-    if (detected0 == 1) {
+  if (detected0 == 1) {
+    if ( (abs(color0_x-x_last0)>40) || (abs(color0_y-y_last0)>40) ) {
+      x_last0 = color0_x;
+      y_last0 = color0_y;
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 0, color0_x, color0_y);
       client.publish("obstacle", msg);
@@ -251,10 +251,10 @@ void sendColor0Coords(){
   } else{}
 }
 void sendColor1Coords(){
-  if ( (abs(color1_x-x_last1)>40) || (abs(color1_y-y_last1)>40) ) {
-    x_last1 = color1_x;
-    y_last1 = color1_y;
-    if (detected1 == 1) {
+  if (detected1 == 1) {
+    if ( (abs(color1_x-x_last1)>40) || (abs(color1_y-y_last1)>40) ) {
+      x_last1 = color1_x;
+      y_last1 = color1_y;
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 1, color1_x, color1_y);
       client.publish("obstacle", msg);
@@ -269,10 +269,10 @@ void sendColor1Coords(){
   } else{}
 }
 void sendColor2Coords(){
-  if ( (abs(color2_x-x_last2)>40) || (abs(color2_y-y_last2)>40) ) {
-    x_last2 = color2_x;
-    y_last2 = color2_y;
-    if (detected2 == 1) {
+  if (detected2 == 1) {
+    if ( (abs(color2_x-x_last2)>40) || (abs(color2_y-y_last2)>40) ) {
+      x_last2 = color2_x;
+      y_last2 = color2_y;
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 2, color2_x, color2_y);
       client.publish("obstacle", msg);
@@ -287,10 +287,10 @@ void sendColor2Coords(){
   } else{}
 }
 void sendColor3Coords(){
-  if ( (abs(color3_x-x_last3)>40) || (abs(color3_y-y_last3)>40) ) {
-    x_last3 = color3_x;
-    y_last3 = color3_y;
-    if (detected3 == 1) {
+  if (detected3 == 1) {
+    if ( (abs(color3_x-x_last3)>40) || (abs(color3_y-y_last3)>40) ) {
+      x_last3 = color3_x;
+      y_last3 = color3_y;
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 3, color3_x, color3_y);
       client.publish("obstacle", msg);
@@ -305,10 +305,10 @@ void sendColor3Coords(){
   } else{}
 }
 void sendColor4Coords(){
-  if ( (abs(color4_x-x_last4)>40) || (abs(color4_y-y_last4)>40) ) {
-    x_last4 = color4_x;
-    y_last4 = color4_y;
-    if (detected4 == 1) {
+  if (detected4 == 1) {
+    if ( (abs(color4_x-x_last4)>40) || (abs(color4_y-y_last4)>40) ) {
+      x_last4 = color4_x;
+      y_last4 = color4_y;
       // to COMMAND
       snprintf (msg, MSG_BUFFER_SIZE, "%i,%i,%i", 4, color4_x, color4_y);
       client.publish("obstacle", msg);
