@@ -4,9 +4,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-/* MQTT imports */
-import mqtt from 'mqtt';
-
 /*Backend Routes*/ 
 import InstructionRouter from './routes/instruction-router.js';
 import DestinationRouter from './routes/destination-router.js';
