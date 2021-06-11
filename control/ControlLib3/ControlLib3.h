@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include <PubSubClient.h>
 #include <math.h>
-#include <Wire.h>
 #include <WiFi.h>
 
 #define MSG_BUFFER_SIZE (50)
@@ -36,7 +35,7 @@ void printDriveData();          // for debugging, print data received from DRIVE
 /*============================== END OF DRIVE FUNCTIONS ==============================*/
 
 /*================================= VISION FUNCTIONS =================================*/
-void setupVision()              // set up Serial/UART connection with VISION
+void setupVision();              // set up Serial/UART connection with VISION
 void printVisionData();         // for debugging, print out data received from VISION to serial monitor
 void recvFromSerial1();         // receive data from Serial1 UART port
 void parseVisionData();         // parse data received from VISION and store values into variables. also calculate angle of obstacles.

@@ -52,7 +52,7 @@ int color;
 int detected0, detected1, detected2, detected3, detected4;              // 1 only if obstacle is detected, 0 other wise
 int diag_dist0, diag_dist1, diag_dist2, diag_dist3, diag_dist4;         // diagonal distance of obstacle to rover, received in mm
 int hori_dist0, hori_dist1, hori_dist2, hori_dist3, hori_dist4;         // horizontal distance of obstacle to rover, received in mm
-double ratio0, ratio1, ratio2, ratio3, ratio4                           // ratio of hori_dist / diag_dist
+double ratio0, ratio1, ratio2, ratio3, ratio4;                          // ratio of hori_dist / diag_dist
 double angle0, angle1, angle2, angle3, angle4;                          // angle of osbtacle to rover. on left of rover = +ve,  on right of rover = -ve.  range: -90 to 90 degrees
 double angle0deg, angle1deg, angle2deg, angle3deg, angle4deg;
 
