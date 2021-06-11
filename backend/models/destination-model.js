@@ -7,8 +7,8 @@ const DestinationSchema = mongoose.Schema(
         y_coordinate: Number, 
         radius_dist: {
             type: Number, 
-            default: 0, //set to max first 
-            max: 2500 //can set proper value later 
+            default: 0, 
+            max: 1000 
         },
         SetAt: {
             type: Date, 

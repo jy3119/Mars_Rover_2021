@@ -14,7 +14,7 @@ const NavBar = () => {
 
     const [control_mode, setcontrol_mode] = useState(false);
 
-    const [battery, setBattery] = useState({ level: 90, charging: false }); 
+    const [battery, setBattery] = useState({ level: 0.9, charging: false }); 
 
     const [health, sethealth] = useState(85); 
 
