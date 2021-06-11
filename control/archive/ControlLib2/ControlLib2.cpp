@@ -7,6 +7,7 @@ const int mqtt_port = 1883;
 WiFiClient espClient;
 PubSubClient client(espClient);
 // MQTT variables for receiving messages on subcsribed topics from COMMAND
+#define MSG_BUFFER_SIZE (50)
 char incomingData[MSG_BUFFER_SIZE];
 // MQTT variables for publishing messages to COMMAND
 char msg[MSG_BUFFER_SIZE];
@@ -29,7 +30,6 @@ int cmd_speed;                  // rover speed
 // Serial variables for UART/Serial communication with DRIVE
 #define TXD2 17 // look for port 8 on the arduino adaptor of the ESP32, connect this to RX on the arduino
 #define RXD2 16 // look for port 9 on the arduino adaptor of the ESP32, connect this to TX on the arduino
-#define MSG_BUFFER_SIZE (50)
 char msgDrive[MSG_BUFFER_SIZE];
 char msgObst[MSG_BUFFER_SIZE];
 char recvFromDrive[MSG_BUFFER_SIZE];
@@ -350,7 +350,7 @@ void sendToDrive() {
   } else {}
 }
 
-// receive data from Serial2 UART ports
+// receive data from Serial2 UART port
 void recvFromSerial2() {
   static boolean recvInProgress = false;
   static byte ndx = 0;
