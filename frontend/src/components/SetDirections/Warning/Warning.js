@@ -25,7 +25,7 @@ const Warning = () => {
   //some sort of boolean that shows its the first warning or smthng 
 
   const [positionData, setpositionData] = useState({
-    x_coord: 0, y_coord: 0
+    x_coord: 0, y_coord: 0, angle: 0
   }); 
 
   const [open, setOpen] = useState(true);
@@ -62,7 +62,8 @@ const Warning = () => {
     else if (topic == 'liveloc') {
       var rover_x = Number(parse_coord[0]); 
       var rover_y = Number(parse_coord[1]); 
-      setpositionData({x_coord: rover_x, y_coord: rover_y});
+      var steer_angle = Number(parse_coord[2]);
+      setpositionData({x_coord: rover_x, y_coord: rover_y, angle: steer_angle});
     }
     console.log('Received message:', topic, message.toString());
 });
@@ -76,7 +77,7 @@ const Warning = () => {
     (warningData.x_coord==0 && warningData.y_coord==0) ? 
     <div className={classes.root}>
       <Alert severity="info">
-        rover is at position ({positionData.x_coord},{positionData.y_coord})
+        rover is at position ({positionData.x_coord},{positionData.y_coord}) at orientation {positionData.angle} degrees
       </Alert>
     </div> :
     <div className={classes.root}>
@@ -102,7 +103,7 @@ const Warning = () => {
       </Alert>
       </Collapse>
       <Alert severity="info" className={classes.notifs}>
-        rover is at position ({positionData.x_coord},{positionData.y_coord})
+        rover is at position ({positionData.x_coord},{positionData.y_coord}) at orientation {positionData.angle} degrees
       </Alert>
   </div>
       
