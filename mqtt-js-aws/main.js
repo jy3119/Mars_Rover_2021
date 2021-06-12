@@ -1,23 +1,31 @@
 import mqtt from 'mqtt';
-
-/*var options = {
-    host: '076cff12ed5c4926b7ea87f9103ee4ea.s1.eu.hivemq.cloud',
-    port: 8080,
-    protocol: 'mqtts',
-    username: 'mqtt-broker',
-    password: 'Coolbeans$4'
+/*
+var options = {
+    //host: 'ec2-18-216-115-209.us-east-2.compute.amazonaws.com',
+    port: 3033,
+    //protocol: 'wss',
+    username: 'mqtt-websockets',
+    password: 'coolbeans1234',
     //added following
-    keepalive: 60,
-    reconnectPeriod: 1000,
-    clean: true,
-    encoding: "utf8",
-    timeout: 3,
+    //keepalive: 60,
+    //reconnectPeriod: 1000,
+    //clean: true,
+    //encoding: "utf8",
+    //timeout: 3,
     useSSL: true
-}*/
+} */
+
+var options = {
+    port: 3033,
+    username: 'mqtt-websockets',
+    password: 'coolbeans1234',
+    clean: true,
+    useSSL: true
+}
 
 //initialize the MQTT client
 //var client = mqtt.connect(options);
-var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080});
+var client = mqtt.connect("ws://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
 
 //setup the callbacks
 client.on('connect', function () {
@@ -34,7 +42,7 @@ client.on('message', function (topic, message) {
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('liveloc');
+client.subscribe('battery');
 
 // publish message 'Hello' to topic 'my/test/topic'
 /*
@@ -56,5 +64,4 @@ client.publish ('battery', '30,85,1');
 //client.publish('liveloc', '66,14');
 //client.publish('liveloc', '49,12');
 //client.publish('liveloc', '55,27,90');
-
 
