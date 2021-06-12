@@ -46,14 +46,15 @@ client.publish('obstacle', '4,32,53');
 
 client.publish('liveloc', '9,4,80');
 client.publish('liveloc', '30,45,90'); 
-//client.publish ('battery', '50,45,0');
-client.publish ('battery', '100,45,0');
 */
+client.publish ('battery', '30,85,1');
+//client.publish ('battery', '100,45,0');
+
 //client.publish('liveloc', '58,12');
 //client.publish('liveloc', '45,17');
 //client.publish('liveloc', '58,34');
 //client.publish('liveloc', '66,14');
 //client.publish('liveloc', '49,12');
-client.publish('liveloc', '55,27,90');
+//client.publish('liveloc', '55,27,90');
 
 

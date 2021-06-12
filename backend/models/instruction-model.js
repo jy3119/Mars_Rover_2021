@@ -13,8 +13,8 @@ const InstructionSchema = mongoose.Schema(
         },
         speed: {
             type: Number, 
-            default: 5, //set to max first 
-            max: 5 //can set proper value later 
+            default: 5, 
+            max: 5 
         },
         SetAt: {
             type: Date, 

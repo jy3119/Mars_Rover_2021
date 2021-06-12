@@ -12,7 +12,10 @@ The command students will have different solutions that could be developed to co
 
 -A web application using nodejs and mongodb as backend and reactjs as frontend.
 
-To run the application: 
+To run the application on web: 
+- go to site https://design-project-2-2021-summer-try2.netlify.app on Safari browser 
+
+To run the application on localhost: 
 - in frontend directory, run: 
     ### `npm start`
     Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
@@ -35,3 +38,4 @@ Files utilising the address are as listed:
 5. frontend/src/components/NavBar/NavBar.js
 6. mqtt-js-aws/proxy-battpub.js
 7. mqtt-js-aws/distance.js
+
