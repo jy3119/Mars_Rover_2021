@@ -1,4 +1,5 @@
 import mqtt from 'mqtt';
+import fs from 'fs'; 
 /*
 var options = {
     //host: 'ec2-18-216-115-209.us-east-2.compute.amazonaws.com',
@@ -16,16 +17,17 @@ var options = {
 } */
 
 var options = {
-    port: 3033,
+    port: 1883,
     username: 'mqtt-websockets',
     password: 'coolbeans1234',
     clean: true,
-    useSSL: true
+    //useSSL: true,
+    //ca: fs.readFileSync('./ca.crt')
 }
 
 //initialize the MQTT client
-//var client = mqtt.connect(options);
-var client = mqtt.connect("ws://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
+//var client = mqtt.connect("mqtt://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
+var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
 
 //setup the callbacks
 client.on('connect', function () {

@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'right',
     alignItems: 'center',
     margin: 10,
-    width: 165
+    width: 123
   },
   button_dmode: {
     display: 'flex',

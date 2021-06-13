@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs": "0.0.1-security",
     "mongodb": "^3.6.9",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2"
