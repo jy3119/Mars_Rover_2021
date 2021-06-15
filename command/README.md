@@ -10,7 +10,7 @@ To run the application on web:
 - go to site https://design-project-2-2021-summer-try2.netlify.app on Safari browser 
 
 To run the application on localhost: 
-- Before proceeding, make sure that you have installed Node Js installed on your local machine.
+- Before proceeding, make sure that you have Node Js installed on your local machine.
 - in frontend directory, run: 
     #### `npm install`
     #### `npm run build`
