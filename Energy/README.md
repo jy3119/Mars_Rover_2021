@@ -12,6 +12,8 @@ MPPT.ino                                                          // perturb and
 
 
 
-The energy subsystem cannot be physically implemented
-A computer was used as an intermediary device to communicate with Command
-The information (SoC, SoH) can be passed using the UART port on the Arduino Nano Every
+The energy subsystem cannot be physically implemented.
+
+A computer was used as an intermediary device to communicate with Command.
+
+The information (SoC, SoH) can be passed using the UART port on the Arduino Nano Every.
