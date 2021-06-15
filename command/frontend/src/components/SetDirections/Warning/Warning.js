@@ -56,7 +56,7 @@ const Warning = () => {
        if (colour_num=='0') {var obs_colour = 'red';}
        if (colour_num=='1') {var obs_colour = 'green';}
        if (colour_num=='2') {var obs_colour = 'blue';}
-       if (colour_num=='3') {var obs_colour = 'pink';}
+       if (colour_num=='3') {var obs_colour = 'magenta';}
        if (colour_num=='4') {var obs_colour = 'yellow';}
       setwarningData({x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour});
     }
