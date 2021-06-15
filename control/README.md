@@ -15,7 +15,7 @@ The following steps are assuming that the ESP32 has already been plugged into Vi
 8. On Arduino IDE, under "Tools", ensure that the correct Serial port is selected and that the Board selected is "ESP32 Dev Module"  
 9. Upload the code onto your ESP32.
 
-Note that once the .ino file has been uploaded, it is not necessary to keep the ESP32 connected to your computer.
+Note that once the .ino file has been uploaded, it is not necessary to keep the ESP32 connected to your computer for the rover to function.
 However, to observe the ESP32's Serial Monitor for debugging purposes, it is necessary to keep the ESP32 connected to your computer.
 
 ## Folder Directory:
