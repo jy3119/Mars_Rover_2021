@@ -8,6 +8,7 @@ The Command subsystem web application can be divided into 3 parts:
 
 To run the application on web: 
 - go to site https://design-project-2-2021-summer-try2.netlify.app on Safari browser 
+- cannot run secure WebSockets since domain name was not purchased
 
 To run the application on localhost: 
 - Before proceeding, make sure that you have Node Js installed on your local machine.
