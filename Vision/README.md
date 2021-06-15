@@ -31,7 +31,8 @@ Vision/DE10_LITE_D8M_VIP_16
 ├── software                         
 │   ├── D8M_Camera_Test_bsp         //BSP is generated in this folder
 │   └── D8M_Camera_Test             
-            └── D8M_Camera_Test.elf
+│            └── D8M_Camera_Test.elf
+│            └── main.c
 └── DE10_LITE_D8M_VIP_16.qpf
                   // PROJECT FILE
  
