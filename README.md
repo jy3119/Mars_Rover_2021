@@ -1,6 +1,6 @@
 # Mars Rover System - Group 25
 
-This project implements a Mars Rover system consisting of 6 subsystems - Integration, Energy, Drive, Vision, Command and Control. The Mars Rover is capable of autonomously traversing and mapping out a remote location through remote control without the need for direct supervision. It is also able to detect, avoid, and map out obstacles encountered. Additionally, self charging capability was implemented.
+This project implements a Mars Rover system consisting of 6 subsystems - Integration, Energy, Drive, Vision, Command and Control. The Mars Rover is capable of autonomously traversing and mapping out a remote location through remote control without the need for direct supervision. It is also able to detect, avoid, and map out obstacles encountered. Additionally, self charging capability was implemented, though not physically.
 
 ## Structural Design
 The following diagram illustrates the Structural Design of the Mars rover system.
