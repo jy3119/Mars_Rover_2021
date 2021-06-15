@@ -20,21 +20,20 @@ The following steps are assuming the necessary connections between the PC, FPGA,
 ```bash
 Vision/DE10_LITE_D8M_VIP_16
 ├── output_files                        
-│   └── DE10_LITE_D8M_VIP_time_limited.sof               //for blasting FPGA
+│   └── DE10_LITE_D8M_VIP_time_limited.sof              //for blasting FPGA
 ├── ip                        
-│   ├── EEE_IMGPROC.v               // demonstration image processor
-│   └── rgb_to_hsv.v                // module for colour space conversion
+│   ├── EEE_IMGPROC.v                                   // demonstration image processor
+│   └── rgb_to_hsv.v                                    // module for colour space conversion
 ├── Qsys
-│   ├── Qsys.qsys          //qsys file loaded in platform designer
+│   ├── Qsys.qsys                                       //qsys file loaded in platform designer
 │   └── synthesis
-│           └──   Qsys.qip    //for inclusion in the project          
+│           └──   Qsys.qip                              //for inclusion in the project          
 ├── software                         
-│   ├── D8M_Camera_Test_bsp         //BSP is generated in this folder
+│   ├── D8M_Camera_Test_bsp                             //BSP is generated in this folder
 │   └── D8M_Camera_Test             
-│            └── D8M_Camera_Test.elf
+│            └── D8M_Camera_Test.elf                    
 │            └── main.c
-└── DE10_LITE_D8M_VIP_16.qpf
-                  // PROJECT FILE
+└── DE10_LITE_D8M_VIP_16.qpf                            // PROJECT FILE
  
 ```
 
