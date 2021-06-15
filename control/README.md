@@ -14,6 +14,7 @@ The following steps are assuming that the ESP32 has already been plugged into Vi
 7. Connect the ESP32 to your computer
 9. On Arduino IDE, under "Tools", ensure that the correct Serial port is selected and that the Board selected is "ESP32 Dev Module"  
 10. Upload the code onto your ESP32.
+
 Note that once the .ino file has been uploaded, it is not necessary to keep the ESP32 connected to your computer.
 However, to observe the ESP32's Serial Monitor for debugging purposes, it is necessary to keep the ESP32 connected to your computer.
 
