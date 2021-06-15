@@ -1,5 +1,5 @@
 
-Forvision:	
+For vision:	
 1. Platform designer -> load QSYS and generate HDL
 2. Afterwards, close it and go to Project -> Add/remove files -> remove the existing QIP file and replace it with the newly synthesised one (inside Qsys/synthesis folder) make sure you DONT include both .qsys and .qip inside the add/remove files
 3. Compile
@@ -13,6 +13,13 @@ NIOS II...wtv ECllipse and open eclipse set it to ..../software folder
 7. after that, build the project (press Ctrl + B)
 8. get the camera and all ready, and you run the Eclipse
 
+For command:
+Details included in the readme.md under its repository
+
 For drive:
-if uploading not success, plug arduino out of the board and upload
+If uploading not success, plug arduino out of the board and upload
 when insert it back, first remove the power cable and it's better to check if pins fit before it's connected.
+Switch the physical switch to on and the main loop starts to function
+
+For control:
+Refresh by pressing black button
