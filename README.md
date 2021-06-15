@@ -42,4 +42,13 @@ Each subsystem has their own folders containing the instructions on how to set u
 ## Further Details
 For further details and explanation, please refer to the Report and Video.
 
+# Team Members
+Melody Leom
+Tser Ying Siew
+Jeongin Yang
+Xin Sun
+Ziheng Qi
+Zhengyangguang Bao
+
+
 
