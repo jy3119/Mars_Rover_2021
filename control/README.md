@@ -3,14 +3,18 @@
 Files for Control subsystem.
 
 # How to use:
+The following steps are assuming that the ESP32 has already been plugged into Vision subsystem's FPGA and physically wired up to Drive subsystem's Arduino Nano Every.
 1. Download the Arduino IDE from here: https://www.arduino.cc/en/software
 2. Download the ESP32 library by following the instructions here: 
    https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
-3. Download the PubSubClient library from https://github.com/knolleary/pubsubclient and add it into your Arduino IDE.
-4. Download the ControlLib3 folder and add this library into your Arduino IDE.
+3. Download the PubSubClient library from https://github.com/knolleary/pubsubclient and add it into your Arduino IDE
+4. Download the ControlLib3 folder and add this library into your Arduino IDE
 5. Download the ControlESP32.ino file
-6. Edit the name and password of your WiFi network in the first few lines of the ControlESP32.ino file.
-7. Upload the code onto your ESP32
+6. Edit the name and password of your WiFi network in the first few lines of the ControlESP32.ino file
+7. Connect the ESP32 to your computer
+9. Upload the code onto your ESP32
+Note that once the .ino file has been uploaded, it is not necessary to keep the ESP32 connected to your computer.
+However, to observe the ESP32's Serial Monitor for debugging purposes, it is necessary to keep the ESP32 connected to your computer.
 
 ## Folder Directory:
 ```bash
