@@ -1,0 +1,26 @@
+Drive Subsystem
+Files for Drive subsystem.
+
+How to use:
+These step instruction assume that you have full physical components of the Mars Rover and porperly assemble it.
+
+Instal Arduino
+Step 1 - Go to https://www.arduino.cc/en/software and download the Arduino IDE 1.8.13
+Step 2 - Click ”Just Download” (or donate to the very worthy Arduino Project if you want to).  Ithink the department has already donated on our behalf though.
+Step 3 - Open and run the file that downloads and agree to the license
+Step 4 - Keep the default settings and choose an install location and install the IDE
+Step 5 - Open the boards manager
+Step 6 - Search for and install the INA219WE library
+Step 7 - Select the Arduino Nano Every as your board and select Registers Emulation:  None
+Step 8 - Connect your Arduino Nano Every board to computer and update the combination_finalv.ino file
+Step 9 - Remove the connection between Nano Every board and computer.
+ 
+Folder Directory:
+control
+├── Optical_Sensor.ino
+│                  
+├── Moter_Control.ino         
+│   
+├── combination_finalv.ino
+|
+└── README.md
