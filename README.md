@@ -20,7 +20,7 @@ The following diagram shows the physical implementation of the actual Mars Rover
 
 <img src="images/physical_imple.png" />
 
-# How to Use the Mars Rover system:
+# How to Use the Mars Rover system / Integration:
 1. Plug in the ESP32 onto the FPGA.
 2. Connect the ESP32 to the Arduino Nano Every on the Drive subsystem as following in the diagram below.
 
@@ -37,9 +37,9 @@ The following diagram shows the physical implementation of the actual Mars Rover
 9. The Mars Rover system is now capable of taking in movement commands from the Command subsystem, and capable of obstacle detection and avoidance, and terrain mapping.
 
 ## Folder Directory
-Each subsystem has their own folders containing the instructions on how to set up and operate the respective subsystems. Both the final and testing files for each subsystem have been included in each folder.
+Each subsystem has their own folders containing the instructions on how to set up and operate the respective subsystems. Both the final and testing files for each subsystem have also been included in each folder.
 
-# Further Details
+## Further Details
 For further details and explanation, please refer to the Report and Video.
 
 
