@@ -3,12 +3,14 @@
 Files for Control subsystem.
 
 # How to use:
-1. Download the ESP32 library by following the instructions here: https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
-2. Download the PubSubClient library from https://github.com/knolleary/pubsubclient and add it into your Arduino IDE.
-3. Download the ControlLib3 folder and add this library into your Arduino IDE.
-4. Download the ControlESP32.ino file
-5. Edit the name and password of your WiFi network in the first few lines of the ControlESP32.ino file.
-6. Upload the code onto your ESP32
+1. Download the Arduino IDE from here: https://www.arduino.cc/en/software
+2. Download the ESP32 library by following the instructions here: 
+   https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
+3. Download the PubSubClient library from https://github.com/knolleary/pubsubclient and add it into your Arduino IDE.
+4. Download the ControlLib3 folder and add this library into your Arduino IDE.
+5. Download the ControlESP32.ino file
+6. Edit the name and password of your WiFi network in the first few lines of the ControlESP32.ino file.
+7. Upload the code onto your ESP32
 
 ## Folder Directory:
 ```bash
