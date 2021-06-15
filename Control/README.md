@@ -20,7 +20,7 @@ However, to observe the ESP32's Serial Monitor for debugging purposes, it is nec
 
 ## Folder Directory:
 ```bash
-control
+Control
 ├── ControlESP32
 │   └── ControlESP32.ino                // FOR UPLOAD TO ESP32
 ├── ControlLib3                         // FOR DOWNLOAD, library containing all functions and variables needed for CONTROL to work

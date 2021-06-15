@@ -2,7 +2,7 @@
 
 Files for Drive subsystem.
 
-#How to use:
+# How to use:
 The following steps are assuming that the Mars Rover system has already been fully assembled.
 1. Go to https://www.arduino.cc/en/software and download the Arduino IDE 1.8.13
 2. In the Arduino IDE, Open the boards manager

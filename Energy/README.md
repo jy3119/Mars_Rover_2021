@@ -1,3 +1,17 @@
+# Energy Subsystem
+
+Files for Energy subsystem.
+
+# How to use:
+The energy subsystem cannot be physically implemented.
+
+A computer was used as an intermediary device to communicate with Command.
+
+The information (SoC, SoH) can be passed using the UART port on the Arduino Nano Ever
+
+-------------------------------------------------------------------------------------------------------------------
+
+## Folder Directory:
 Battery_Charge_Cycle_Logged_V1.1.ino                              // Battery initial test
 
 Battery_Charge_Cycle_Logged_V1.1_CV-CC.ino                        // CC-CV charging test
@@ -10,11 +24,5 @@ PV_characterize.ino                                               // Sweeping du
 
 MPPT.ino                                                          // perturb and observe (P&O)
 
--------------------------------------------------------------------------------------------------------------------
 
 
-The energy subsystem cannot be physically implemented.
-
-A computer was used as an intermediary device to communicate with Command.
-
-The information (SoC, SoH) can be passed using the UART port on the Arduino Nano Every.
