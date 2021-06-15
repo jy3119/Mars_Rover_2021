@@ -23,7 +23,6 @@ The following diagram shows the physical implementation of the actual Mars Rover
 # How to Use the Mars Rover system / Integration:
 1. Plug in the ESP32 onto the FPGA.
 2. Connect the ESP32 to the Arduino Nano Every on the Drive subsystem as following in the diagram below.
-
 <br />
 
 <img src="images/wiring_ESP32_and_Nano_Every.jpg" />
@@ -44,10 +43,15 @@ For further details and explanation, please refer to the Report and Video.
 
 # Team Members
 Melody Leom
+
 Tser Ying Siew
+
 Jeongin Yang
+
 Xin Sun
+
 Ziheng Qi
+
 Zhengyangguang Bao
 
 
