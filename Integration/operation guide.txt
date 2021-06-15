@@ -1,0 +1,18 @@
+
+Forvision:	
+1. Platform designer -> load QSYS and generate HDL
+2. Afterwards, close it and go to Project -> Add/remove files -> remove the existing QIP file and replace it with the newly synthesised one (inside Qsys/synthesis folder) make sure you DONT include both .qsys and .qip inside the add/remove files
+3. Compile
+4. Programmer -> blast it (DONT close the pop-up window after it blasts successfully)
+5. (if no updates of main.c):
+go to NIOS II command shell, cd to path so that you are now in the software/D8M_Camera_Test folder
+6. run "nios2-download D8M_Camera_Test.elf -c 1 -g"
+5.(if updates):
+NIOS II...wtv ECllipse and open eclipse set it to ..../software folder
+6. right click on project_name.bsp -> go to Nios II option -> click generate BSP
+7. after that, build the project (press Ctrl + B)
+8. get the camera and all ready, and you run the Eclipse
+
+For drive:
+if uploading not success, plug arduino out of the board and upload
+when insert it back, first remove the power cable and it's better to check if pins fit before it's connected.
