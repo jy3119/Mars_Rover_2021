@@ -1,30 +1,23 @@
 # Design-Project-2-2021-Summer
-
-The command students will have different solutions that could be developed to communicate with the rover:
-
--A command-line interface that connects to a remote server over TCP to provide real-time logging and control of the system. This could be uploading commands to a database, that the rover then retrieves and executes.
-
--A purely local GUI using something like SDL or a static web page,that connects out over MQTT/HTTP/TCP to server.
-
--A server side interface generated using HTML and something like react.
-
--A mobile app connecting back into a server with buttons for forward,back, rotate, etc.
-
--A web application using nodejs and mongodb as backend and reactjs as frontend.
+## A web application using nodejs and mongodb as backend and reactjs as frontend.
 
 To run the application on web: 
 - go to site https://design-project-2-2021-summer-try2.netlify.app on Safari browser 
 
 To run the application on localhost: 
+- Before proceeding, make sure that you have installed Node Js installed on your local machine.
 - in frontend directory, run: 
+    ### `npm install`
+    ### `npm run build`
     ### `npm start`
     Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 - in backend directory, run: 
+    ### `npm install`
     ### `npm start`
     Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-- in mqtt-js-aws directory, run mongodb-sub.js file and proxy-battpub.js file with command:
+- in mqtt-js-aws directory, run mongodb-sub.js file, distance.js and battpub.js file with command:
     ### `node mongodb-sub.js` 
-    ### `node proxy-battpub.js` 
+    ### `node battpub.js` 
     ### `node distance.js` 
 - Amazon EC2 Instance Public DNS address must be updated everytime instance is stopped. 
 

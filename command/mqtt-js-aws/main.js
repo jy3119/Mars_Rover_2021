@@ -53,13 +53,13 @@ client.on('message', function (topic, message) {
 client.subscribe('obstacle');
 
 // publish message 'Hello' to topic 'my/test/topic'
-
+/*
 client.publish('obstacle', '0,12,45');
 client.publish('obstacle', '2,9,23');
 client.publish('obstacle', '1,4,29');
 client.publish('obstacle', '3,45,2');
 client.publish('obstacle', '4,32,53');
-
+*/
 //client.publish('liveloc', '9,4,80');
 client.publish('liveloc', '40,45,90'); 
 /*
