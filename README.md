@@ -32,10 +32,14 @@ The following diagram shows the physical implementation of the actual Mars Rover
 4. To set up the Command subsystem, follow the instructions as seen in the _Command_ folder.
 5. To set up the Control subsystem, follow the instructions as seen in the _Control_ folder.
 6. To set up the Vision subsystem, follow the instructions as seen in the _Vision_ folder.
-7. To set up the Drive subsystem, follow the instructions as seen in the _Drive_ folder.
+7. To set up the Drive subsystem, follow the instructions as seen in the _Drive_ folder. Take note to remove the SMPS cable before inserting the Arduino Nano Every to prevent short circuit from occuring due to pin misalignment.
 8. The Energy subsystem cannot be physically implemented, please refer to the _Energy_ folder for further details on how it is integrated with the Mars Rover system.
 9. The Mars Rover system is now capable of taking in movement commands from the Command subsystem, and capable of obstacle detection and avoidance, and terrain mapping.
 
-For further details, please refer to the Report and Video.
+## Folder Directory
+Each subsystem has their own folders containing the instructions on how to set up and operate the respective subsystems. Both the final and testing files for each subsystem have been included in each folder.
+
+# Further Details
+For further details and explanation, please refer to the Report and Video.
 
 
