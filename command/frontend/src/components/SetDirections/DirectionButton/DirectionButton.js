@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, MenuItem, Menu } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { TextField, Button, Typography, Paper, MenuItem} from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import { createInstruction } from '../../../actions/instructions-actions'; 
@@ -51,6 +51,16 @@ const DirectionButton = () => {
 
      /*MQTT Publishing*/
      const publishClick = (message) => {
+         /*
+        var options = {
+          port: 8083,
+          username: 'mqtt-websockets',
+          password: 'coolbeans1234',
+          clean: true,
+          useSSL: true,
+          ca: fs.readFileSync('../../../../mqtt-js-aws/ca.crt')
+        }*/
+      //var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
       const client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
       client.on('connect', function () {
         console.log('form connected to broker');
@@ -98,12 +108,5 @@ const DirectionButton = () => {
       </Paper>
     );
   };
-
-//style={{width: 100,position: 'absolute', right:320, top:150}}
-//<TextField name="direction" variant="outlined" label="direction" fullWidth id="direction" /> 
-/*
-<Button className={classes.direction_button} variant="contained" color="primary" id="Forward" onClick={()=>setinstructionData({ ...instructionData, direction: "Forward" })}>Forward</Button>
-<Button className={classes.direction_button} variant="contained" color="primary" id="Back" onClick={()=>setinstructionData({ ...instructionData, direction: "Back" })}>Back</Button>
-*/
 
 export default DirectionButton;

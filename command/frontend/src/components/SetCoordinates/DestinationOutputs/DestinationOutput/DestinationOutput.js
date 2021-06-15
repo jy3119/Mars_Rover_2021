@@ -1,9 +1,8 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Button, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import { deleteDestination } from '../../../../actions/destinations-actions';

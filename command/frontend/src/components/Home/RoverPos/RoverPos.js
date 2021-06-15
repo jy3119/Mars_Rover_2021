@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, AlertTitle} from '@material-ui/lab';
+import {Alert} from '@material-ui/lab';
 
 import mqtt from 'mqtt';
 

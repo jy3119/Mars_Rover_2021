@@ -2,21 +2,12 @@ import React, {useState} from 'react';
 import {Alert, AlertTitle} from '@material-ui/lab';
 import { Collapse, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
 
 import mqtt from 'mqtt';
 
 import useStyles from './styles';
-import { deleteInstruction } from '../../../actions/instructions-actions';
-
-/* Brief 
-  Subscribe to topic warnings
-  if new message received, then show alert? 
-*/ 
 
 const Warning = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
   const [warningData, setwarningData] = useState({
     x_coord: 0, y_coord: 0, colour: ''
@@ -31,6 +22,16 @@ const Warning = () => {
   const [open, setOpen] = useState(true);
 
   /*MQTT Subscribing*/
+   /*
+    var options = {
+      port: 8083,
+      username: 'mqtt-websockets',
+      password: 'coolbeans1234',
+      clean: true,
+      useSSL: true,
+      ca: fs.readFileSync('../../../../mqtt-js-aws/ca.crt')
+    }*/
+  //var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
   var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
   
   //setup the callbacks

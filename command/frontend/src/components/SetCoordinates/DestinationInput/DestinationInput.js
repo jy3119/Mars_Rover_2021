@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Typography, Paper, Container, Grid } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 /* MQTT Setup */
-import mqtt, { MqttClient } from 'mqtt';
-import { Connector,  useMqttState, publish } from 'mqtt-react-hooks';
+import mqtt from 'mqtt';
 
 import useStyles from './styles';
 import { createDestination } from '../../../actions/destinations-actions';
@@ -35,6 +34,18 @@ const DestinationInput = () => {
 
   /*MQTT Publishing*/
   const publishClick = (message) => {
+      /*
+      var options = {
+      port: 8083,
+      username: 'mqtt-websockets',
+      password: 'coolbeans1234',
+      clean: true,
+      useSSL: true,
+      ca: fs.readFileSync('../../../../mqtt-js-aws/ca.crt')
+      }*/
+  
+      //initialize the MQTT client
+      //var client = mqtt.connect("wss://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
     const client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
     client.on('connect', function () {
       console.log('Connected to broker');
@@ -70,43 +81,3 @@ const DestinationInput = () => {
  
 export default DestinationInput;
 
-/*
-export default () => {
-  const [connectionStatus, setConnectionStatus] = React.useState(false);
-  const [messages, setMessages] = React.useState([]);
- 
-  useEffect(() => {
-    const client = mqtt.connect(SOME_URL);
-    client.on('connect', () => setConnectionStatus(true));
-    client.on('message', (topic, payload, packet) => {
-      setMessages(messages.concat(payload.toString()));
-    });
-  }, []);
-
-  function CheckoutForm() {
-    const MQTTConnect = () => {
-        const client = mqtt.connect("mqtt://address.cloudmqtt.com", options);
-        client.on("connect", function() {
-          // When connected
-          console.log("connected");
-          client.subscribe("vendingmachine2/feedback", error => {
-            if (error) console.error(error);
-            else {
-              client.publish(topic, "0");
-            }
-          });
-          openDoor();
-        });
-        client.on("message", (topic, message) => {
-          console.log(topic, message.toString());
-        });
-        function openDoor() {
-          let door = [1, 2];
-          for (let i = 0; i < door.length; i++) {
-            client.publish(topic, `${door[i]}`);
-          }
-        }
-    };
-
-
-  */

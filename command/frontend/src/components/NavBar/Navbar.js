@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { AppBar, Typography, Toolbar, Snackbar, Button, Grid } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home'; 
-import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import useStyles from './styles'; 
-import {Alert, AlertTitle, MuiAlert} from '@material-ui/lab';
+import {Alert} from '@material-ui/lab';
 import mqtt from 'mqtt';
 
 import BatteryContainer from './BatteryContainer';
@@ -22,15 +21,16 @@ const NavBar = () => {
 
   /*
     var options = {
-      port: 3033,
+      port: 8083,
       username: 'mqtt-websockets',
       password: 'coolbeans1234',
       clean: true,
-      useSSL: true
+      useSSL: true,
+      ca: fs.readFileSync('../../../../mqtt-js-aws/ca.crt')
   }*/
   
   //initialize the MQTT client
-  //var client = mqtt.connect("ws://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
+  //var client = mqtt.connect("wss://ec2-18-216-115-209.us-east-2.compute.amazonaws.com/mqtt", options);
 
   /*MQTT Subscribing*/
   var client = mqtt.connect("ws://ec2-18-223-15-156.us-east-2.compute.amazonaws.com/mqtt", {port: 8080, keepalive: 60, clean: true});
@@ -64,13 +64,13 @@ const NavBar = () => {
     else if (SOC == 20 && state_num=='1') {
       setmessage({open: true, type: 1});
     }
-    else if (SOC <= 100 && (state_num=='1' || state_num=='0')) {
+    else if (SOC == 100 && (state_num=='1' || state_num=='0')) {
       setmessage({open: true, type: 2});
     }
     console.log('Received message:', topic, message.toString());
 });
 
-  // subscribe to topic 'my/test/topic'
+  // subscribe to topic 'battery'
   client.subscribe('battery');
 
   const handleClose = (event, reason) => {
@@ -140,15 +140,3 @@ const NavBar = () => {
 
 export default NavBar;
 
-/*
-{ (battery.level<=50 && battery.charging==false) ?
-  <Snackbar open={true} autoHideDuration={6000}>
-    <Alert severity="warning">
-      low battery: rover will decelerate
-    </Alert>
-  </Snackbar> 
-  :
-  <Snackbar>
-  </Snackbar>
-}
-*/

@@ -4,8 +4,6 @@ import { Container, Button, TextField, MenuItem } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import RoverPos from './RoverPos/RoverPos';
 
-import mqtt from 'mqtt';
-
 /* Brief 
     Fetch coordinates from mongodb
 */
