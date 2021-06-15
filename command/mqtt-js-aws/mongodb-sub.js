@@ -6,6 +6,11 @@ var mongodbClient = mongodb.MongoClient(uri,{ useUnifiedTopology: true, useNewUr
 
 const dbName = "mapdb";
 
+/* description of broker 
+    Amazon EC2 Linux Instance 
+    equivalent of having local gateway running Linux Distribution 
+*/
+
 async function main () {
     try {
         //var start= new Date()
