@@ -91,9 +91,6 @@ async function main () {
          mqtt_client.subscribe('obstacle');
          mqtt_client.subscribe('liveloc');
         
-         /* publish message 'Hello' to topic 'my/test/topic' */
-         //mqtt_client.publish('obstacle', '52,19,3');
-        
        } catch (err) {
         console.log(err.stack);
     }

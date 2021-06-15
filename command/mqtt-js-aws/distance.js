@@ -59,8 +59,6 @@ async function distance_map () {
          /* subscribe to topic 'my/test/topic' */
          mqtt_client.subscribe('liveloc');
         
-         /* publish message 'Hello' to topic 'my/test/topic' */
-        
        } catch (err) {
         console.log(err.stack);
     }
