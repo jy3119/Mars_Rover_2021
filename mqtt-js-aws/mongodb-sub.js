@@ -8,7 +8,11 @@ const dbName = "mapdb";
 
 async function main () {
     try {
+        //var start= new Date()
         await mongodbClient.connect();
+        //var end = new Date()
+        //var diff = end-start;
+        //console.log(diff);
         console.log("Connected to mongodb atlas");
         const db = mongodbClient.db(dbName);
         /* Use the collection "test" */
@@ -20,9 +24,12 @@ async function main () {
             username: 'mqtt-broker',
             password: 'Coolbeans$4'
         }*/
+        //var start= new Date()
         var mqtt_client = mqtt.connect("mqtt://ec2-18-223-15-156.us-east-2.compute.amazonaws.com", {port:1883});
         //var mqtt_client = mqtt.connect(options); //initialize the MQTT client
-
+        //var end = new Date()
+        //var diff = end-start;
+        //console.log(diff);
         /* setup the callbacks */
         mqtt_client.on('connect', function () {
             console.log('Connected to mqtt broker');
@@ -53,8 +60,12 @@ async function main () {
                 if (colour_num=='2') {var obs_colour = 'blue';}
                 if (colour_num=='3') {var obs_colour = 'pink';}
                 if (colour_num=='4') {var obs_colour = 'yellow';}
-            
+                //var start= new Date()
+                //const del = col.deleteMany();
                 const p = col.insertOne({ x_coord: obstacle_x, y_coord: obstacle_y, colour: obs_colour, category: 'obstacle position'});
+                //var end = new Date()
+                //var diff = end-start;
+                //console.log(diff);
             }
 
             else if (topic=='liveloc') {
@@ -64,6 +75,7 @@ async function main () {
                 var rover_x = Number(parse_coord[0]); 
                 var rover_y = Number(parse_coord[1]); 
                 
+                const del = col.deleteMany({category: 'rover position'});
                 const p = col.insertOne({ x_coord: rover_x, y_coord: rover_y, category: 'rover position'});
             }
     

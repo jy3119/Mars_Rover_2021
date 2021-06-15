@@ -23,6 +23,8 @@ var options = {
     clean: true,
     //useSSL: true,
     //ca: fs.readFileSync('./ca.crt')
+    //key: fs.readFileSync('/etc/keys/client.key');
+    //cert: fs.readFileSync('/etc/keys/client.crt');
 }
 
 //initialize the MQTT client
@@ -37,14 +39,18 @@ client.on('connect', function () {
 client.on('error', function (error) {
     console.log(error);
 });
+var start;
 
 client.on('message', function (topic, message) {
     //Called each time a message is received
+    var end = new Date();
+    var diff = end-start;
+    console.log(diff);
     console.log('Received message:', topic, message.toString());
 });
 
 // subscribe to topic 'my/test/topic'
-client.subscribe('battery');
+client.subscribe('obstacle');
 
 // publish message 'Hello' to topic 'my/test/topic'
 /*
@@ -56,14 +62,17 @@ client.publish('obstacle', '4,32,53');
 
 client.publish('liveloc', '9,4,80');
 client.publish('liveloc', '30,45,90'); 
-*/
-client.publish ('battery', '30,85,1');
-//client.publish ('battery', '100,45,0');
 
+client.publish ('battery', '30,85,1');
+start = new Date();
+client.publish ('battery', '100,45,0');
+*/
+//client.publish ('obstacle', '2,500,500');
 //client.publish('liveloc', '58,12');
 //client.publish('liveloc', '45,17');
 //client.publish('liveloc', '58,34');
 //client.publish('liveloc', '66,14');
-//client.publish('liveloc', '49,12');
+client.publish('liveloc', '49,12');
 //client.publish('liveloc', '55,27,90');
+
 

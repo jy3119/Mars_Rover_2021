@@ -12,14 +12,18 @@ client.on('connect', function () {
 client.on('error', function (error) {
     console.log(error);
 });
-
+var start;
 client.on('message', function (topic, message) {
     //Called each time a message is received
+    var end = new Date();
+    var diff = end-start;
+    console.log(diff);
     console.log('Received message:', topic, message.toString());
 });
 
 // subscribe to topic 'my/test/topic'
 client.subscribe('battery');
+start = new Date();
 
 /* publish timer for charging */ 
 //assuming 100 minutes to charge fully to 100% 
