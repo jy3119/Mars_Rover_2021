@@ -29,6 +29,6 @@ Files utilising the address are as listed:
 3. frontend/src/components/SetDirections/DirectionButton/DirectionButton.js
 4. frontend/src/components/SetDirections/Warning/Warning.js
 5. frontend/src/components/NavBar/NavBar.js
-6. mqtt-js-aws/proxy-battpub.js
+6. mqtt-js-aws/battpub.js
 7. mqtt-js-aws/distance.js
 
