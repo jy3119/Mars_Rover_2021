@@ -13,12 +13,12 @@ NIOS II...wtv ECllipse and open eclipse set it to ..../software folder
 8. get the camera and all ready, and you run the Eclipse
 
 For command:
-Details included in the readme.md under its repository
+start the command subsystem by following the instructions in the "command" folder 
 
 For drive:
-If uploading not success, plug arduino out of the board and upload
-when insert it back, first remove the power cable and it's better to check if pins fit before it's connected.
-Switch the physical switch to on and the main loop starts to function
+If uploading not success, plug arduino out of the board and upload.
+When insert it back, first remove the power cable and it's better to check if pins fit before it's connected.
+Switch the physical switch to on and the main loop starts to function.
 
 For control:
 Refresh by pressing black button
@@ -26,3 +26,5 @@ Refresh by pressing black button
 For connecting the ESP32 to Nano Every, wiring ESP32 and Nano Every.jpg can be refered.
 For connecting the ESP32 to FPGA, just insert it on the top so that the digital pins for communication are already set to matched
 For the rover to connect to the Command, a list of operation is included in the readme.md under the Command repository. AFter setting the WIFI name and password in the ControlESP32.ino under Control repository, ESP32 should connect to WIFI and to the Command app by itself.
+
+After finish all the settings, the rover should be able to accept instructions from command and start to react.
