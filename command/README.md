@@ -1,5 +1,10 @@
-# Design-Project-2-2021-Summer
+# Command Subsystem
 ## A web application using nodejs and mongodb as backend and reactjs as frontend.
+
+The Command subsystem web application can be divided into 3 parts: 
+- MQTT Broker: mqtt-js-aws
+- Web App frontend: frontend
+- Web App backend: backend
 
 To run the application on web: 
 - go to site https://design-project-2-2021-summer-try2.netlify.app on Safari browser 
@@ -7,18 +12,18 @@ To run the application on web:
 To run the application on localhost: 
 - Before proceeding, make sure that you have installed Node Js installed on your local machine.
 - in frontend directory, run: 
-    ### `npm install`
-    ### `npm run build`
-    ### `npm start`
+    #### `npm install`
+    #### `npm run build`
+    #### `npm start`
     Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 - in backend directory, run: 
-    ### `npm install`
-    ### `npm start`
+    #### `npm install`
+    #### `npm start`
     Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - in mqtt-js-aws directory, run mongodb-sub.js file, distance.js and battpub.js file with command:
-    ### `node mongodb-sub.js` 
-    ### `node battpub.js` 
-    ### `node distance.js` 
+    #### `node mongodb-sub.js` 
+    #### `node battpub.js` 
+    #### `node distance.js` 
 - Amazon EC2 Instance Public DNS address must be updated everytime instance is stopped. 
 
 mqtt.connect("ws://{Public DNS Address}/mqtt")
